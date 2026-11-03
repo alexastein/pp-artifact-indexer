@@ -1,0 +1,1296 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "fullName": "Trivy Vulnerability Scanner",
+          "informationUri": "https://github.com/aquasecurity/trivy",
+          "name": "Trivy",
+          "rules": [
+            {
+              "id": "CVE-2026-48758",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "sigstore-core: @sigstore/core: Signature bypass due to incorrect encoding in preAuthEncoding"
+              },
+              "fullDescription": {
+                "text": "sigstore-js provides JavaScript libraries for interacting with Sigstore services. Prior to 3.2.1, the preAuthEncoding function in @sigstore/core uses Node.js ascii encoding when converting the PAE string to bytes, allowing payloadType to be mutated after signing without invalidating the signature and breaking the type-binding guarantee that DSSE is designed to provide. This issue is fixed in version 3.2.1."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-48758",
+              "help": {
+                "text": "Vulnerability CVE-2026-48758\nSeverity: MEDIUM\nPackage: @sigstore/core\nFixed Version: 3.2.1\nLink: [CVE-2026-48758](https://avd.aquasec.com/nvd/cve-2026-48758)\nsigstore-js provides JavaScript libraries for interacting with Sigstore services. Prior to 3.2.1, the preAuthEncoding function in @sigstore/core uses Node.js ascii encoding when converting the PAE string to bytes, allowing payloadType to be mutated after signing without invalidating the signature and breaking the type-binding guarantee that DSSE is designed to provide. This issue is fixed in version 3.2.1.",
+                "markdown": "**Vulnerability CVE-2026-48758**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|@sigstore/core|3.2.1|[CVE-2026-48758](https://avd.aquasec.com/nvd/cve-2026-48758)|\n\nsigstore-js provides JavaScript libraries for interacting with Sigstore services. Prior to 3.2.1, the preAuthEncoding function in @sigstore/core uses Node.js ascii encoding when converting the PAE string to bytes, allowing payloadType to be mutated after signing without invalidating the signature and breaking the type-binding guarantee that DSSE is designed to provide. This issue is fixed in version 3.2.1."
+              },
+              "properties": {
+                "cvssv3_baseScore": 5.4,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:L",
+                "precision": "very-high",
+                "security-severity": "5.4",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-102276",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "brace-expansion: brace-expansion: Denial of Service via stack exhaustion from crafted brace patterns"
+              },
+              "fullDescription": {
+                "text": "The brace-expansion library generates arbitrary strings containing a common prefix and suffix. Prior to 1.1.19, 2.1.5, 3.0.7, and 5.0.10, crafted brace patterns can exhaust the native stack in parseCommaParts because parseCommaParts recursively processes the remainder once per brace group and uses push.apply to pass every element of a very large comma-part array as a function argument. Patterns containing many comma-separated brace groups trigger the recursive path, while the large array triggers the argument-array path without deep recursion. These paths cause recursive and argument-array native stack exhaustion before max or maxLength can limit output, potentially terminating the Node.js process in a process-terminating denial of service. This issue is fixed in versions 1.1.19, 2.1.5, 3.0.7, and 5.0.10."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-102276",
+              "help": {
+                "text": "Vulnerability CVE-2026-102276\nSeverity: HIGH\nPackage: brace-expansion\nFixed Version: 5.0.10, 3.0.7, 2.1.5, 1.1.19\nLink: [CVE-2026-102276](https://avd.aquasec.com/nvd/cve-2026-102276)\nThe brace-expansion library generates arbitrary strings containing a common prefix and suffix. Prior to 1.1.19, 2.1.5, 3.0.7, and 5.0.10, crafted brace patterns can exhaust the native stack in parseCommaParts because parseCommaParts recursively processes the remainder once per brace group and uses push.apply to pass every element of a very large comma-part array as a function argument. Patterns containing many comma-separated brace groups trigger the recursive path, while the large array triggers the argument-array path without deep recursion. These paths cause recursive and argument-array native stack exhaustion before max or maxLength can limit output, potentially terminating the Node.js process in a process-terminating denial of service. This issue is fixed in versions 1.1.19, 2.1.5, 3.0.7, and 5.0.10.",
+                "markdown": "**Vulnerability CVE-2026-102276**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|brace-expansion|5.0.10, 3.0.7, 2.1.5, 1.1.19|[CVE-2026-102276](https://avd.aquasec.com/nvd/cve-2026-102276)|\n\nThe brace-expansion library generates arbitrary strings containing a common prefix and suffix. Prior to 1.1.19, 2.1.5, 3.0.7, and 5.0.10, crafted brace patterns can exhaust the native stack in parseCommaParts because parseCommaParts recursively processes the remainder once per brace group and uses push.apply to pass every element of a very large comma-part array as a function argument. Patterns containing many comma-separated brace groups trigger the recursive path, while the large array triggers the argument-array path without deep recursion. These paths cause recursive and argument-array native stack exhaustion before max or maxLength can limit output, potentially terminating the Node.js process in a process-terminating denial of service. This issue is fixed in versions 1.1.19, 2.1.5, 3.0.7, and 5.0.10."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-102278",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "brace-expansion: brace-expansion: Denial of Service via uncontrolled recursion in nested brace patterns"
+              },
+              "fullDescription": {
+                "text": "The brace-expansion library generates arbitrary strings containing a common prefix and suffix. Prior to 1.1.20, 2.1.6, 3.0.8, and 5.0.11, deeply nested brace groups cause expand_() to recurse once per nesting level at comma-member and single-set expansion sites, exhausting the native stack before output limits can apply and potentially terminating the Node.js process. expand_ performs uncontrolled recursion for nested brace alternatives and single-part sets. deeply nested brace groups supplied as an untrusted pattern. expand_ is affected. expand is affected. Comma members is affected. Single set is affected. native stack exhaustion during nested sub-expansion. process-terminating denial of service. This issue is fixed in versions 1.1.20, 2.1.6, 3.0.8, and 5.0.11."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-102278",
+              "help": {
+                "text": "Vulnerability CVE-2026-102278\nSeverity: HIGH\nPackage: brace-expansion\nFixed Version: 5.0.11, 3.0.8, 2.1.6, 1.1.20\nLink: [CVE-2026-102278](https://avd.aquasec.com/nvd/cve-2026-102278)\nThe brace-expansion library generates arbitrary strings containing a common prefix and suffix. Prior to 1.1.20, 2.1.6, 3.0.8, and 5.0.11, deeply nested brace groups cause expand_() to recurse once per nesting level at comma-member and single-set expansion sites, exhausting the native stack before output limits can apply and potentially terminating the Node.js process. expand_ performs uncontrolled recursion for nested brace alternatives and single-part sets. deeply nested brace groups supplied as an untrusted pattern. expand_ is affected. expand is affected. Comma members is affected. Single set is affected. native stack exhaustion during nested sub-expansion. process-terminating denial of service. This issue is fixed in versions 1.1.20, 2.1.6, 3.0.8, and 5.0.11.",
+                "markdown": "**Vulnerability CVE-2026-102278**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|brace-expansion|5.0.11, 3.0.8, 2.1.6, 1.1.20|[CVE-2026-102278](https://avd.aquasec.com/nvd/cve-2026-102278)|\n\nThe brace-expansion library generates arbitrary strings containing a common prefix and suffix. Prior to 1.1.20, 2.1.6, 3.0.8, and 5.0.11, deeply nested brace groups cause expand_() to recurse once per nesting level at comma-member and single-set expansion sites, exhausting the native stack before output limits can apply and potentially terminating the Node.js process. expand_ performs uncontrolled recursion for nested brace alternatives and single-part sets. deeply nested brace groups supplied as an untrusted pattern. expand_ is affected. expand is affected. Comma members is affected. Single set is affected. native stack exhaustion during nested sub-expansion. process-terminating denial of service. This issue is fixed in versions 1.1.20, 2.1.6, 3.0.8, and 5.0.11."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-13149",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "brace-expansion: Brace-expansion: Denial of Service due to exponential-time complexity"
+              },
+              "fullDescription": {
+                "text": "brace-expansion through 5.0.6 is vulnerable to denial of service. The expand() function exhibits exponential-time complexity in the number of consecutive non-expanding '{}' brace groups. An attacker who passes a crafted string to expand(), directly or transitively, can cause significant CPU consumption and event-loop blocking. The max option does not mitigate this, as it bounds the output size rather than the recursion work."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-13149",
+              "help": {
+                "text": "Vulnerability CVE-2026-13149\nSeverity: HIGH\nPackage: brace-expansion\nFixed Version: 5.0.7, 1.1.16, 2.1.2\nLink: [CVE-2026-13149](https://avd.aquasec.com/nvd/cve-2026-13149)\nbrace-expansion through 5.0.6 is vulnerable to denial of service. The expand() function exhibits exponential-time complexity in the number of consecutive non-expanding '{}' brace groups. An attacker who passes a crafted string to expand(), directly or transitively, can cause significant CPU consumption and event-loop blocking. The max option does not mitigate this, as it bounds the output size rather than the recursion work.",
+                "markdown": "**Vulnerability CVE-2026-13149**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|brace-expansion|5.0.7, 1.1.16, 2.1.2|[CVE-2026-13149](https://avd.aquasec.com/nvd/cve-2026-13149)|\n\nbrace-expansion through 5.0.6 is vulnerable to denial of service. The expand() function exhibits exponential-time complexity in the number of consecutive non-expanding '{}' brace groups. An attacker who passes a crafted string to expand(), directly or transitively, can cause significant CPU consumption and event-loop blocking. The max option does not mitigate this, as it bounds the output size rather than the recursion work."
+              },
+              "properties": {
+                "cvssv3_baseScore": 5.3,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                "cvssv40_baseScore": 7.7,
+                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:P/S:N/AU:Y/R:U/V:D/RE:M/U:Amber",
+                "precision": "very-high",
+                "security-severity": "5.3",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-14257",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "brace-expansion: Brace-expansion: Denial of Service via memory exhaustion in expand() function"
+              },
+              "fullDescription": {
+                "text": "brace-expansion through 5.0.7 is vulnerable to denial of service via memory exhaustion. The expand() function limits the number of results with a max option (default 100,000) but does not bound the length of each result string. By chaining multiple brace groups, an attacker keeps the result count under the limit while making each result progressively longer, so total memory scales with both count and string length until the process hits a fatal, uncatchable out-of-memory error. About 7.5 KB of input ('{a,b}'.repeat(1500)) crashes a default Node.js process. Any application that passes attacker-influenced strings to brace-expansion.expand() - directly or transitively via minimatch / glob brace patterns - can be crashed by a small request. Fixed in 5.0.8 by adding a maxLength option (default 4,000,000) that bounds accumulated output and intermediate arrays."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-14257",
+              "help": {
+                "text": "Vulnerability CVE-2026-14257\nSeverity: HIGH\nPackage: brace-expansion\nFixed Version: 5.0.8, 3.0.3, 2.1.3, 1.1.17\nLink: [CVE-2026-14257](https://avd.aquasec.com/nvd/cve-2026-14257)\nbrace-expansion through 5.0.7 is vulnerable to denial of service via memory exhaustion. The expand() function limits the number of results with a max option (default 100,000) but does not bound the length of each result string. By chaining multiple brace groups, an attacker keeps the result count under the limit while making each result progressively longer, so total memory scales with both count and string length until the process hits a fatal, uncatchable out-of-memory error. About 7.5 KB of input ('{a,b}'.repeat(1500)) crashes a default Node.js process. Any application that passes attacker-influenced strings to brace-expansion.expand() - directly or transitively via minimatch / glob brace patterns - can be crashed by a small request. Fixed in 5.0.8 by adding a maxLength option (default 4,000,000) that bounds accumulated output and intermediate arrays.",
+                "markdown": "**Vulnerability CVE-2026-14257**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|brace-expansion|5.0.8, 3.0.3, 2.1.3, 1.1.17|[CVE-2026-14257](https://avd.aquasec.com/nvd/cve-2026-14257)|\n\nbrace-expansion through 5.0.7 is vulnerable to denial of service via memory exhaustion. The expand() function limits the number of results with a max option (default 100,000) but does not bound the length of each result string. By chaining multiple brace groups, an attacker keeps the result count under the limit while making each result progressively longer, so total memory scales with both count and string length until the process hits a fatal, uncatchable out-of-memory error. About 7.5 KB of input ('{a,b}'.repeat(1500)) crashes a default Node.js process. Any application that passes attacker-influenced strings to brace-expansion.expand() - directly or transitively via minimatch / glob brace patterns - can be crashed by a small request. Fixed in 5.0.8 by adding a maxLength option (default 4,000,000) that bounds accumulated output and intermediate arrays."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-69152",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "brace-expansion: DoS via unbounded intermediate arrays, bypassing the CVE-2026-14257 mitigation"
+              },
+              "fullDescription": {
+                "text": "The brace-expansion library generates arbitrary strings containing a common prefix and suffix. Prior to 1.1.18, 2.1.4, 3.0.6, and 5.0.9, expand() does not apply maxLength while constructing comma-alternative intermediate arrays or padded sequences, allowing attacker-controlled input to exhaust memory or block the event loop. The fix for CVE-2026-14257 is bypassed by the vulnerability. This issue is fixed in versions 1.1.18, 2.1.4, 3.0.6, and 5.0.9."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-69152",
+              "help": {
+                "text": "Vulnerability CVE-2026-69152\nSeverity: HIGH\nPackage: brace-expansion\nFixed Version: 1.1.18, 2.1.4, 3.0.6, 5.0.9\nLink: [CVE-2026-69152](https://avd.aquasec.com/nvd/cve-2026-69152)\nThe brace-expansion library generates arbitrary strings containing a common prefix and suffix. Prior to 1.1.18, 2.1.4, 3.0.6, and 5.0.9, expand() does not apply maxLength while constructing comma-alternative intermediate arrays or padded sequences, allowing attacker-controlled input to exhaust memory or block the event loop. The fix for CVE-2026-14257 is bypassed by the vulnerability. This issue is fixed in versions 1.1.18, 2.1.4, 3.0.6, and 5.0.9.",
+                "markdown": "**Vulnerability CVE-2026-69152**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|brace-expansion|1.1.18, 2.1.4, 3.0.6, 5.0.9|[CVE-2026-69152](https://avd.aquasec.com/nvd/cve-2026-69152)|\n\nThe brace-expansion library generates arbitrary strings containing a common prefix and suffix. Prior to 1.1.18, 2.1.4, 3.0.6, and 5.0.9, expand() does not apply maxLength while constructing comma-alternative intermediate arrays or padded sequences, allowing attacker-controlled input to exhaust memory or block the event loop. The fix for CVE-2026-14257 is bypassed by the vulnerability. This issue is fixed in versions 1.1.18, 2.1.4, 3.0.6, and 5.0.9."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-102277",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "brace-expansion: brace-expansion: Denial of Service via crafted brace patterns"
+              },
+              "fullDescription": {
+                "text": "The brace-expansion library generates arbitrary strings containing a common prefix and suffix. Prior to 1.1.21, 2.1.7, 3.0.9, and 5.0.12, the expand function handles untrusted {a},b}-shaped patterns with many trailing closing braces by restarting its scan once for each trailing closing brace. The successive full-input rescans with linear working-string growth cause quadratic CPU time and memory pressure that can block the Node.js event loop. The process eventually recovers, making the impact a recoverable CPU denial of service. This issue is fixed in versions 1.1.21, 2.1.7, 3.0.9, and 5.0.12."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-102277",
+              "help": {
+                "text": "Vulnerability CVE-2026-102277\nSeverity: MEDIUM\nPackage: brace-expansion\nFixed Version: 5.0.12, 3.0.9, 2.1.7, 1.1.21\nLink: [CVE-2026-102277](https://avd.aquasec.com/nvd/cve-2026-102277)\nThe brace-expansion library generates arbitrary strings containing a common prefix and suffix. Prior to 1.1.21, 2.1.7, 3.0.9, and 5.0.12, the expand function handles untrusted {a},b}-shaped patterns with many trailing closing braces by restarting its scan once for each trailing closing brace. The successive full-input rescans with linear working-string growth cause quadratic CPU time and memory pressure that can block the Node.js event loop. The process eventually recovers, making the impact a recoverable CPU denial of service. This issue is fixed in versions 1.1.21, 2.1.7, 3.0.9, and 5.0.12.",
+                "markdown": "**Vulnerability CVE-2026-102277**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|brace-expansion|5.0.12, 3.0.9, 2.1.7, 1.1.21|[CVE-2026-102277](https://avd.aquasec.com/nvd/cve-2026-102277)|\n\nThe brace-expansion library generates arbitrary strings containing a common prefix and suffix. Prior to 1.1.21, 2.1.7, 3.0.9, and 5.0.12, the expand function handles untrusted {a},b}-shaped patterns with many trailing closing braces by restarting its scan once for each trailing closing brace. The successive full-input rescans with linear working-string growth cause quadratic CPU time and memory pressure that can block the Node.js event loop. The process eventually recovers, making the impact a recoverable CPU denial of service. This issue is fixed in versions 1.1.21, 2.1.7, 3.0.9, and 5.0.12."
+              },
+              "properties": {
+                "cvssv3_baseScore": 5.3,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                "precision": "very-high",
+                "security-severity": "5.3",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-33750",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "brace-expansion: brace-expansion: Denial of Service via zero step value in brace pattern"
+              },
+              "fullDescription": {
+                "text": "The brace-expansion library generates arbitrary strings containing a common prefix and suffix. Prior to versions 5.0.5, 3.0.2, 2.0.3, and 1.1.13, a brace pattern with a zero step value (e.g., `{1..2..0}`) causes the sequence generation loop to run indefinitely, making the process hang for seconds and allocate heaps of memory. Versions 5.0.5, 3.0.2, 2.0.3, and 1.1.13 fix the issue. As a workaround, sanitize strings passed to `expand()` to ensure a step value of `0` is not used."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-33750",
+              "help": {
+                "text": "Vulnerability CVE-2026-33750\nSeverity: MEDIUM\nPackage: brace-expansion\nFixed Version: 5.0.5, 3.0.2, 2.0.3, 1.1.13\nLink: [CVE-2026-33750](https://avd.aquasec.com/nvd/cve-2026-33750)\nThe brace-expansion library generates arbitrary strings containing a common prefix and suffix. Prior to versions 5.0.5, 3.0.2, 2.0.3, and 1.1.13, a brace pattern with a zero step value (e.g., `{1..2..0}`) causes the sequence generation loop to run indefinitely, making the process hang for seconds and allocate heaps of memory. Versions 5.0.5, 3.0.2, 2.0.3, and 1.1.13 fix the issue. As a workaround, sanitize strings passed to `expand()` to ensure a step value of `0` is not used.",
+                "markdown": "**Vulnerability CVE-2026-33750**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|brace-expansion|5.0.5, 3.0.2, 2.0.3, 1.1.13|[CVE-2026-33750](https://avd.aquasec.com/nvd/cve-2026-33750)|\n\nThe brace-expansion library generates arbitrary strings containing a common prefix and suffix. Prior to versions 5.0.5, 3.0.2, 2.0.3, and 1.1.13, a brace pattern with a zero step value (e.g., `{1..2..0}`) causes the sequence generation loop to run indefinitely, making the process hang for seconds and allocate heaps of memory. Versions 5.0.5, 3.0.2, 2.0.3, and 1.1.13 fix the issue. As a workaround, sanitize strings passed to `expand()` to ensure a step value of `0` is not used."
+              },
+              "properties": {
+                "cvssv3_baseScore": 6.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "6.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-118773",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "glob: glob: Denial of Service (DoS) via incomplete traversal cancellation"
+              },
+              "fullDescription": {
+                "text": "Glob matches files using patterns the shell uses. From 9.0.0 until 14.0.2, abort branches in src/walker.ts, including GlobUtil.walkCB(), GlobUtil.walkCB2(), GlobUtil.walkCBSync(), and GlobUtil.walkCB2Sync(), invoke the callbacks without returning. After AbortSignal or AbortSignal.timeout() rejects or emits an error, execution can continue into processor.processPatterns(), readdirCB(), and recursive traversal. The issue affects glob() and globStream() when applications expose attacker-influenced patterns or directory trees and rely on cancellation as a traversal budget. Repeated timed-out requests can stack background filesystem operations and CPU work, degrading worker throughput or service availability; no confidentiality or integrity impact was observed. This issue is fixed in 14.0.2."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-118773",
+              "help": {
+                "text": "Vulnerability CVE-2026-118773\nSeverity: MEDIUM\nPackage: glob\nFixed Version: 14.0.2\nLink: [CVE-2026-118773](https://avd.aquasec.com/nvd/cve-2026-118773)\nGlob matches files using patterns the shell uses. From 9.0.0 until 14.0.2, abort branches in src/walker.ts, including GlobUtil.walkCB(), GlobUtil.walkCB2(), GlobUtil.walkCBSync(), and GlobUtil.walkCB2Sync(), invoke the callbacks without returning. After AbortSignal or AbortSignal.timeout() rejects or emits an error, execution can continue into processor.processPatterns(), readdirCB(), and recursive traversal. The issue affects glob() and globStream() when applications expose attacker-influenced patterns or directory trees and rely on cancellation as a traversal budget. Repeated timed-out requests can stack background filesystem operations and CPU work, degrading worker throughput or service availability; no confidentiality or integrity impact was observed. This issue is fixed in 14.0.2.",
+                "markdown": "**Vulnerability CVE-2026-118773**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|glob|14.0.2|[CVE-2026-118773](https://avd.aquasec.com/nvd/cve-2026-118773)|\n\nGlob matches files using patterns the shell uses. From 9.0.0 until 14.0.2, abort branches in src/walker.ts, including GlobUtil.walkCB(), GlobUtil.walkCB2(), GlobUtil.walkCBSync(), and GlobUtil.walkCB2Sync(), invoke the callbacks without returning. After AbortSignal or AbortSignal.timeout() rejects or emits an error, execution can continue into processor.processPatterns(), readdirCB(), and recursive traversal. The issue affects glob() and globStream() when applications expose attacker-influenced patterns or directory trees and rely on cancellation as a traversal budget. Repeated timed-out requests can stack background filesystem operations and CPU work, degrading worker throughput or service availability; no confidentiality or integrity impact was observed. This issue is fixed in 14.0.2."
+              },
+              "properties": {
+                "cvssv40_baseScore": 6.3,
+                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-69192",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "ip-address: ip-address: Inconsistent IP address parsing leads to Server-Side Request Forgery (SSRF) and trust-boundary bypass"
+              },
+              "fullDescription": {
+                "text": "ip-address is a library for parsing and manipulating IPv4 and IPv6 addresses in JavaScript. Prior to 10.3.1, Address4 accepts an octet written with a leading zero and decodes it as decimal, while the WHATWG URL host parser, inet_aton, and getaddrinfo all decode a leading zero as octal. The library and the network stack therefore disagree about which host a string names. new Address4('012.0.0.1') reports correctForm() of 12.0.0.1 and isPrivate() of false, but fetch('http://012.0.0.1/') connects to 10.0.0.1. An application that builds a network trust-boundary decision on these checks, for example a filter intended to block Server-Side Request Forgery, or SSRF, will classify an internal target as external and allow the request. The defect is in the parse gate rather than in any one classifier, so every consumer of Address4 inherits it: isPrivate(), isLoopback(), isLinkLocal(), isCGNAT(), isInSubnet(), isHostInSubnet(), and correctForm() are all computed from the mis-decoded octets. This issue is fixed in version 10.3.1."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-69192",
+              "help": {
+                "text": "Vulnerability CVE-2026-69192\nSeverity: HIGH\nPackage: ip-address\nFixed Version: 10.3.1\nLink: [CVE-2026-69192](https://avd.aquasec.com/nvd/cve-2026-69192)\nip-address is a library for parsing and manipulating IPv4 and IPv6 addresses in JavaScript. Prior to 10.3.1, Address4 accepts an octet written with a leading zero and decodes it as decimal, while the WHATWG URL host parser, inet_aton, and getaddrinfo all decode a leading zero as octal. The library and the network stack therefore disagree about which host a string names. new Address4('012.0.0.1') reports correctForm() of 12.0.0.1 and isPrivate() of false, but fetch('http://012.0.0.1/') connects to 10.0.0.1. An application that builds a network trust-boundary decision on these checks, for example a filter intended to block Server-Side Request Forgery, or SSRF, will classify an internal target as external and allow the request. The defect is in the parse gate rather than in any one classifier, so every consumer of Address4 inherits it: isPrivate(), isLoopback(), isLinkLocal(), isCGNAT(), isInSubnet(), isHostInSubnet(), and correctForm() are all computed from the mis-decoded octets. This issue is fixed in version 10.3.1.",
+                "markdown": "**Vulnerability CVE-2026-69192**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|ip-address|10.3.1|[CVE-2026-69192](https://avd.aquasec.com/nvd/cve-2026-69192)|\n\nip-address is a library for parsing and manipulating IPv4 and IPv6 addresses in JavaScript. Prior to 10.3.1, Address4 accepts an octet written with a leading zero and decodes it as decimal, while the WHATWG URL host parser, inet_aton, and getaddrinfo all decode a leading zero as octal. The library and the network stack therefore disagree about which host a string names. new Address4('012.0.0.1') reports correctForm() of 12.0.0.1 and isPrivate() of false, but fetch('http://012.0.0.1/') connects to 10.0.0.1. An application that builds a network trust-boundary decision on these checks, for example a filter intended to block Server-Side Request Forgery, or SSRF, will classify an internal target as external and allow the request. The defect is in the parse gate rather than in any one classifier, so every consumer of Address4 inherits it: isPrivate(), isLoopback(), isLinkLocal(), isCGNAT(), isInSubnet(), isHostInSubnet(), and correctForm() are all computed from the mis-decoded octets. This issue is fixed in version 10.3.1."
+              },
+              "properties": {
+                "cvssv40_baseScore": 7.7,
+                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:H/SI:N/SA:N",
+                "precision": "very-high",
+                "security-severity": "8.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-101911",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "ip-address: ip-address: Denial of Service via unbounded IPv6 address parsing"
+              },
+              "fullDescription": {
+                "text": "ip-address is a library for parsing and manipulating IPv4 and IPv6 addresses in JavaScript. Prior to 10.7.1, the Address6 constructor, Address6.isValid, and parse code in src/ipv6.ts accept unbounded strings and expand invalid characters through RE_BAD_CHARACTERS into large diagnostics. Material impact occurs only when an application accepts a very large attacker-controlled field and passes it to Address6 parsing without an earlier length bound. Common URL and header limits, and common body-parser defaults, generally constrain the effect; common defaults typically exclude 32 MiB fields. Megabyte-scale fields can cause a synchronous stall and high transient memory use, approximately 16 MiB can trigger an invalid string length exception, and process termination occurs at approximately 32 MiB. The affected entry points include Address6.isValid and construction paths that reach parse. This issue is fixed in version 10.7.1."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-101911",
+              "help": {
+                "text": "Vulnerability CVE-2026-101911\nSeverity: MEDIUM\nPackage: ip-address\nFixed Version: 10.7.1\nLink: [CVE-2026-101911](https://avd.aquasec.com/nvd/cve-2026-101911)\nip-address is a library for parsing and manipulating IPv4 and IPv6 addresses in JavaScript. Prior to 10.7.1, the Address6 constructor, Address6.isValid, and parse code in src/ipv6.ts accept unbounded strings and expand invalid characters through RE_BAD_CHARACTERS into large diagnostics. Material impact occurs only when an application accepts a very large attacker-controlled field and passes it to Address6 parsing without an earlier length bound. Common URL and header limits, and common body-parser defaults, generally constrain the effect; common defaults typically exclude 32 MiB fields. Megabyte-scale fields can cause a synchronous stall and high transient memory use, approximately 16 MiB can trigger an invalid string length exception, and process termination occurs at approximately 32 MiB. The affected entry points include Address6.isValid and construction paths that reach parse. This issue is fixed in version 10.7.1.",
+                "markdown": "**Vulnerability CVE-2026-101911**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|ip-address|10.7.1|[CVE-2026-101911](https://avd.aquasec.com/nvd/cve-2026-101911)|\n\nip-address is a library for parsing and manipulating IPv4 and IPv6 addresses in JavaScript. Prior to 10.7.1, the Address6 constructor, Address6.isValid, and parse code in src/ipv6.ts accept unbounded strings and expand invalid characters through RE_BAD_CHARACTERS into large diagnostics. Material impact occurs only when an application accepts a very large attacker-controlled field and passes it to Address6 parsing without an earlier length bound. Common URL and header limits, and common body-parser defaults, generally constrain the effect; common defaults typically exclude 32 MiB fields. Megabyte-scale fields can cause a synchronous stall and high transient memory use, approximately 16 MiB can trigger an invalid string length exception, and process termination occurs at approximately 32 MiB. The affected entry points include Address6.isValid and construction paths that reach parse. This issue is fixed in version 10.7.1."
+              },
+              "properties": {
+                "cvssv40_baseScore": 6.3,
+                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-101912",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "ip-address: ip-address: Access control bypass via cross-family subnet comparison"
+              },
+              "fullDescription": {
+                "text": "ip-address is a library for parsing and manipulating IPv4 and IPv6 addresses in JavaScript. Prior to 10.7.1, the isInSubnet and isHostInSubnet methods in src/common.ts compare masked binary strings without validating that both operands use the same IP family. A cross-family containment check whose leading address bits match makes the masked strings compare equal even though IPv4 and IPv6 do not share an address space. An allowlist or denylist decision can therefore classify an address outside the intended range as contained. This issue is fixed in version 10.7.1."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-101912",
+              "help": {
+                "text": "Vulnerability CVE-2026-101912\nSeverity: MEDIUM\nPackage: ip-address\nFixed Version: 10.7.1\nLink: [CVE-2026-101912](https://avd.aquasec.com/nvd/cve-2026-101912)\nip-address is a library for parsing and manipulating IPv4 and IPv6 addresses in JavaScript. Prior to 10.7.1, the isInSubnet and isHostInSubnet methods in src/common.ts compare masked binary strings without validating that both operands use the same IP family. A cross-family containment check whose leading address bits match makes the masked strings compare equal even though IPv4 and IPv6 do not share an address space. An allowlist or denylist decision can therefore classify an address outside the intended range as contained. This issue is fixed in version 10.7.1.",
+                "markdown": "**Vulnerability CVE-2026-101912**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|ip-address|10.7.1|[CVE-2026-101912](https://avd.aquasec.com/nvd/cve-2026-101912)|\n\nip-address is a library for parsing and manipulating IPv4 and IPv6 addresses in JavaScript. Prior to 10.7.1, the isInSubnet and isHostInSubnet methods in src/common.ts compare masked binary strings without validating that both operands use the same IP family. A cross-family containment check whose leading address bits match makes the masked strings compare equal even though IPv4 and IPv6 do not share an address space. An allowlist or denylist decision can therefore classify an address outside the intended range as contained. This issue is fixed in version 10.7.1."
+              },
+              "properties": {
+                "cvssv40_baseScore": 6.3,
+                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-101913",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "ip-address: ip-address: Security bypass via incomplete IPv6 link-local address validation"
+              },
+              "fullDescription": {
+                "text": "ip-address is a library for parsing and manipulating IPv4 and IPv6 addresses in JavaScript. Prior to 10.5.1, the Address6 isLinkLocal method in src/ipv6.ts recognizes only fe80::/64 instead of the complete fe80::/10 IPv6 link-local range. An attacker-controlled address elsewhere in fe80::/10 can therefore pass a trust-boundary check that relies on isLinkLocal. The same address is identified as link-local by getType and getScope, exposing the inconsistent classification. A successful bypass can reach an on-link host outside the intended trust boundary. This issue is fixed in version 10.5.1."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-101913",
+              "help": {
+                "text": "Vulnerability CVE-2026-101913\nSeverity: MEDIUM\nPackage: ip-address\nFixed Version: 10.5.1\nLink: [CVE-2026-101913](https://avd.aquasec.com/nvd/cve-2026-101913)\nip-address is a library for parsing and manipulating IPv4 and IPv6 addresses in JavaScript. Prior to 10.5.1, the Address6 isLinkLocal method in src/ipv6.ts recognizes only fe80::/64 instead of the complete fe80::/10 IPv6 link-local range. An attacker-controlled address elsewhere in fe80::/10 can therefore pass a trust-boundary check that relies on isLinkLocal. The same address is identified as link-local by getType and getScope, exposing the inconsistent classification. A successful bypass can reach an on-link host outside the intended trust boundary. This issue is fixed in version 10.5.1.",
+                "markdown": "**Vulnerability CVE-2026-101913**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|ip-address|10.5.1|[CVE-2026-101913](https://avd.aquasec.com/nvd/cve-2026-101913)|\n\nip-address is a library for parsing and manipulating IPv4 and IPv6 addresses in JavaScript. Prior to 10.5.1, the Address6 isLinkLocal method in src/ipv6.ts recognizes only fe80::/64 instead of the complete fe80::/10 IPv6 link-local range. An attacker-controlled address elsewhere in fe80::/10 can therefore pass a trust-boundary check that relies on isLinkLocal. The same address is identified as link-local by getType and getScope, exposing the inconsistent classification. A successful bypass can reach an on-link host outside the intended trust boundary. This issue is fixed in version 10.5.1."
+              },
+              "properties": {
+                "cvssv40_baseScore": 6.3,
+                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:N/VA:N/SC:L/SI:N/SA:N",
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-111997",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "ip-address: ip-address: Denial of Service via excessive percent characters in IPv6 address input"
+              },
+              "fullDescription": {
+                "text": "ip-address before 10.7.4 allows a denial of service (CPU consumption from quadratic complexity, and application stall) via many % characters in input reaching a function call that uses the Address6 constructor."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-111997",
+              "help": {
+                "text": "Vulnerability CVE-2026-111997\nSeverity: MEDIUM\nPackage: ip-address\nFixed Version: 10.7.4\nLink: [CVE-2026-111997](https://avd.aquasec.com/nvd/cve-2026-111997)\nip-address before 10.7.4 allows a denial of service (CPU consumption from quadratic complexity, and application stall) via many % characters in input reaching a function call that uses the Address6 constructor.",
+                "markdown": "**Vulnerability CVE-2026-111997**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|ip-address|10.7.4|[CVE-2026-111997](https://avd.aquasec.com/nvd/cve-2026-111997)|\n\nip-address before 10.7.4 allows a denial of service (CPU consumption from quadratic complexity, and application stall) via many % characters in input reaching a function call that uses the Address6 constructor."
+              },
+              "properties": {
+                "cvssv40_baseScore": 6.3,
+                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-42338",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "ip-address: ip-address: Cross-site scripting via improper HTML escaping of untrusted input"
+              },
+              "fullDescription": {
+                "text": "ip-address is a library for parsing and manipulating IPv4 and IPv6 addresses in JavaScript. Prior to 10.1.1, Address6.group() and Address6.link() do not HTML-escape attacker-controlled content before embedding it in the HTML strings they return, and AddressError.parseMessage (emitted by the Address6 constructor for invalid input) can contain unescaped attacker-controlled content in one branch. An application that (1) passes untrusted input to Address6 and (2) renders the output of these methods, or the thrown error's parseMessage, as HTML (e.g. via innerHTML) is vulnerable to cross-site scripting. This vulnerability is fixed in 10.1.1."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-42338",
+              "help": {
+                "text": "Vulnerability CVE-2026-42338\nSeverity: MEDIUM\nPackage: ip-address\nFixed Version: 10.1.1\nLink: [CVE-2026-42338](https://avd.aquasec.com/nvd/cve-2026-42338)\nip-address is a library for parsing and manipulating IPv4 and IPv6 addresses in JavaScript. Prior to 10.1.1, Address6.group() and Address6.link() do not HTML-escape attacker-controlled content before embedding it in the HTML strings they return, and AddressError.parseMessage (emitted by the Address6 constructor for invalid input) can contain unescaped attacker-controlled content in one branch. An application that (1) passes untrusted input to Address6 and (2) renders the output of these methods, or the thrown error's parseMessage, as HTML (e.g. via innerHTML) is vulnerable to cross-site scripting. This vulnerability is fixed in 10.1.1.",
+                "markdown": "**Vulnerability CVE-2026-42338**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|ip-address|10.1.1|[CVE-2026-42338](https://avd.aquasec.com/nvd/cve-2026-42338)|\n\nip-address is a library for parsing and manipulating IPv4 and IPv6 addresses in JavaScript. Prior to 10.1.1, Address6.group() and Address6.link() do not HTML-escape attacker-controlled content before embedding it in the HTML strings they return, and AddressError.parseMessage (emitted by the Address6 constructor for invalid input) can contain unescaped attacker-controlled content in one branch. An application that (1) passes untrusted input to Address6 and (2) renders the output of these methods, or the thrown error's parseMessage, as HTML (e.g. via innerHTML) is vulnerable to cross-site scripting. This vulnerability is fixed in 10.1.1."
+              },
+              "properties": {
+                "cvssv40_baseScore": 5.3,
+                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-118764",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "minimatch: minimatch: Denial of Service via crafted glob pattern expansion"
+              },
+              "fullDescription": {
+                "text": "minimatch is a minimal matching utility for converting glob expressions into JavaScript RegExp objects. Prior to 11.0.1, src/index.ts implements firstPhasePreProcess() so that, at optimizationLevel 2 or higher, it repeatedly expands attacker-controlled **/.. pattern segments inside a fixpoint loop, allowing generated globParts entries to be processed and expanded again. secondPhasePreProcess() then compares the expanded entries pairwise, so a short malicious glob can cause excessive CPU and memory consumption during pattern compilation. This issue is fixed in version 11.0.1."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-118764",
+              "help": {
+                "text": "Vulnerability CVE-2026-118764\nSeverity: MEDIUM\nPackage: minimatch\nFixed Version: 11.0.1\nLink: [CVE-2026-118764](https://avd.aquasec.com/nvd/cve-2026-118764)\nminimatch is a minimal matching utility for converting glob expressions into JavaScript RegExp objects. Prior to 11.0.1, src/index.ts implements firstPhasePreProcess() so that, at optimizationLevel 2 or higher, it repeatedly expands attacker-controlled **/.. pattern segments inside a fixpoint loop, allowing generated globParts entries to be processed and expanded again. secondPhasePreProcess() then compares the expanded entries pairwise, so a short malicious glob can cause excessive CPU and memory consumption during pattern compilation. This issue is fixed in version 11.0.1.",
+                "markdown": "**Vulnerability CVE-2026-118764**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|minimatch|11.0.1|[CVE-2026-118764](https://avd.aquasec.com/nvd/cve-2026-118764)|\n\nminimatch is a minimal matching utility for converting glob expressions into JavaScript RegExp objects. Prior to 11.0.1, src/index.ts implements firstPhasePreProcess() so that, at optimizationLevel 2 or higher, it repeatedly expands attacker-controlled **/.. pattern segments inside a fixpoint loop, allowing generated globParts entries to be processed and expanded again. secondPhasePreProcess() then compares the expanded entries pairwise, so a short malicious glob can cause excessive CPU and memory consumption during pattern compilation. This issue is fixed in version 11.0.1."
+              },
+              "properties": {
+                "cvssv40_baseScore": 6.9,
+                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-9496",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "pacote: Pacote: Denial of Service via crafted spec.rawSpec value in addGitSha function"
+              },
+              "fullDescription": {
+                "text": "Versions of the package pacote from 11.2.7 and before 21.5.1 are vulnerable to Denial of Service (DoS) via the addGitSha function. An attacker can exploit this vulnerability by supplying a specially crafted spec.rawSpec value that triggers the function’s regex replacement and string-manipulation logic,  causing excessive CPU consumption and potentially stalling or crashing the process."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-9496",
+              "help": {
+                "text": "Vulnerability CVE-2026-9496\nSeverity: HIGH\nPackage: pacote\nFixed Version: 21.5.1\nLink: [CVE-2026-9496](https://avd.aquasec.com/nvd/cve-2026-9496)\nVersions of the package pacote from 11.2.7 and before 21.5.1 are vulnerable to Denial of Service (DoS) via the addGitSha function. An attacker can exploit this vulnerability by supplying a specially crafted spec.rawSpec value that triggers the function’s regex replacement and string-manipulation logic,  causing excessive CPU consumption and potentially stalling or crashing the process.",
+                "markdown": "**Vulnerability CVE-2026-9496**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|pacote|21.5.1|[CVE-2026-9496](https://avd.aquasec.com/nvd/cve-2026-9496)|\n\nVersions of the package pacote from 11.2.7 and before 21.5.1 are vulnerable to Denial of Service (DoS) via the addGitSha function. An attacker can exploit this vulnerability by supplying a specially crafted spec.rawSpec value that triggers the function’s regex replacement and string-manipulation logic,  causing excessive CPU consumption and potentially stalling or crashing the process."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "cvssv40_baseScore": 7.7,
+                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:P",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-33671",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "picomatch: Picomatch: Regular Expression Denial of Service via crafted extglob patterns"
+              },
+              "fullDescription": {
+                "text": "Picomatch is a glob matcher written JavaScript. Versions prior to 4.0.4, 3.0.2, and 2.3.2 are vulnerable to Regular Expression Denial of Service (ReDoS) when processing crafted extglob patterns. Certain patterns using extglob quantifiers such as `+()` and `*()`, especially when combined with overlapping alternatives or nested extglobs, are compiled into regular expressions that can exhibit catastrophic backtracking on non-matching input. Applications are impacted when they allow untrusted users to supply glob patterns that are passed to `picomatch` for compilation or matching. In those cases, an attacker can cause excessive CPU consumption and block the Node.js event loop, resulting in a denial of service. Applications that only use trusted, developer-controlled glob patterns are much less likely to be exposed in a security-relevant way. This issue is fixed in picomatch 4.0.4, 3.0.2 and 2.3.2. Users should upgrade to one of these versions or later, depending on their supported release line. If upgrading is not immediately possible, avoid passing untrusted glob patterns to `picomatch`. Possible mitigations include disabling extglob support for untrusted patterns by using `noextglob: true`, rejecting or sanitizing patterns containing nested extglobs or extglob quantifiers such as `+()` and `*()`, enforcing strict allowlists for accepted pattern syntax, running matching in an isolated worker or separate process with time and resource limits, and applying application-level request throttling and input validation for any endpoint that accepts glob patterns."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-33671",
+              "help": {
+                "text": "Vulnerability CVE-2026-33671\nSeverity: HIGH\nPackage: picomatch\nFixed Version: 4.0.4, 3.0.2, 2.3.2\nLink: [CVE-2026-33671](https://avd.aquasec.com/nvd/cve-2026-33671)\nPicomatch is a glob matcher written JavaScript. Versions prior to 4.0.4, 3.0.2, and 2.3.2 are vulnerable to Regular Expression Denial of Service (ReDoS) when processing crafted extglob patterns. Certain patterns using extglob quantifiers such as `+()` and `*()`, especially when combined with overlapping alternatives or nested extglobs, are compiled into regular expressions that can exhibit catastrophic backtracking on non-matching input. Applications are impacted when they allow untrusted users to supply glob patterns that are passed to `picomatch` for compilation or matching. In those cases, an attacker can cause excessive CPU consumption and block the Node.js event loop, resulting in a denial of service. Applications that only use trusted, developer-controlled glob patterns are much less likely to be exposed in a security-relevant way. This issue is fixed in picomatch 4.0.4, 3.0.2 and 2.3.2. Users should upgrade to one of these versions or later, depending on their supported release line. If upgrading is not immediately possible, avoid passing untrusted glob patterns to `picomatch`. Possible mitigations include disabling extglob support for untrusted patterns by using `noextglob: true`, rejecting or sanitizing patterns containing nested extglobs or extglob quantifiers such as `+()` and `*()`, enforcing strict allowlists for accepted pattern syntax, running matching in an isolated worker or separate process with time and resource limits, and applying application-level request throttling and input validation for any endpoint that accepts glob patterns.",
+                "markdown": "**Vulnerability CVE-2026-33671**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|picomatch|4.0.4, 3.0.2, 2.3.2|[CVE-2026-33671](https://avd.aquasec.com/nvd/cve-2026-33671)|\n\nPicomatch is a glob matcher written JavaScript. Versions prior to 4.0.4, 3.0.2, and 2.3.2 are vulnerable to Regular Expression Denial of Service (ReDoS) when processing crafted extglob patterns. Certain patterns using extglob quantifiers such as `+()` and `*()`, especially when combined with overlapping alternatives or nested extglobs, are compiled into regular expressions that can exhibit catastrophic backtracking on non-matching input. Applications are impacted when they allow untrusted users to supply glob patterns that are passed to `picomatch` for compilation or matching. In those cases, an attacker can cause excessive CPU consumption and block the Node.js event loop, resulting in a denial of service. Applications that only use trusted, developer-controlled glob patterns are much less likely to be exposed in a security-relevant way. This issue is fixed in picomatch 4.0.4, 3.0.2 and 2.3.2. Users should upgrade to one of these versions or later, depending on their supported release line. If upgrading is not immediately possible, avoid passing untrusted glob patterns to `picomatch`. Possible mitigations include disabling extglob support for untrusted patterns by using `noextglob: true`, rejecting or sanitizing patterns containing nested extglobs or extglob quantifiers such as `+()` and `*()`, enforcing strict allowlists for accepted pattern syntax, running matching in an isolated worker or separate process with time and resource limits, and applying application-level request throttling and input validation for any endpoint that accepts glob patterns."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-33672",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "picomatch: Picomatch: Data integrity compromised via method injection with crafted POSIX bracket expressions"
+              },
+              "fullDescription": {
+                "text": "Picomatch is a glob matcher written JavaScript. Versions prior to 4.0.4, 3.0.2, and 2.3.2 are vulnerable to a method injection vulnerability affecting the `POSIX_REGEX_SOURCE` object. Because the object inherits from `Object.prototype`, specially crafted POSIX bracket expressions (e.g., `[[:constructor:]]`) can reference inherited method names. These methods are implicitly converted to strings and injected into the generated regular expression. This leads to incorrect glob matching behavior (integrity impact), where patterns may match unintended filenames. The issue does not enable remote code execution, but it can cause security-relevant logic errors in applications that rely on glob matching for filtering, validation, or access control. All users of affected `picomatch` versions that process untrusted or user-controlled glob patterns are potentially impacted. This issue is fixed in picomatch 4.0.4, 3.0.2 and 2.3.2. Users should upgrade to one of these versions or later, depending on their supported release line. If upgrading is not immediately possible, avoid passing untrusted glob patterns to picomatch. Possible mitigations include sanitizing or rejecting untrusted glob patterns, especially those containing POSIX character classes like `[[:...:]]`; avoiding the use of POSIX bracket expressions if user input is involved; and manually patching the library by modifying `POSIX_REGEX_SOURCE` to use a null prototype."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-33672",
+              "help": {
+                "text": "Vulnerability CVE-2026-33672\nSeverity: MEDIUM\nPackage: picomatch\nFixed Version: 4.0.4, 3.0.2, 2.3.2\nLink: [CVE-2026-33672](https://avd.aquasec.com/nvd/cve-2026-33672)\nPicomatch is a glob matcher written JavaScript. Versions prior to 4.0.4, 3.0.2, and 2.3.2 are vulnerable to a method injection vulnerability affecting the `POSIX_REGEX_SOURCE` object. Because the object inherits from `Object.prototype`, specially crafted POSIX bracket expressions (e.g., `[[:constructor:]]`) can reference inherited method names. These methods are implicitly converted to strings and injected into the generated regular expression. This leads to incorrect glob matching behavior (integrity impact), where patterns may match unintended filenames. The issue does not enable remote code execution, but it can cause security-relevant logic errors in applications that rely on glob matching for filtering, validation, or access control. All users of affected `picomatch` versions that process untrusted or user-controlled glob patterns are potentially impacted. This issue is fixed in picomatch 4.0.4, 3.0.2 and 2.3.2. Users should upgrade to one of these versions or later, depending on their supported release line. If upgrading is not immediately possible, avoid passing untrusted glob patterns to picomatch. Possible mitigations include sanitizing or rejecting untrusted glob patterns, especially those containing POSIX character classes like `[[:...:]]`; avoiding the use of POSIX bracket expressions if user input is involved; and manually patching the library by modifying `POSIX_REGEX_SOURCE` to use a null prototype.",
+                "markdown": "**Vulnerability CVE-2026-33672**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|picomatch|4.0.4, 3.0.2, 2.3.2|[CVE-2026-33672](https://avd.aquasec.com/nvd/cve-2026-33672)|\n\nPicomatch is a glob matcher written JavaScript. Versions prior to 4.0.4, 3.0.2, and 2.3.2 are vulnerable to a method injection vulnerability affecting the `POSIX_REGEX_SOURCE` object. Because the object inherits from `Object.prototype`, specially crafted POSIX bracket expressions (e.g., `[[:constructor:]]`) can reference inherited method names. These methods are implicitly converted to strings and injected into the generated regular expression. This leads to incorrect glob matching behavior (integrity impact), where patterns may match unintended filenames. The issue does not enable remote code execution, but it can cause security-relevant logic errors in applications that rely on glob matching for filtering, validation, or access control. All users of affected `picomatch` versions that process untrusted or user-controlled glob patterns are potentially impacted. This issue is fixed in picomatch 4.0.4, 3.0.2 and 2.3.2. Users should upgrade to one of these versions or later, depending on their supported release line. If upgrading is not immediately possible, avoid passing untrusted glob patterns to picomatch. Possible mitigations include sanitizing or rejecting untrusted glob patterns, especially those containing POSIX character classes like `[[:...:]]`; avoiding the use of POSIX bracket expressions if user input is involved; and manually patching the library by modifying `POSIX_REGEX_SOURCE` to use a null prototype."
+              },
+              "properties": {
+                "cvssv3_baseScore": 5.3,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+                "precision": "very-high",
+                "security-severity": "5.3",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-104844",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "postcss-selector-parser: postcss-selector-parser: Denial of Service via crafted CSS selectors"
+              },
+              "fullDescription": {
+                "text": "PostCSS Selector Parser is a CSS selector parser that integrates with PostCSS but does not require it. Prior to 7.1.6, src/parser.js splitWord() can receive a flat selector as one word token carrying many class or ID indexes because period and hash characters are not tokenizer word delimiters. The uniqs() deduplication and per-index class and ID membership checks repeatedly scan the class and ID index arrays, while a separate Sass-interpolation filtering pass also performs repeated linear scanning. Together, these passes make parsing quadratic in the number of indexes and allow a crafted selector to occupy a synchronous parser thread. The maxNestingDepth guard does not mitigate the issue because the hostile selector can have zero nesting depth. Only consumers that synchronously parse untrusted selectors in an exposed request path are affected; ordinary build-time parsing of trusted sources is not affected. This issue is fixed in version 7.1.6."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-104844",
+              "help": {
+                "text": "Vulnerability CVE-2026-104844\nSeverity: MEDIUM\nPackage: postcss-selector-parser\nFixed Version: 7.1.6, 6.1.5\nLink: [CVE-2026-104844](https://avd.aquasec.com/nvd/cve-2026-104844)\nPostCSS Selector Parser is a CSS selector parser that integrates with PostCSS but does not require it. Prior to 7.1.6, src/parser.js splitWord() can receive a flat selector as one word token carrying many class or ID indexes because period and hash characters are not tokenizer word delimiters. The uniqs() deduplication and per-index class and ID membership checks repeatedly scan the class and ID index arrays, while a separate Sass-interpolation filtering pass also performs repeated linear scanning. Together, these passes make parsing quadratic in the number of indexes and allow a crafted selector to occupy a synchronous parser thread. The maxNestingDepth guard does not mitigate the issue because the hostile selector can have zero nesting depth. Only consumers that synchronously parse untrusted selectors in an exposed request path are affected; ordinary build-time parsing of trusted sources is not affected. This issue is fixed in version 7.1.6.",
+                "markdown": "**Vulnerability CVE-2026-104844**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|postcss-selector-parser|7.1.6, 6.1.5|[CVE-2026-104844](https://avd.aquasec.com/nvd/cve-2026-104844)|\n\nPostCSS Selector Parser is a CSS selector parser that integrates with PostCSS but does not require it. Prior to 7.1.6, src/parser.js splitWord() can receive a flat selector as one word token carrying many class or ID indexes because period and hash characters are not tokenizer word delimiters. The uniqs() deduplication and per-index class and ID membership checks repeatedly scan the class and ID index arrays, while a separate Sass-interpolation filtering pass also performs repeated linear scanning. Together, these passes make parsing quadratic in the number of indexes and allow a crafted selector to occupy a synchronous parser thread. The maxNestingDepth guard does not mitigate the issue because the hostile selector can have zero nesting depth. Only consumers that synchronously parse untrusted selectors in an exposed request path are affected; ordinary build-time parsing of trusted sources is not affected. This issue is fixed in version 7.1.6."
+              },
+              "properties": {
+                "cvssv3_baseScore": 5.9,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "5.9",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-9358",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "postcss-selector-parser: Postcss: Denial of Service via uncontrolled recursion in AST Serialization"
+              },
+              "fullDescription": {
+                "text": "A vulnerability was determined in postcss-selector-parser up to 6.1.2/7.1.2. Affected is the function toString of the file src/selectors/container.js of the component AST Serialization. Executing a manipulation can lead to uncontrolled recursion. It is possible to launch the attack remotely. The exploit has been publicly disclosed and may be utilized. Upgrading to version 6.1.3 and 7.1.3 is able to address this issue. This patch is called 5bc698cef66f8abd12610dc623e5d67cbc0f869d. It is suggested to upgrade the affected component. The vendor explains, that according to his definition \"DoS on server-side on user-generated CSS is low risk for us (since most users compile own CSS with PostCSS).\" The commits were backported to 6.x branch, which was the most downloaded version."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-9358",
+              "help": {
+                "text": "Vulnerability CVE-2026-9358\nSeverity: LOW\nPackage: postcss-selector-parser\nFixed Version: 6.1.3, 7.1.3\nLink: [CVE-2026-9358](https://avd.aquasec.com/nvd/cve-2026-9358)\nA vulnerability was determined in postcss-selector-parser up to 6.1.2/7.1.2. Affected is the function toString of the file src/selectors/container.js of the component AST Serialization. Executing a manipulation can lead to uncontrolled recursion. It is possible to launch the attack remotely. The exploit has been publicly disclosed and may be utilized. Upgrading to version 6.1.3 and 7.1.3 is able to address this issue. This patch is called 5bc698cef66f8abd12610dc623e5d67cbc0f869d. It is suggested to upgrade the affected component. The vendor explains, that according to his definition \"DoS on server-side on user-generated CSS is low risk for us (since most users compile own CSS with PostCSS).\" The commits were backported to 6.x branch, which was the most downloaded version.",
+                "markdown": "**Vulnerability CVE-2026-9358**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|postcss-selector-parser|6.1.3, 7.1.3|[CVE-2026-9358](https://avd.aquasec.com/nvd/cve-2026-9358)|\n\nA vulnerability was determined in postcss-selector-parser up to 6.1.2/7.1.2. Affected is the function toString of the file src/selectors/container.js of the component AST Serialization. Executing a manipulation can lead to uncontrolled recursion. It is possible to launch the attack remotely. The exploit has been publicly disclosed and may be utilized. Upgrading to version 6.1.3 and 7.1.3 is able to address this issue. This patch is called 5bc698cef66f8abd12610dc623e5d67cbc0f869d. It is suggested to upgrade the affected component. The vendor explains, that according to his definition \"DoS on server-side on user-generated CSS is low risk for us (since most users compile own CSS with PostCSS).\" The commits were backported to 6.x branch, which was the most downloaded version."
+              },
+              "properties": {
+                "cvssv3_baseScore": 4.3,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:L",
+                "cvssv40_baseScore": 2.1,
+                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:P",
+                "precision": "very-high",
+                "security-severity": "4.3",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "LOW"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-48815",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "sigstore: Sigstore: Unauthorized certificates accepted due to ignored `certificateOIDs` verification option"
+              },
+              "fullDescription": {
+                "text": "sigstore-js provides JavaScript libraries for interacting with Sigstore services. Prior to 4.1.1, the documented certificateOIDs option in sigstore.verify() is accepted by the public API but discarded before verification, so required certificate extension OIDs are never checked and applications relying on certificateOIDs to restrict which certificates may sign artifacts can accept unauthorized certificates. This issue is fixed in version 4.1.1."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-48815",
+              "help": {
+                "text": "Vulnerability CVE-2026-48815\nSeverity: HIGH\nPackage: sigstore\nFixed Version: 4.1.1\nLink: [CVE-2026-48815](https://avd.aquasec.com/nvd/cve-2026-48815)\nsigstore-js provides JavaScript libraries for interacting with Sigstore services. Prior to 4.1.1, the documented certificateOIDs option in sigstore.verify() is accepted by the public API but discarded before verification, so required certificate extension OIDs are never checked and applications relying on certificateOIDs to restrict which certificates may sign artifacts can accept unauthorized certificates. This issue is fixed in version 4.1.1.",
+                "markdown": "**Vulnerability CVE-2026-48815**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|sigstore|4.1.1|[CVE-2026-48815](https://avd.aquasec.com/nvd/cve-2026-48815)|\n\nsigstore-js provides JavaScript libraries for interacting with Sigstore services. Prior to 4.1.1, the documented certificateOIDs option in sigstore.verify() is accepted by the public API but discarded before verification, so required certificate extension OIDs are never checked and applications relying on certificateOIDs to restrict which certificates may sign artifacts can accept unauthorized certificates. This issue is fixed in version 4.1.1."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            }
+          ],
+          "version": "0.70.0"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CVE-2026-48758",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Package: @sigstore/core\nInstalled Version: 2.0.0\nVulnerability CVE-2026-48758\nSeverity: MEDIUM\nFixed Version: 3.2.1\nLink: [CVE-2026-48758](https://avd.aquasec.com/nvd/cve-2026-48758)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/@sigstore/core/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/@sigstore/core/package.json: @sigstore/core@2.0.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-102276",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "Package: brace-expansion\nInstalled Version: 2.0.2\nVulnerability CVE-2026-102276\nSeverity: HIGH\nFixed Version: 5.0.10, 3.0.7, 2.1.5, 1.1.19\nLink: [CVE-2026-102276](https://avd.aquasec.com/nvd/cve-2026-102276)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json: brace-expansion@2.0.2"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-102278",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "Package: brace-expansion\nInstalled Version: 2.0.2\nVulnerability CVE-2026-102278\nSeverity: HIGH\nFixed Version: 5.0.11, 3.0.8, 2.1.6, 1.1.20\nLink: [CVE-2026-102278](https://avd.aquasec.com/nvd/cve-2026-102278)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json: brace-expansion@2.0.2"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-13149",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Package: brace-expansion\nInstalled Version: 2.0.2\nVulnerability CVE-2026-13149\nSeverity: HIGH\nFixed Version: 5.0.7, 1.1.16, 2.1.2\nLink: [CVE-2026-13149](https://avd.aquasec.com/nvd/cve-2026-13149)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json: brace-expansion@2.0.2"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-14257",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "Package: brace-expansion\nInstalled Version: 2.0.2\nVulnerability CVE-2026-14257\nSeverity: HIGH\nFixed Version: 5.0.8, 3.0.3, 2.1.3, 1.1.17\nLink: [CVE-2026-14257](https://avd.aquasec.com/nvd/cve-2026-14257)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json: brace-expansion@2.0.2"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-69152",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "Package: brace-expansion\nInstalled Version: 2.0.2\nVulnerability CVE-2026-69152\nSeverity: HIGH\nFixed Version: 1.1.18, 2.1.4, 3.0.6, 5.0.9\nLink: [CVE-2026-69152](https://avd.aquasec.com/nvd/cve-2026-69152)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json: brace-expansion@2.0.2"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-102277",
+          "ruleIndex": 6,
+          "level": "warning",
+          "message": {
+            "text": "Package: brace-expansion\nInstalled Version: 2.0.2\nVulnerability CVE-2026-102277\nSeverity: MEDIUM\nFixed Version: 5.0.12, 3.0.9, 2.1.7, 1.1.21\nLink: [CVE-2026-102277](https://avd.aquasec.com/nvd/cve-2026-102277)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json: brace-expansion@2.0.2"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-33750",
+          "ruleIndex": 7,
+          "level": "warning",
+          "message": {
+            "text": "Package: brace-expansion\nInstalled Version: 2.0.2\nVulnerability CVE-2026-33750\nSeverity: MEDIUM\nFixed Version: 5.0.5, 3.0.2, 2.0.3, 1.1.13\nLink: [CVE-2026-33750](https://avd.aquasec.com/nvd/cve-2026-33750)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json: brace-expansion@2.0.2"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-118773",
+          "ruleIndex": 8,
+          "level": "warning",
+          "message": {
+            "text": "Package: glob\nInstalled Version: 10.5.0\nVulnerability CVE-2026-118773\nSeverity: MEDIUM\nFixed Version: 14.0.2\nLink: [CVE-2026-118773](https://avd.aquasec.com/nvd/cve-2026-118773)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/glob/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/glob/package.json: glob@10.5.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-69192",
+          "ruleIndex": 9,
+          "level": "error",
+          "message": {
+            "text": "Package: ip-address\nInstalled Version: 10.1.0\nVulnerability CVE-2026-69192\nSeverity: HIGH\nFixed Version: 10.3.1\nLink: [CVE-2026-69192](https://avd.aquasec.com/nvd/cve-2026-69192)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/ip-address/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/ip-address/package.json: ip-address@10.1.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-101911",
+          "ruleIndex": 10,
+          "level": "warning",
+          "message": {
+            "text": "Package: ip-address\nInstalled Version: 10.1.0\nVulnerability CVE-2026-101911\nSeverity: MEDIUM\nFixed Version: 10.7.1\nLink: [CVE-2026-101911](https://avd.aquasec.com/nvd/cve-2026-101911)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/ip-address/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/ip-address/package.json: ip-address@10.1.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-101912",
+          "ruleIndex": 11,
+          "level": "warning",
+          "message": {
+            "text": "Package: ip-address\nInstalled Version: 10.1.0\nVulnerability CVE-2026-101912\nSeverity: MEDIUM\nFixed Version: 10.7.1\nLink: [CVE-2026-101912](https://avd.aquasec.com/nvd/cve-2026-101912)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/ip-address/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/ip-address/package.json: ip-address@10.1.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-101913",
+          "ruleIndex": 12,
+          "level": "warning",
+          "message": {
+            "text": "Package: ip-address\nInstalled Version: 10.1.0\nVulnerability CVE-2026-101913\nSeverity: MEDIUM\nFixed Version: 10.5.1\nLink: [CVE-2026-101913](https://avd.aquasec.com/nvd/cve-2026-101913)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/ip-address/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/ip-address/package.json: ip-address@10.1.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-111997",
+          "ruleIndex": 13,
+          "level": "warning",
+          "message": {
+            "text": "Package: ip-address\nInstalled Version: 10.1.0\nVulnerability CVE-2026-111997\nSeverity: MEDIUM\nFixed Version: 10.7.4\nLink: [CVE-2026-111997](https://avd.aquasec.com/nvd/cve-2026-111997)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/ip-address/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/ip-address/package.json: ip-address@10.1.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-42338",
+          "ruleIndex": 14,
+          "level": "warning",
+          "message": {
+            "text": "Package: ip-address\nInstalled Version: 10.1.0\nVulnerability CVE-2026-42338\nSeverity: MEDIUM\nFixed Version: 10.1.1\nLink: [CVE-2026-42338](https://avd.aquasec.com/nvd/cve-2026-42338)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/ip-address/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/ip-address/package.json: ip-address@10.1.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-118764",
+          "ruleIndex": 15,
+          "level": "warning",
+          "message": {
+            "text": "Package: minimatch\nInstalled Version: 9.0.9\nVulnerability CVE-2026-118764\nSeverity: MEDIUM\nFixed Version: 11.0.1\nLink: [CVE-2026-118764](https://avd.aquasec.com/nvd/cve-2026-118764)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/minimatch/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/minimatch/package.json: minimatch@9.0.9"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-9496",
+          "ruleIndex": 16,
+          "level": "error",
+          "message": {
+            "text": "Package: pacote\nInstalled Version: 19.0.2\nVulnerability CVE-2026-9496\nSeverity: HIGH\nFixed Version: 21.5.1\nLink: [CVE-2026-9496](https://avd.aquasec.com/nvd/cve-2026-9496)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/pacote/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/pacote/package.json: pacote@19.0.2"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-9496",
+          "ruleIndex": 16,
+          "level": "error",
+          "message": {
+            "text": "Package: pacote\nInstalled Version: 20.0.1\nVulnerability CVE-2026-9496\nSeverity: HIGH\nFixed Version: 21.5.1\nLink: [CVE-2026-9496](https://avd.aquasec.com/nvd/cve-2026-9496)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/@npmcli/metavuln-calculator/node_modules/pacote/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/@npmcli/metavuln-calculator/node_modules/pacote/package.json: pacote@20.0.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-33671",
+          "ruleIndex": 17,
+          "level": "error",
+          "message": {
+            "text": "Package: picomatch\nInstalled Version: 4.0.3\nVulnerability CVE-2026-33671\nSeverity: HIGH\nFixed Version: 4.0.4, 3.0.2, 2.3.2\nLink: [CVE-2026-33671](https://avd.aquasec.com/nvd/cve-2026-33671)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/picomatch/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/picomatch/package.json: picomatch@4.0.3"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-33672",
+          "ruleIndex": 18,
+          "level": "warning",
+          "message": {
+            "text": "Package: picomatch\nInstalled Version: 4.0.3\nVulnerability CVE-2026-33672\nSeverity: MEDIUM\nFixed Version: 4.0.4, 3.0.2, 2.3.2\nLink: [CVE-2026-33672](https://avd.aquasec.com/nvd/cve-2026-33672)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/picomatch/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/picomatch/package.json: picomatch@4.0.3"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-104844",
+          "ruleIndex": 19,
+          "level": "warning",
+          "message": {
+            "text": "Package: postcss-selector-parser\nInstalled Version: 7.1.1\nVulnerability CVE-2026-104844\nSeverity: MEDIUM\nFixed Version: 7.1.6, 6.1.5\nLink: [CVE-2026-104844](https://avd.aquasec.com/nvd/cve-2026-104844)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/postcss-selector-parser/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/postcss-selector-parser/package.json: postcss-selector-parser@7.1.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-9358",
+          "ruleIndex": 20,
+          "level": "note",
+          "message": {
+            "text": "Package: postcss-selector-parser\nInstalled Version: 7.1.1\nVulnerability CVE-2026-9358\nSeverity: LOW\nFixed Version: 6.1.3, 7.1.3\nLink: [CVE-2026-9358](https://avd.aquasec.com/nvd/cve-2026-9358)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/postcss-selector-parser/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/postcss-selector-parser/package.json: postcss-selector-parser@7.1.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-48815",
+          "ruleIndex": 21,
+          "level": "error",
+          "message": {
+            "text": "Package: sigstore\nInstalled Version: 3.1.0\nVulnerability CVE-2026-48815\nSeverity: HIGH\nFixed Version: 4.1.1\nLink: [CVE-2026-48815](https://avd.aquasec.com/nvd/cve-2026-48815)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/sigstore/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/sigstore/package.json: sigstore@3.1.0"
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits",
+      "properties": {
+        "imageID": "sha256:52f2f75e0a94bc5a6375924a2ef65052ad7b43956f483e174226254fbb9fdb87",
+        "imageName": "pp-artifact-indexer:f56a2d229808438ebdfecacab3f3e1e028a75810",
+        "repoDigests": [
+          "pp-artifact-indexer@sha256:52f2f75e0a94bc5a6375924a2ef65052ad7b43956f483e174226254fbb9fdb87"
+        ],
+        "repoTags": [
+          "pp-artifact-indexer:f56a2d229808438ebdfecacab3f3e1e028a75810"
+        ]
+      }
+    }
+  ]
+}
