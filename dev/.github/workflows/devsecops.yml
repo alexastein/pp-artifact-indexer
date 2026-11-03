@@ -17,23 +17,23 @@
 name: DevSecOps Pipeline
 
 on:
-  push:
-    branches: [main]
-    tags: ["pa*"]
-  pull_request:
-    branches: [main]
-  workflow_dispatch:
+ push:
+   branches: [main]
+   tags: ["pa*"]
+ pull_request:
+   branches: [main]
+ workflow_dispatch:
 
 permissions:
-  contents: read
+ contents: read
 
 concurrency:
-  group: devsecops-${{ github.ref }}
-  cancel-in-progress: true
+ group: devsecops-${{ github.ref }}
+ cancel-in-progress: true
 
 env:
-  NODE_VERSION: "22"
-  IMAGE_NAME: pp-artifact-indexer
+ NODE_VERSION: "22"
+ IMAGE_NAME: pp-artifact-indexer
 
 jobs:
   # ------------------------------------------------------------------ 1
