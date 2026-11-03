@@ -1,0 +1,45 @@
+# AI Contribution Weight: [90%] AI Generated / [10%] Human Refactored
+# Single-tenant local stack: API + its own PostgreSQL. No links to other PP services.
+services:
+  pai-api:
+    build:
+      context: .
+      target: runtime
+    image: pp-artifact-indexer:local
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      PORT: "3000"
+      FILE_STORAGE_DIR: "/data/files"
+      MAX_UPLOAD_MB: "25"
+      DATABASE_URL: "postgresql://${POSTGRES_USER:-pai}:${POSTGRES_PASSWORD:-change-me-locally}@pai-db:5432/${POSTGRES_DB:-pai}"
+    depends_on:
+      pai-db:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - pai-files:/data/files   # manuscript PDFs (spec.md §9)
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+  pai-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-pai}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me-locally}
+      POSTGRES_DB: ${POSTGRES_DB:-pai}
+    volumes:
+      - pai-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    # No ports published: DB is only reachable from pai-api on the compose network.
+
+volumes:
+  pai-db-data:
+  pai-files:

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "c-cs763-f26",
+    "code": "MET CS 763",
+    "title": "Secure Software Development",
+    "term": "2026FALL2",
+    "programId": "prog-mscis",
+    "instructorIds": [
+      "u-cur-01"
+    ]
+  },
+  {
+    "id": "c-cs673-f26",
+    "code": "MET CS 673",
+    "title": "Software Engineering",
+    "term": "2026FALL1",
+    "programId": "prog-msse",
+    "instructorIds": [
+      "u-cur-02"
+    ]
+  }
+]

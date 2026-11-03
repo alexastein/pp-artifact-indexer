@@ -1,0 +1,23 @@
+[
+  {
+    "title": "AI-Agent Secure Pipeline Study",
+    "slug": "ai-agent-secure-pipeline",
+    "abstract": "Measures how secure-by-design prompting changes vulnerabilities in agent-generated services.",
+    "labId": "lab-sail",
+    "programId": "prog-mscis",
+    "courseId": "c-cs763-f26",
+    "projectType": "COURSE_PROJECT",
+    "academicTerm": "2026FALL2",
+    "tags": [
+      "devsecops",
+      "llm-agents"
+    ],
+    "members": [
+      {
+        "userId": "u-stu-02",
+        "memberRole": "CONTRIBUTOR"
+      }
+    ],
+    "createdBy": "u-stu-01"
+  }
+]

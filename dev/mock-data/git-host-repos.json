@@ -1,0 +1,32 @@
+[
+  {
+    "host": "GITHUB",
+    "owner": "bu-met-sail",
+    "name": "agent-pipeline-study",
+    "defaultBranch": "main",
+    "primaryLanguage": "TypeScript",
+    "licenseSpdx": "MIT",
+    "stars": 42,
+    "lastCommitAt": "2026-10-30T18:22:00Z"
+  },
+  {
+    "host": "GITHUB",
+    "owner": "mchen-bu",
+    "name": "campus-ar-navigator",
+    "defaultBranch": "main",
+    "primaryLanguage": "Kotlin",
+    "licenseSpdx": "Apache-2.0",
+    "stars": 7,
+    "lastCommitAt": "2026-09-14T09:05:00Z"
+  },
+  {
+    "host": "GITLAB",
+    "owner": "hci-lab",
+    "name": "eye-tracking-toolkit",
+    "defaultBranch": "develop",
+    "primaryLanguage": "Python",
+    "licenseSpdx": "BSD-3-Clause",
+    "stars": 15,
+    "lastCommitAt": "2026-08-02T12:00:00Z"
+  }
+]

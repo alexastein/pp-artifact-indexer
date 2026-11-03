@@ -1,0 +1,14 @@
+[
+  {
+    "id": "lab-sail",
+    "name": "Secure AI Lab",
+    "department": "CS",
+    "directorId": "u-cur-01"
+  },
+  {
+    "id": "lab-hci",
+    "name": "Human-Computer Interaction Lab",
+    "department": "CS",
+    "directorId": "u-cur-02"
+  }
+]

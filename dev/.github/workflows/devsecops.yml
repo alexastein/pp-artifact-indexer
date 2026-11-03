@@ -1,0 +1,240 @@
+# .github/workflows/devsecops.yml
+# AI Contribution Weight: [90%] AI Generated / [10%] Human Refactored
+#
+# DevSecOps pipeline for PP Domain 1 - Project Artifact & Repository Indexer (Node 22 / TypeScript)
+#   1. build-test       : npm ci, type-check, unit tests + coverage
+#   2. sca-trivy-fs     : dependency (SCA), secret and IaC/misconfig scan of the repo with Trivy + npm audit
+#   3. sast-semgrep     : Semgrep SAST (OWASP / Node / TypeScript / Dockerfile rulesets)
+#   4. sast-sonarqube   : SonarQube Cloud analysis (skips cleanly if SONAR_TOKEN is not configured)
+#   5. docker-build     : multi-stage image build, compose smoke test (/health), Trivy image scan
+#
+# PA1 requirement: scans are NON-BLOCKING (exit-code 0 / continue-on-error) so the pipeline stays green
+# while still producing telemetry (SARIF + JSON artifacts + job summaries).
+#
+# Supply-chain hardening: every third-party action is pinned to a full commit SHA (tag in the comment).
+# trivy-action tags 0.0.1-0.34.2 were hijacked in March 2026 (CVE-2026-33634); v0.35.0+ are safe.
+
+name: DevSecOps Pipeline
+
+on:
+  push:
+    branches: [main]
+    tags: ["pa*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: devsecops-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "22"
+  IMAGE_NAME: pp-artifact-indexer
+
+jobs:
+  # ------------------------------------------------------------------ 1
+  build-test:
+    name: Build & Unit Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run test:coverage
+      - run: npm run build
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 14
+
+  # ------------------------------------------------------------------ 2
+  sca-trivy-fs:
+    name: Dependency & Secret Scan (Trivy fs + npm audit)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: npm audit (non-blocking)
+        run: |
+          mkdir -p reports
+          npm audit --json > reports/npm-audit.json || true
+          echo "### npm audit" >> "$GITHUB_STEP_SUMMARY"
+          jq -r '.metadata.vulnerabilities | to_entries | map("- \(.key): \(.value)") | .[]' reports/npm-audit.json >> "$GITHUB_STEP_SUMMARY" || echo "- no metadata" >> "$GITHUB_STEP_SUMMARY"
+      - name: Trivy filesystem scan (SARIF)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret,misconfig
+          format: sarif
+          output: reports/trivy-fs.sarif
+          exit-code: "0"
+      - name: Trivy filesystem scan (human-readable table in log)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret,misconfig
+          format: table
+          exit-code: "0"
+          skip-setup-trivy: true
+      - name: Summarize
+        if: always()
+        run: |
+          n=$(jq '[.runs[].results[]] | length' reports/trivy-fs.sarif 2>/dev/null || echo "n/a")
+          echo "### Trivy fs findings: $n" >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload SARIF to GitHub Code Scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
+        continue-on-error: true
+        with:
+          sarif_file: reports/trivy-fs.sarif
+          category: trivy-fs
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: sca-reports
+          path: reports/
+
+  # ------------------------------------------------------------------ 3
+  sast-semgrep:
+    name: SAST (Semgrep)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    container:
+      image: semgrep/semgrep:latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Semgrep scan (non-blocking)
+        run: |
+          mkdir -p reports
+          semgrep scan \
+            --config p/default \
+            --config p/owasp-top-ten \
+            --config p/nodejs \
+            --config p/typescript \
+            --config p/dockerfile \
+            --config p/github-actions \
+            --sarif --output reports/semgrep.sarif \
+            --json-output reports/semgrep.json \
+            --metrics off || true
+          n=$(python3 -c "import json;print(len(json.load(open('reports/semgrep.json'))['results']))" 2>/dev/null || echo "n/a")
+          echo "### Semgrep findings: $n" >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload SARIF to GitHub Code Scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
+        continue-on-error: true
+        with:
+          sarif_file: reports/semgrep.sarif
+          category: semgrep
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: semgrep-reports
+          path: reports/
+
+  # ------------------------------------------------------------------ 4
+  sast-sonarqube:
+    name: SAST (SonarQube Cloud)
+    runs-on: ubuntu-latest
+    needs: build-test
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # full history improves blame / new-code detection
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: coverage
+          path: coverage
+        continue-on-error: true
+      - name: SonarQube scan
+        if: env.SONAR_TOKEN != ''
+        uses: SonarSource/sonarqube-scan-action@4d1dc0c91ee400dcf8a6dddf2f705ac36542e304 # v8.4.0
+        continue-on-error: true
+        env:
+          SONAR_HOST_URL: https://sonarcloud.io
+      - name: Skip notice
+        if: env.SONAR_TOKEN == ''
+        run: echo "::warning::SONAR_TOKEN secret not set - SonarQube analysis skipped. See README setup step."
+      - name: Summarize
+        if: always()
+        run: echo "### SonarQube Cloud analysis submitted (see dashboard link in step log)" >> "$GITHUB_STEP_SUMMARY"
+
+  # ------------------------------------------------------------------ 5
+  docker-build:
+    name: Docker Build, Smoke Test & Image Scan
+    runs-on: ubuntu-latest
+    needs: build-test
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Build multi-stage image
+        run: docker build --target runtime -t ${{ env.IMAGE_NAME }}:${{ github.sha }} .
+      - name: Compose smoke test (API + PostgreSQL)
+        run: |
+          docker compose config -q
+          docker compose up -d --build
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:3000/health; then echo; break; fi
+            sleep 2
+          done
+          curl -fsS http://127.0.0.1:3000/health
+          echo "### Compose smoke test: /health OK" >> "$GITHUB_STEP_SUMMARY"
+      - name: Compose logs
+        if: always()
+        run: docker compose logs --no-color && docker compose down -v
+      - name: Trivy image scan (SARIF)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: image
+          image-ref: ${{ env.IMAGE_NAME }}:${{ github.sha }}
+          format: sarif
+          output: trivy-image.sarif
+          exit-code: "0"
+          ignore-unfixed: true
+      - name: Trivy image scan (table in log)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: image
+          image-ref: ${{ env.IMAGE_NAME }}:${{ github.sha }}
+          format: table
+          exit-code: "0"
+          ignore-unfixed: true
+          skip-setup-trivy: true
+      - name: Summarize
+        if: always()
+        run: |
+          n=$(jq '[.runs[].results[]] | length' trivy-image.sarif 2>/dev/null || echo "n/a")
+          echo "### Trivy image findings: $n" >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload SARIF to GitHub Code Scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
+        continue-on-error: true
+        with:
+          sarif_file: trivy-image.sarif
+          category: trivy-image
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: image-scan-reports
+          path: trivy-image.sarif
