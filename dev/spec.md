@@ -11,7 +11,7 @@
 |---|---|
 | Conceptual AI contribution | **[__%] AI Generated / [__%] Human Authored** ← fill in after your own edits (a first draft written entirely by Claude starts at ~85% AI; lower it as you rewrite) |
 | Tool | Claude (claude.ai chat, model: Claude Opus 5.5) — conversational assistant, **not** the developer agent |
-| Design-aid prompts | 1) "Please help me complete the assignment [CS763 Project Assignment 1, Node.js/TypeScript, Claude Code] and give me detailed instructions in anything I have to do on my own." 2) "I think I have to do The Project Artifact & Repository Indexer since it's the only one left, can you please fix everything" |
+| Design-aid prompts | 1) "Please help me with the assignment [CS763 Project Assignment 1, Node.js/TypeScript, Claude Code] and give me detailed instructions" 2) "I think I have to do The Project Artifact & Repository Indexer since it's the only one left" |
 | Chat link / export | _<paste your claude.ai share link here>_ |
 | Human review & changes | _<list what you changed, e.g. "added DOI field", "renamed entities", "verified every endpoint against the ERD">_ |
 
