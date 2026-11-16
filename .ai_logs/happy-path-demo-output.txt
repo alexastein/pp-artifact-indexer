@@ -1,0 +1,52 @@
+# Output of functional-codebase/scripts/happy-path-demo.sh against 'docker compose up --build' (2026-11-16)
+# Run 1 failed on a script bug (greedy id extraction); this is the passing re-run after the fix.
+
+
+=== 0. Wait for GET /health
+{"status":"ok"}
+
+=== 0b. Load academic units (labs, programs, courses) into the empty database
+Seed result: { units: 6, projectsInserted: 0 }
+
+=== 1. Create a project (POST /api/v1/projects)
+{"id":"19d37254-bc54-4472-9316-b053cdc9ed2d","title":"Happy Path Demo Project","description":"Created by the happy-path-demo script about gaze tracking","created_at":"2026-11-16T21:34:16.656Z","updated_at":"2026-11-16T21:34:16.656Z","revision_version":1,"artifact_counts":{"manuscripts":0,"videos":0,"repositories":0},"members":[{"id":"8dca8e56-5b4d-42ba-97f5-cf48ecc67c9f","name":"Dr. Ada Rivera","email":"ada.demo@example.edu","role":"faculty"},{"id":"2bee7bf2-a8be-420e-99a8-4c47176dd152","name":"Mia Chen","email":"mia.demo@example.edu","role":"student"}],"academic_units":[{"id":"c-cs763-f26","unit_type":"course","code":"MET CS 763","name":"Secure Software Development","department":null,"term":"2026FALL2","program_id":"prog-mscis"},{"id":"lab-sail","unit_type":"lab","code":null,"name":"Secure AI Lab","department":"CS","term":null,"program_id":null},{"id":"prog-mscis","unit_type":"program","code":"MSCIS","name":"MS in Computer Information Systems","department":"CS","term":null,"program_id":null}]}
+-> project id: 19d37254-bc54-4472-9316-b053cdc9ed2d
+
+=== 2a. Add a manuscript artifact
+{"id":"8be38d2e-8f94-480f-8805-3312bd7f7fb5","project_id":"19d37254-bc54-4472-9316-b053cdc9ed2d","artifact_type":"manuscripts","created_at":"2026-11-16T21:34:16.675Z","updated_at":"2026-11-16T21:34:16.675Z","title":"Gaze Tracking for Secure Interfaces","abstract":"We study gaze signals.","authors":["Mia Chen","Ada Rivera"],"keywords":["gaze","security"],"year":2026,"publisher":null,"has_file":false,"original_file_name":null,"file_size_bytes":null,"file_sha256":null}
+
+=== 2b. Add a video artifact
+{"id":"b40c51e6-890b-436f-adcb-d17406058689","project_id":"19d37254-bc54-4472-9316-b053cdc9ed2d","artifact_type":"videos","created_at":"2026-11-16T21:34:16.689Z","updated_at":"2026-11-16T21:34:16.689Z","video_url":"https://videos.example.edu/gaze-demo.mp4","thumbnail_url":"https://videos.example.edu/gaze-demo.png","duration_seconds":240,"description":"Final presentation"}
+
+=== 2c. Add a repository artifact (github.com/bu-met-sail/agent-pipeline-study is in the mock git host,
+    so branch, tech stack and latest commit are filled in automatically)
+{"id":"376ba652-1473-4065-8ee4-41b44fe2f62f","project_id":"19d37254-bc54-4472-9316-b053cdc9ed2d","artifact_type":"repositories","created_at":"2026-11-16T21:34:16.701Z","updated_at":"2026-11-16T21:34:16.701Z","repo_url":"https://github.com/bu-met-sail/agent-pipeline-study","target_branch":"main","primary_tech_stack":"TypeScript","total_commit_count":128,"latest_commit_at":"2026-10-30T18:22:00.000Z"}
+
+=== 3. Upload the manuscript file (multipart, field name "file")
+{"id":"8be38d2e-8f94-480f-8805-3312bd7f7fb5","project_id":"19d37254-bc54-4472-9316-b053cdc9ed2d","artifact_type":"manuscripts","created_at":"2026-11-16T21:34:16.675Z","updated_at":"2026-11-16T21:34:16.754Z","title":"Gaze Tracking for Secure Interfaces","abstract":"We study gaze signals.","authors":["Mia Chen","Ada Rivera"],"keywords":["gaze","security"],"year":2026,"publisher":null,"has_file":true,"original_file_name":"gaze-paper.pdf","file_size_bytes":44,"file_sha256":"25cba0f74217903f7f558b8d27330970ec6fa1cba4282391d0602153c18ff563"}
+-> expected sha256: 25cba0f74217903f7f558b8d27330970ec6fa1cba4282391d0602153c18ff563
+
+=== 4. Search: keyword + lab_id + has_artifact_type
+{"items":[{"id":"19d37254-bc54-4472-9316-b053cdc9ed2d","title":"Happy Path Demo Project","description":"Created by the happy-path-demo script about gaze tracking","created_at":"2026-11-16T21:34:16.656Z","updated_at":"2026-11-16T21:34:16.656Z","revision_version":1,"artifact_counts":{"manuscripts":1,"videos":1,"repositories":1}}],"page":1,"page_size":20,"total":1}
+
+=== 5. Read the project (members, units, artifact counts) and all its artifacts
+{"id":"19d37254-bc54-4472-9316-b053cdc9ed2d","title":"Happy Path Demo Project","description":"Created by the happy-path-demo script about gaze tracking","created_at":"2026-11-16T21:34:16.656Z","updated_at":"2026-11-16T21:34:16.656Z","revision_version":1,"artifact_counts":{"manuscripts":1,"videos":1,"repositories":1},"members":[{"id":"8dca8e56-5b4d-42ba-97f5-cf48ecc67c9f","name":"Dr. Ada Rivera","email":"ada.demo@example.edu","role":"faculty"},{"id":"2bee7bf2-a8be-420e-99a8-4c47176dd152","name":"Mia Chen","email":"mia.demo@example.edu","role":"student"}],"academic_units":[{"id":"c-cs763-f26","unit_type":"course","code":"MET CS 763","name":"Secure Software Development","department":null,"term":"2026FALL2","program_id":"prog-mscis"},{"id":"lab-sail","unit_type":"lab","code":null,"name":"Secure AI Lab","department":"CS","term":null,"program_id":null},{"id":"prog-mscis","unit_type":"program","code":"MSCIS","name":"MS in Computer Information Systems","department":"CS","term":null,"program_id":null}]}
+{"project_id":"19d37254-bc54-4472-9316-b053cdc9ed2d","manuscripts":[{"id":"8be38d2e-8f94-480f-8805-3312bd7f7fb5","project_id":"19d37254-bc54-4472-9316-b053cdc9ed2d","artifact_type":"manuscripts","created_at":"2026-11-16T21:34:16.675Z","updated_at":"2026-11-16T21:34:16.754Z","title":"Gaze Tracking for Secure Interfaces","abstract":"We study gaze signals.","authors":["Mia Chen","Ada Rivera"],"keywords":["gaze","security"],"year":2026,"publisher":null,"has_file":true,"original_file_name":"gaze-paper.pdf","file_size_bytes":44,"file_sha256":"25cba0f74217903f7f558b8d27330970ec6fa1cba4282391d0602153c18ff563"}],"videos":[{"id":"b40c51e6-890b-436f-adcb-d17406058689","project_id":"19d37254-bc54-4472-9316-b053cdc9ed2d","artifact_type":"videos","created_at":"2026-11-16T21:34:16.689Z","updated_at":"2026-11-16T21:34:16.689Z","video_url":"https://videos.example.edu/gaze-demo.mp4","thumbnail_url":"https://videos.example.edu/gaze-demo.png","duration_seconds":240,"description":"Final presentation"}],"repositories":[{"id":"376ba652-1473-4065-8ee4-41b44fe2f62f","project_id":"19d37254-bc54-4472-9316-b053cdc9ed2d","artifact_type":"repositories","created_at":"2026-11-16T21:34:16.701Z","updated_at":"2026-11-16T21:34:16.701Z","repo_url":"https://github.com/bu-met-sail/agent-pipeline-study","target_branch":"main","primary_tech_stack":"TypeScript","total_commit_count":128,"latest_commit_at":"2026-10-30T18:22:00.000Z"}]}
+
+=== 6. Download the single manuscript file and check its SHA-256
+Content-Disposition: attachment; filename=gaze-paper.pdf
+-> sha256 matches (25cba0f74217903f7f558b8d27330970ec6fa1cba4282391d0602153c18ff563)
+
+=== 7. Download all manuscripts as a zip and list it
+Archive:  /var/folders/08/dr2pp3xs0yj83z7gkswx4ybc0000gn/T/tmp.zTLozOoLas/manuscripts.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+       44  11-16-2026 21:34   gaze-paper.pdf
+---------                     -------
+       44                     1 file
+
+=== 8. Delete the project (also removes its artifacts and stored files)
+DELETE -> HTTP 204
+GET after delete -> HTTP 404 (expected 404)
+
+=== Done: happy path completed

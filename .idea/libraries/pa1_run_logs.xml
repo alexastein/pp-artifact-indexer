@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="pa1-run-logs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/pipeline-logs/pa1-run-logs.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "u-adm-01",
+    "displayName": "Portal Admin",
+    "email": "admin@pp.example.edu",
+    "role": "ADMIN",
+    "department": "IT"
+  },
+  {
+    "id": "u-cur-01",
+    "displayName": "Dr. Ada Rivera",
+    "email": "arivera@pp.example.edu",
+    "role": "CURATOR",
+    "department": "CS"
+  },
+  {
+    "id": "u-cur-02",
+    "displayName": "Prof. Ken Okafor",
+    "email": "kokafor@pp.example.edu",
+    "role": "CURATOR",
+    "department": "CS"
+  },
+  {
+    "id": "u-stu-01",
+    "displayName": "Mia Chen",
+    "email": "mchen@pp.example.edu",
+    "role": "CONTRIBUTOR",
+    "department": "CS"
+  },
+  {
+    "id": "u-stu-02",
+    "displayName": "Leo Park",
+    "email": "lpark@pp.example.edu",
+    "role": "CONTRIBUTOR",
+    "department": "CS"
+  },
+  {
+    "id": "u-stu-03",
+    "displayName": "Sara Haddad",
+    "email": "shaddad@pp.example.edu",
+    "role": "CONTRIBUTOR",
+    "department": "CS"
+  }
+]
