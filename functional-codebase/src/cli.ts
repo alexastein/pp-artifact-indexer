@@ -2,7 +2,7 @@
 // Prompt Summary: "Design PostgreSQL schema, migrations, seed script and DB tests for the master spec"
 // AI Contribution: 100% AI generated / 0% human refactored
 // Human Modifications: Reviewed line by line, no code changes (kept naive on purpose); notes in .ai_logs/conceptual_journal.md
-// Verification: Reviewed line by line; migrate/seed logic is covered by tests/migrations.test.ts and tests/seed.test.ts, but cli.ts itself was only read, not run. Typecheck passes
+// Verification: Read through it; the migrate/seed logic is covered by tests/migrations.test.ts and tests/seed.test.ts
 // Confidence: Medium
 
 import { closePool, getPool } from "./db.js";

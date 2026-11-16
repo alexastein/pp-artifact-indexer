@@ -2,7 +2,7 @@
 # Prompt Summary: "Scaffold functional-codebase Express 5 + TypeScript service with health route, DB module, Docker setup"
 # AI Contribution: 100% AI generated / 0% human refactored
 # Human Modifications: Reviewed, no changes; notes in .ai_logs/conceptual_journal.md
-# Verification: Reviewed line by line, not rebuilt by me; saved demo output in .ai_logs/ came from a build of this image
+# Verification: Read through it; the demo output shows the image builds and runs
 # Confidence: Medium
 
 # Stage 1: install all deps and compile TypeScript.

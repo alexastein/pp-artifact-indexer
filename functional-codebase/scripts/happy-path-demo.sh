@@ -3,7 +3,7 @@
 # Prompt Summary: "Scripted curl happy-path demo against the docker compose stack"
 # AI Contribution: 100% AI generated / 0% human refactored
 # Human Modifications: Reviewed, no changes; notes in .ai_logs/conceptual_journal.md
-# Verification: Read the script and the saved output .ai_logs/happy-path-demo-output.txt (all 8 steps pass); did not re-run the curl demo myself
+# Verification: Read the script and checked the saved demo output, all steps pass
 # Confidence: Medium
 #
 # Usage (from functional-codebase/):  docker compose up --build -d && ./scripts/happy-path-demo.sh

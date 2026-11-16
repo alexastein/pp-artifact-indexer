@@ -2,7 +2,7 @@
 // Prompt Summary: "Scaffold functional-codebase Express 5 + TypeScript service with health route, DB module, Docker setup"
 // AI Contribution: 100% AI generated / 0% human refactored
 // Human Modifications: Reviewed, no changes; notes in .ai_logs/conceptual_journal.md
-// Verification: Reviewed; loaded by npm test (7 files / 75 tests pass, real Postgres 16)
+// Verification: Read through it; npm test uses it and passes
 // Confidence: Medium
 
 import { defineConfig } from "vitest/config";

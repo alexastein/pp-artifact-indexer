@@ -2,7 +2,7 @@
 // Prompt Summary: "Scaffold functional-codebase Express 5 + TypeScript service with health route, DB module, Docker setup"
 // AI Contribution: 100% AI generated / 0% human refactored
 // Human Modifications: Reviewed line by line, no code changes (kept naive on purpose); notes in .ai_logs/conceptual_journal.md
-// Verification: Startup path has no test, only read by me (not run); the saved demo output in .ai_logs/happy-path-demo-output.txt shows /health answering. Typecheck passes
+// Verification: Read through it; not run by me, but the demo output shows the server starting
 // Confidence: Medium
 
 import { app } from "./app.js";

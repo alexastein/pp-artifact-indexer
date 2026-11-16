@@ -2,7 +2,7 @@
 // Prompt Summary: "Implement manuscript file upload, download, delete and zip download"
 // AI Contribution: 100% AI generated / 0% human refactored
 // Human Modifications: Reviewed line by line, no code changes (kept naive on purpose); notes in .ai_logs/conceptual_journal.md
-// Verification: tests/manuscript-files.test.ts; human: reviewed line by line, ran npm run typecheck + npm test (7 files / 75 tests pass, real Postgres 16)
+// Verification: Read through it and ran tests/manuscript-files.test.ts, all pass
 // Confidence: Medium
 
 import { createReadStream } from "node:fs";

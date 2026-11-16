@@ -2,7 +2,7 @@
 // Prompt Summary: "Design PostgreSQL schema, migrations, seed script and DB tests for the master spec"
 // AI Contribution: 100% AI generated / 0% human refactored
 // Human Modifications: Read every test line by line, no changes; notes in .ai_logs/conceptual_journal.md
-// Verification: this file (vitest, needs DATABASE_URL); human: ran npm run typecheck + npm test (7 files / 75 tests pass, real Postgres 16)
+// Verification: Read through the tests and ran them, all pass
 // Confidence: Medium
 
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
