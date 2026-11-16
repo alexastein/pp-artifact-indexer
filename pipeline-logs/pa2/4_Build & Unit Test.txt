@@ -1,0 +1,485 @@
+﻿2026-11-16T22:08:23.9089796Z Current runner version: '2.338.2'
+2026-11-16T22:08:23.9115766Z ##[group]Runner Image Provisioner
+2026-11-16T22:08:23.9116817Z Hosted Compute Agent
+2026-11-16T22:08:23.9117411Z Version: 20261103.629
+2026-11-16T22:08:23.9118115Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+2026-11-16T22:08:23.9118894Z Build Date: 2026-11-03T17:26:59Z
+2026-11-16T22:08:23.9119584Z Worker ID: {0ec13917-cadf-46ee-9d5b-6dfcc205cbf9}
+2026-11-16T22:08:23.9120358Z Region: eastus
+2026-11-16T22:08:23.9120898Z Cloud: Azure
+2026-11-16T22:08:23.9121472Z ##[endgroup]
+2026-11-16T22:08:23.9123569Z ##[group]Operating System
+2026-11-16T22:08:23.9124224Z Ubuntu
+2026-11-16T22:08:23.9124884Z 26.04.1
+2026-11-16T22:08:23.9125419Z LTS
+2026-11-16T22:08:23.9126377Z ##[endgroup]
+2026-11-16T22:08:23.9126991Z ##[group]Runner Image
+2026-11-16T22:08:23.9127591Z Image: ubuntu-26.04
+2026-11-16T22:08:23.9128237Z Version: 20261111.196.1
+2026-11-16T22:08:23.9129586Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261111.196/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-16T22:08:23.9131264Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261111.196
+2026-11-16T22:08:23.9132219Z ##[endgroup]
+2026-11-16T22:08:23.9133437Z ##[group]GITHUB_TOKEN Permissions
+2026-11-16T22:08:23.9136014Z Contents: read
+2026-11-16T22:08:23.9136710Z Metadata: read
+2026-11-16T22:08:23.9137269Z ##[endgroup]
+2026-11-16T22:08:23.9139511Z Secret source: Actions
+2026-11-16T22:08:23.9140483Z Cache mode: write
+2026-11-16T22:08:23.9141301Z Prepare workflow directory
+2026-11-16T22:08:23.9595241Z Prepare all required actions
+2026-11-16T22:08:23.9644081Z Getting action download info
+2026-11-16T22:08:24.1483420Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-11-16T22:08:24.2579293Z Download action repository 'actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1' (SHA:949feb2413d6458794dcd2491c4babbbce0c15c1)
+2026-11-16T22:08:24.3218128Z Download action repository 'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+2026-11-16T22:08:24.4914200Z Complete job name: Build & Unit Test
+2026-11-16T22:08:24.5540044Z ##[group]Checking docker version
+2026-11-16T22:08:24.5552814Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2026-11-16T22:08:24.6658454Z '1.54'
+2026-11-16T22:08:24.6672650Z Docker daemon API version: '1.54'
+2026-11-16T22:08:24.6673442Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2026-11-16T22:08:24.6844217Z '1.54'
+2026-11-16T22:08:24.6860639Z Docker client API version: '1.54'
+2026-11-16T22:08:24.6865712Z ##[endgroup]
+2026-11-16T22:08:24.6869132Z ##[group]Clean up resources from previous jobs
+2026-11-16T22:08:24.6875081Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=8d48c9"
+2026-11-16T22:08:24.7034623Z ##[command]/usr/bin/docker network prune --force --filter "label=8d48c9"
+2026-11-16T22:08:24.7181274Z ##[endgroup]
+2026-11-16T22:08:24.7181839Z ##[group]Create local container network
+2026-11-16T22:08:24.7191992Z ##[command]/usr/bin/docker network create --label 8d48c9 github_network_98373f5af5cf4ccd988fdb1f53bbe3f9
+2026-11-16T22:08:24.7646840Z 0c36130f430b14c708e2a12d54f249b5a7e878d9cfcf22f97e7d3203b67fa4b2
+2026-11-16T22:08:24.7671305Z ##[endgroup]
+2026-11-16T22:08:24.7695348Z ##[group]Starting postgres service container
+2026-11-16T22:08:24.7717324Z ##[command]/usr/bin/docker pull postgres:16-alpine
+2026-11-16T22:08:25.0222885Z 16-alpine: Pulling from library/postgres
+2026-11-16T22:08:25.1296757Z b7106f8586ee: Pulling fs layer
+2026-11-16T22:08:25.1297663Z 5788ee6f91dc: Pulling fs layer
+2026-11-16T22:08:25.1298539Z f997efa53d88: Pulling fs layer
+2026-11-16T22:08:25.1299118Z 5959c7ea857a: Pulling fs layer
+2026-11-16T22:08:25.1299890Z 86cc7190d1c0: Pulling fs layer
+2026-11-16T22:08:25.1300606Z 6bceb0db2fd1: Pulling fs layer
+2026-11-16T22:08:25.1301316Z 881fc932939e: Pulling fs layer
+2026-11-16T22:08:25.1301984Z ea98517a315c: Pulling fs layer
+2026-11-16T22:08:25.1303200Z a2d17f5b24d5: Pulling fs layer
+2026-11-16T22:08:25.1303855Z 41713cbe7496: Pulling fs layer
+2026-11-16T22:08:25.1304488Z f85a33377d83: Pulling fs layer
+2026-11-16T22:08:25.1899272Z f997efa53d88: Download complete
+2026-11-16T22:08:25.1902497Z 86cc7190d1c0: Download complete
+2026-11-16T22:08:25.1913455Z 5788ee6f91dc: Download complete
+2026-11-16T22:08:25.1923991Z 6bceb0db2fd1: Download complete
+2026-11-16T22:08:25.1936250Z ea98517a315c: Download complete
+2026-11-16T22:08:25.1944969Z f85a33377d83: Download complete
+2026-11-16T22:08:25.1951142Z 5959c7ea857a: Download complete
+2026-11-16T22:08:25.2894252Z b7106f8586ee: Download complete
+2026-11-16T22:08:25.2897350Z df1cd84c95ef: Download complete
+2026-11-16T22:08:25.2898880Z 41713cbe7496: Download complete
+2026-11-16T22:08:25.2900537Z 89872578f4c5: Download complete
+2026-11-16T22:08:25.2903815Z 881fc932939e: Download complete
+2026-11-16T22:08:25.3928690Z 5788ee6f91dc: Pull complete
+2026-11-16T22:08:25.3985472Z ea98517a315c: Pull complete
+2026-11-16T22:08:25.4020685Z 41713cbe7496: Pull complete
+2026-11-16T22:08:25.4031949Z 881fc932939e: Pull complete
+2026-11-16T22:08:25.4896956Z f997efa53d88: Pull complete
+2026-11-16T22:08:25.8886786Z a2d17f5b24d5: Download complete
+2026-11-16T22:08:27.5884388Z 86cc7190d1c0: Pull complete
+2026-11-16T22:08:27.5903895Z 6bceb0db2fd1: Pull complete
+2026-11-16T22:08:27.5944342Z f85a33377d83: Pull complete
+2026-11-16T22:08:27.5947700Z 5959c7ea857a: Pull complete
+2026-11-16T22:08:27.5962978Z b7106f8586ee: Pull complete
+2026-11-16T22:08:27.5979097Z a2d17f5b24d5: Pull complete
+2026-11-16T22:08:27.5979988Z Digest: sha256:81e77a4833487b8132fe4b00bedd39dc3f74b8641e387f19312a48f7de218c2e
+2026-11-16T22:08:27.5981029Z Status: Downloaded newer image for postgres:16-alpine
+2026-11-16T22:08:27.5987689Z docker.io/library/postgres:16-alpine
+2026-11-16T22:08:27.6085115Z ##[command]/usr/bin/docker create --name 4359ae2c8fc34ee08ab8d1590dcd5c3d_postgres16alpine_bf178a --label 8d48c9 --network github_network_98373f5af5cf4ccd988fdb1f53bbe3f9 --network-alias postgres -p 5432:5432 --health-cmd "pg_isready -U pp_user -d pp_indexer" --health-interval 5s --health-timeout 3s --health-retries 10 -e "POSTGRES_USER=pp_user" -e "POSTGRES_PASSWORD=pp_password" -e "POSTGRES_DB=pp_indexer" -e GITHUB_ACTIONS=true -e CI=true postgres:16-alpine
+2026-11-16T22:08:28.2427329Z 5911bf5bf2bdf9089746aeb1fed59649aa91a72635cdb71ec65d96b481e240bd
+2026-11-16T22:08:28.2454281Z ##[command]/usr/bin/docker start 5911bf5bf2bdf9089746aeb1fed59649aa91a72635cdb71ec65d96b481e240bd
+2026-11-16T22:08:28.4700013Z 5911bf5bf2bdf9089746aeb1fed59649aa91a72635cdb71ec65d96b481e240bd
+2026-11-16T22:08:28.4734908Z ##[command]/usr/bin/docker ps --all --filter id=5911bf5bf2bdf9089746aeb1fed59649aa91a72635cdb71ec65d96b481e240bd --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-11-16T22:08:28.5038532Z 5911bf5bf2bdf9089746aeb1fed59649aa91a72635cdb71ec65d96b481e240bd Up Less than a second (health: starting)
+2026-11-16T22:08:28.5072510Z ##[command]/usr/bin/docker port 5911bf5bf2bdf9089746aeb1fed59649aa91a72635cdb71ec65d96b481e240bd
+2026-11-16T22:08:28.5233054Z 5432/tcp -> 0.0.0.0:5432
+2026-11-16T22:08:28.5253176Z 5432/tcp -> [::]:5432
+2026-11-16T22:08:28.5288590Z ##[endgroup]
+2026-11-16T22:08:28.5297487Z ##[group]Waiting for all services to be ready
+2026-11-16T22:08:28.5310998Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 5911bf5bf2bdf9089746aeb1fed59649aa91a72635cdb71ec65d96b481e240bd
+2026-11-16T22:08:28.5469066Z starting
+2026-11-16T22:08:28.5502456Z postgres service is starting, waiting 2 seconds before checking again.
+2026-11-16T22:08:30.5505863Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 5911bf5bf2bdf9089746aeb1fed59649aa91a72635cdb71ec65d96b481e240bd
+2026-11-16T22:08:30.5645751Z starting
+2026-11-16T22:08:30.5661368Z postgres service is starting, waiting 4 seconds before checking again.
+2026-11-16T22:08:34.7022822Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 5911bf5bf2bdf9089746aeb1fed59649aa91a72635cdb71ec65d96b481e240bd
+2026-11-16T22:08:34.7165853Z healthy
+2026-11-16T22:08:34.7186772Z postgres service is healthy.
+2026-11-16T22:08:34.7187543Z ##[endgroup]
+2026-11-16T22:08:34.7558791Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-11-16T22:08:34.7559485Z with:
+2026-11-16T22:08:34.7559733Z   repository: alexastein/pp-artifact-indexer
+2026-11-16T22:08:34.7562519Z   token: ***
+2026-11-16T22:08:34.7562725Z   ssh-strict: true
+2026-11-16T22:08:34.7562924Z   ssh-user: git
+2026-11-16T22:08:34.7563135Z   persist-credentials: true
+2026-11-16T22:08:34.7563374Z   clean: true
+2026-11-16T22:08:34.7563581Z   sparse-checkout-cone-mode: true
+2026-11-16T22:08:34.7563831Z   fetch-depth: 1
+2026-11-16T22:08:34.7564024Z   fetch-tags: false
+2026-11-16T22:08:34.7564223Z   show-progress: true
+2026-11-16T22:08:34.7564430Z   lfs: false
+2026-11-16T22:08:34.7564634Z   submodules: false
+2026-11-16T22:08:34.7564840Z   set-safe-directory: true
+2026-11-16T22:08:34.7565093Z   allow-unsafe-pr-checkout: false
+2026-11-16T22:08:34.7565713Z env:
+2026-11-16T22:08:34.7565932Z   NODE_VERSION: 22
+2026-11-16T22:08:34.7566155Z   IMAGE_NAME: pp-artifact-indexer
+2026-11-16T22:08:34.7566665Z   DATABASE_URL: ***localhost:5432/pp_indexer
+2026-11-16T22:08:34.7566949Z ##[endgroup]
+2026-11-16T22:08:35.0718704Z Syncing repository: alexastein/pp-artifact-indexer
+2026-11-16T22:08:35.0720199Z ##[group]Getting Git version info
+2026-11-16T22:08:35.0720692Z Working directory is '/home/runner/work/pp-artifact-indexer/pp-artifact-indexer'
+2026-11-16T22:08:35.0721339Z [command]/usr/bin/git version
+2026-11-16T22:08:35.0797829Z git version 2.56.1
+2026-11-16T22:08:35.0820051Z ##[endgroup]
+2026-11-16T22:08:35.0831665Z Temporarily overriding HOME='/home/runner/work/_temp/4e712075-7bb9-4940-aa7a-5ce0d943fbb0' before making global git config changes
+2026-11-16T22:08:35.0833077Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-16T22:08:35.0838160Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/pp-artifact-indexer/pp-artifact-indexer
+2026-11-16T22:08:35.0917962Z Deleting the contents of '/home/runner/work/pp-artifact-indexer/pp-artifact-indexer'
+2026-11-16T22:08:35.0920386Z ##[group]Determining repository object format
+2026-11-16T22:08:35.0921858Z ##[endgroup]
+2026-11-16T22:08:35.0922473Z ##[group]Initializing the repository
+2026-11-16T22:08:35.0926109Z [command]/usr/bin/git init /home/runner/work/pp-artifact-indexer/pp-artifact-indexer
+2026-11-16T22:08:35.1066606Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-16T22:08:35.1067231Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-16T22:08:35.1067819Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-16T22:08:35.1068225Z hint: call:
+2026-11-16T22:08:35.1068412Z hint:
+2026-11-16T22:08:35.1068772Z hint: 	git config --global init.defaultBranch <name>
+2026-11-16T22:08:35.1069091Z hint:
+2026-11-16T22:08:35.1069507Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-16T22:08:35.1070268Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-16T22:08:35.1070649Z hint:
+2026-11-16T22:08:35.1070844Z hint: 	git branch -m <name>
+2026-11-16T22:08:35.1071075Z hint:
+2026-11-16T22:08:35.1071394Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-16T22:08:35.1082073Z Initialized empty Git repository in /home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git/
+2026-11-16T22:08:35.1093801Z [command]/usr/bin/git remote add origin https://github.com/alexastein/pp-artifact-indexer
+2026-11-16T22:08:35.1159367Z ##[endgroup]
+2026-11-16T22:08:35.1160026Z ##[group]Disabling automatic garbage collection
+2026-11-16T22:08:35.1162599Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-16T22:08:35.1198951Z ##[endgroup]
+2026-11-16T22:08:35.1200144Z ##[group]Setting up auth
+2026-11-16T22:08:35.1200707Z Removing SSH command configuration
+2026-11-16T22:08:35.1205326Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-16T22:08:35.1247561Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-16T22:08:35.1736239Z Removing HTTP extra header
+2026-11-16T22:08:35.1741839Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-16T22:08:35.1775491Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-16T22:08:35.2041703Z Removing includeIf entries pointing to credentials config files
+2026-11-16T22:08:35.2048507Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-16T22:08:35.2082096Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-16T22:08:35.2351561Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-ae60305f-6e7d-47d6-8d16-0cfc508e9feb.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-16T22:08:35.2389481Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git.path /home/runner/work/_temp/git-credentials-ae60305f-6e7d-47d6-8d16-0cfc508e9feb.config
+2026-11-16T22:08:35.2422555Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-ae60305f-6e7d-47d6-8d16-0cfc508e9feb.config
+2026-11-16T22:08:35.2464310Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-ae60305f-6e7d-47d6-8d16-0cfc508e9feb.config
+2026-11-16T22:08:35.2497664Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-ae60305f-6e7d-47d6-8d16-0cfc508e9feb.config
+2026-11-16T22:08:35.2526429Z ##[endgroup]
+2026-11-16T22:08:35.2526839Z ##[group]Fetching the repository
+2026-11-16T22:08:35.2534147Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +885a631b7030936ef1d5aed1530bd909f088f367:refs/remotes/pull/1/merge
+2026-11-16T22:08:35.5089745Z From https://github.com/alexastein/pp-artifact-indexer
+2026-11-16T22:08:35.5091089Z  * [new ref]         885a631b7030936ef1d5aed1530bd909f088f367 -> pull/1/merge
+2026-11-16T22:08:35.5096645Z ##[endgroup]
+2026-11-16T22:08:35.5097502Z ##[group]Determining the checkout info
+2026-11-16T22:08:35.5098391Z ##[endgroup]
+2026-11-16T22:08:35.5104320Z [command]/usr/bin/git sparse-checkout disable
+2026-11-16T22:08:35.5169622Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-16T22:08:35.5205346Z ##[group]Checking out the ref
+2026-11-16T22:08:35.5211204Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/1/merge
+2026-11-16T22:08:35.5403691Z Note: switching to 'refs/remotes/pull/1/merge'.
+2026-11-16T22:08:35.5404123Z 
+2026-11-16T22:08:35.5404468Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-11-16T22:08:35.5405478Z changes and commit them, and you can discard any commits you make in this
+2026-11-16T22:08:35.5406577Z state without impacting any branches by switching back to a branch.
+2026-11-16T22:08:35.5407107Z 
+2026-11-16T22:08:35.5407473Z If you want to create a new branch to retain commits you create, you may
+2026-11-16T22:08:35.5408235Z do so (now or later) by using -c with the switch command. Example:
+2026-11-16T22:08:35.5408708Z 
+2026-11-16T22:08:35.5408883Z   git switch -c <new-branch-name>
+2026-11-16T22:08:35.5409178Z 
+2026-11-16T22:08:35.5409618Z Or undo this operation with:
+2026-11-16T22:08:35.5409894Z 
+2026-11-16T22:08:35.5410036Z   git switch -
+2026-11-16T22:08:35.5410271Z 
+2026-11-16T22:08:35.5410634Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-11-16T22:08:35.5411136Z 
+2026-11-16T22:08:35.5411706Z HEAD is now at 885a631 Merge 8ee0608691c5e33ee6274946c79c3ad791753c08 into f39981e8d8fe405223e655ceab6da5b8d95e7421
+2026-11-16T22:08:35.5429037Z ##[endgroup]
+2026-11-16T22:08:35.5479056Z [command]/usr/bin/git log -1 --format=%H
+2026-11-16T22:08:35.5505173Z 885a631b7030936ef1d5aed1530bd909f088f367
+2026-11-16T22:08:35.5778294Z ##[group]Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+2026-11-16T22:08:35.5778700Z with:
+2026-11-16T22:08:35.5778893Z   node-version: 22
+2026-11-16T22:08:35.5779099Z   cache: npm
+2026-11-16T22:08:35.5779381Z   cache-dependency-path: functional-codebase/package-lock.json
+2026-11-16T22:08:35.5779776Z   check-latest: false
+2026-11-16T22:08:35.5782470Z   token: ***
+2026-11-16T22:08:35.5782684Z   package-manager-cache: true
+2026-11-16T22:08:35.5782919Z env:
+2026-11-16T22:08:35.5783093Z   NODE_VERSION: 22
+2026-11-16T22:08:35.5783316Z   IMAGE_NAME: pp-artifact-indexer
+2026-11-16T22:08:35.5783741Z   DATABASE_URL: ***localhost:5432/pp_indexer
+2026-11-16T22:08:35.5784007Z ##[endgroup]
+2026-11-16T22:08:35.7104628Z Found in cache @ /opt/hostedtoolcache/node/22.23.4/x64
+2026-11-16T22:08:35.8336378Z ##[group]Environment details
+2026-11-16T22:08:36.1876088Z node: v22.23.4
+2026-11-16T22:08:36.1876495Z npm: 10.9.9
+2026-11-16T22:08:36.1876707Z yarn: 1.22.22
+2026-11-16T22:08:36.1877903Z ##[endgroup]
+2026-11-16T22:08:36.1893706Z [command]/opt/hostedtoolcache/node/22.23.4/x64/bin/npm config get cache
+2026-11-16T22:08:36.3045176Z /home/runner/.npm
+2026-11-16T22:08:36.3856512Z npm cache is not found
+2026-11-16T22:08:36.4000151Z ##[group]Run npm ci
+2026-11-16T22:08:36.4000436Z [36;1mnpm ci[0m
+2026-11-16T22:08:36.4062543Z shell: /usr/bin/bash -e {0}
+2026-11-16T22:08:36.4062830Z env:
+2026-11-16T22:08:36.4063033Z   NODE_VERSION: 22
+2026-11-16T22:08:36.4063285Z   IMAGE_NAME: pp-artifact-indexer
+2026-11-16T22:08:36.4063845Z   DATABASE_URL: ***localhost:5432/pp_indexer
+2026-11-16T22:08:36.4064162Z ##[endgroup]
+2026-11-16T22:08:39.6040348Z 
+2026-11-16T22:08:39.6048988Z added 180 packages, and audited 181 packages in 3s
+2026-11-16T22:08:39.6049623Z 
+2026-11-16T22:08:39.6050039Z 50 packages are looking for funding
+2026-11-16T22:08:39.6050700Z   run `npm fund` for details
+2026-11-16T22:08:39.6051109Z 
+2026-11-16T22:08:39.6051370Z found 0 vulnerabilities
+2026-11-16T22:08:39.6584425Z ##[group]Run npm run typecheck
+2026-11-16T22:08:39.6584772Z [36;1mnpm run typecheck[0m
+2026-11-16T22:08:39.6634510Z shell: /usr/bin/bash -e {0}
+2026-11-16T22:08:39.6634760Z env:
+2026-11-16T22:08:39.6634940Z   NODE_VERSION: 22
+2026-11-16T22:08:39.6635162Z   IMAGE_NAME: pp-artifact-indexer
+2026-11-16T22:08:39.6635887Z   DATABASE_URL: ***localhost:5432/pp_indexer
+2026-11-16T22:08:39.6636184Z ##[endgroup]
+2026-11-16T22:08:39.7720053Z 
+2026-11-16T22:08:39.7720868Z > pp-artifact-indexer-service@0.1.0 typecheck
+2026-11-16T22:08:39.7721338Z > tsc --noEmit
+2026-11-16T22:08:39.7721490Z 
+2026-11-16T22:08:40.3187552Z ##[group]Run npm run test:coverage
+2026-11-16T22:08:40.3187895Z [36;1mnpm run test:coverage[0m
+2026-11-16T22:08:40.3237236Z shell: /usr/bin/bash -e {0}
+2026-11-16T22:08:40.3237512Z env:
+2026-11-16T22:08:40.3237713Z   NODE_VERSION: 22
+2026-11-16T22:08:40.3237960Z   IMAGE_NAME: pp-artifact-indexer
+2026-11-16T22:08:40.3238519Z   DATABASE_URL: ***localhost:5432/pp_indexer
+2026-11-16T22:08:40.3238837Z ##[endgroup]
+2026-11-16T22:08:40.4216549Z 
+2026-11-16T22:08:40.4217160Z > pp-artifact-indexer-service@0.1.0 test:coverage
+2026-11-16T22:08:40.4217853Z > vitest run --coverage
+2026-11-16T22:08:40.4218131Z 
+2026-11-16T22:08:40.8550655Z 
+2026-11-16T22:08:40.8555215Z [1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90m/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/functional-codebase[39m
+2026-11-16T22:08:40.8557380Z       [2mCoverage enabled with [22m[33mv8[39m
+2026-11-16T22:08:40.8557975Z 
+2026-11-16T22:08:41.9997664Z [90mstderr[2m | tests/projects.test.ts[2m > [22m[2mDELETE /api/v1/projects/:id[2m > [22m[2mnever deletes files outside the upload folder
+2026-11-16T22:08:41.9999775Z [22m[39mSkipping file outside storage dir: /tmp/pp-outside-UGM50t/keep.txt
+2026-11-16T22:08:42.0000552Z 
+2026-11-16T22:08:42.2154603Z  [32m✓[39m tests/artifacts.test.ts [2m([22m[2m23 tests[22m[2m)[22m[33m 665[2mms[22m[39m
+2026-11-16T22:08:42.3950682Z  [32m✓[39m tests/projects.test.ts [2m([22m[2m22 tests[22m[2m)[22m[33m 839[2mms[22m[39m
+2026-11-16T22:08:42.5091911Z  [32m✓[39m tests/manuscript-files.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 963[2mms[22m[39m
+2026-11-16T22:08:42.7265462Z  [32m✓[39m tests/git-mock.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-11-16T22:08:42.8727638Z  [32m✓[39m tests/migrations.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 374[2mms[22m[39m
+2026-11-16T22:08:42.8938237Z  [32m✓[39m tests/seed.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 245[2mms[22m[39m
+2026-11-16T22:08:43.1762809Z  [32m✓[39m tests/health.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 32[2mms[22m[39m
+2026-11-16T22:08:43.2610150Z 
+2026-11-16T22:08:43.2627375Z [2m Test Files [22m [1m[32m7 passed[39m[22m[90m (7)[39m
+2026-11-16T22:08:43.2628427Z [2m      Tests [22m [1m[32m75 passed[39m[22m[90m (75)[39m
+2026-11-16T22:08:43.2629227Z [2m   Start at [22m 22:08:40
+2026-11-16T22:08:43.2630242Z [2m   Duration [22m 2.40s[2m (tests 62%, import 25%, transform 10%, worker 3%)[22m
+2026-11-16T22:08:43.2636494Z 
+2026-11-16T22:08:43.2658088Z [34m % [39m[2mCoverage report from [22m[33mv8[39m
+2026-11-16T22:08:43.2688323Z -------------------|---------|----------|---------|---------|-------------------
+2026-11-16T22:08:43.2689559Z File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+2026-11-16T22:08:43.2690794Z -------------------|---------|----------|---------|---------|-------------------
+2026-11-16T22:08:43.2697192Z All files          |   90.32 |    82.43 |   94.61 |   90.11 |                   
+2026-11-16T22:08:43.2698015Z  src               |   87.86 |    81.86 |   93.25 |   87.61 |                   
+2026-11-16T22:08:43.2698761Z   app.ts           |     100 |      100 |     100 |     100 |                   
+2026-11-16T22:08:43.2699531Z   ...facts-repo.ts |    91.3 |    95.23 |     100 |   90.47 | ...35-136,170-171 
+2026-11-16T22:08:43.2700294Z   cli.ts           |       0 |        0 |     100 |       0 | 13-30             
+2026-11-16T22:08:43.2700998Z   db.ts            |       0 |        0 |       0 |       0 | 21-43             
+2026-11-16T22:08:43.2701721Z   errors.ts        |   68.42 |    66.66 |   66.66 |   68.42 | 24,31-33,44-45    
+2026-11-16T22:08:43.2702473Z   git-mock.ts      |     100 |      100 |     100 |     100 |                   
+2026-11-16T22:08:43.2703426Z   ...files-repo.ts |   82.35 |     87.5 |     100 |   82.35 | ...,68-69,106-107 
+2026-11-16T22:08:43.2704442Z   migrate.ts       |   89.28 |      100 |      75 |      92 | 48-49             
+2026-11-16T22:08:43.2706157Z   projects-repo.ts |     100 |    96.15 |     100 |     100 | 173               
+2026-11-16T22:08:43.2707023Z   seed.ts          |   89.36 |     62.5 |     100 |   90.47 | 40-42,115-116     
+2026-11-16T22:08:43.2707776Z   server.ts        |       0 |        0 |       0 |       0 | 13-23             
+2026-11-16T22:08:43.2708548Z   storage.ts       |   96.15 |     90.9 |     100 |      96 | 55                
+2026-11-16T22:08:43.2709988Z   validation.ts    |   98.87 |    98.41 |     100 |   98.73 | 118               
+2026-11-16T22:08:43.2710867Z   zip.ts           |   93.54 |    69.23 |     100 |     100 | 17-41,56          
+2026-11-16T22:08:43.2711612Z  src/routes        |   96.77 |    83.72 |   97.56 |   97.38 |                   
+2026-11-16T22:08:43.2712431Z   artifacts.ts     |     100 |    83.33 |     100 |     100 | 45,72             
+2026-11-16T22:08:43.2714039Z   ...ript-files.ts |   93.81 |       80 |      95 |   94.73 | 42-45,69          
+2026-11-16T22:08:43.2714815Z   params.ts        |     100 |      100 |     100 |     100 |                   
+2026-11-16T22:08:43.2715751Z   projects.ts      |     100 |    85.71 |     100 |     100 | 37,52             
+2026-11-16T22:08:43.2716630Z -------------------|---------|----------|---------|---------|-------------------
+2026-11-16T22:08:43.3355484Z ##[group]Run npm run build
+2026-11-16T22:08:43.3356000Z [36;1mnpm run build[0m
+2026-11-16T22:08:43.3404794Z shell: /usr/bin/bash -e {0}
+2026-11-16T22:08:43.3405038Z env:
+2026-11-16T22:08:43.3405224Z   NODE_VERSION: 22
+2026-11-16T22:08:43.3405446Z   IMAGE_NAME: pp-artifact-indexer
+2026-11-16T22:08:43.3406161Z   DATABASE_URL: ***localhost:5432/pp_indexer
+2026-11-16T22:08:43.3406445Z ##[endgroup]
+2026-11-16T22:08:43.4387270Z 
+2026-11-16T22:08:43.4387787Z > pp-artifact-indexer-service@0.1.0 build
+2026-11-16T22:08:43.4388419Z > tsc -p tsconfig.build.json
+2026-11-16T22:08:43.4388670Z 
+2026-11-16T22:08:44.0067737Z ##[group]Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+2026-11-16T22:08:44.0068170Z with:
+2026-11-16T22:08:44.0068359Z   name: coverage
+2026-11-16T22:08:44.0068592Z   path: functional-codebase/coverage/
+2026-11-16T22:08:44.0068858Z   retention-days: 14
+2026-11-16T22:08:44.0069074Z   if-no-files-found: warn
+2026-11-16T22:08:44.0069306Z   compression-level: 6
+2026-11-16T22:08:44.0069512Z   overwrite: false
+2026-11-16T22:08:44.0069719Z   include-hidden-files: false
+2026-11-16T22:08:44.0069948Z   archive: true
+2026-11-16T22:08:44.0070132Z env:
+2026-11-16T22:08:44.0070304Z   NODE_VERSION: 22
+2026-11-16T22:08:44.0070516Z   IMAGE_NAME: pp-artifact-indexer
+2026-11-16T22:08:44.0071159Z   DATABASE_URL: ***localhost:5432/pp_indexer
+2026-11-16T22:08:44.0071452Z ##[endgroup]
+2026-11-16T22:08:44.1721459Z With the provided path, there will be 63 files uploaded
+2026-11-16T22:08:44.1727190Z Artifact name is valid!
+2026-11-16T22:08:44.1727793Z Root directory input is valid!
+2026-11-16T22:08:44.3723417Z Uploading artifact: coverage.zip
+2026-11-16T22:08:44.3761819Z Beginning upload of artifact content to blob storage
+2026-11-16T22:08:44.5492818Z Uploaded bytes 254177
+2026-11-16T22:08:44.5669843Z Finished uploading artifact content to blob storage!
+2026-11-16T22:08:44.5671154Z SHA256 digest of uploaded artifact is 81ecc8e0fb844aca364922a1c59da1c48e2ae336c15a712df614ad0cee3fae6b
+2026-11-16T22:08:44.5671901Z Finalizing artifact upload
+2026-11-16T22:08:44.9468195Z Artifact coverage successfully finalized. Artifact ID 14277721657
+2026-11-16T22:08:44.9469515Z Artifact coverage has been successfully uploaded! Final size is 254177 bytes. Artifact ID is 14277721657
+2026-11-16T22:08:44.9472676Z Artifact download URL: https://github.com/alexastein/pp-artifact-indexer/actions/runs/43967075590/artifacts/14277721657
+2026-11-16T22:08:44.9663452Z Post job cleanup.
+2026-11-16T22:08:45.1027332Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/pp-artifact-indexer/pp-artifact-indexer --files-from manifest.txt --use-compress-program zstdmt
+2026-11-16T22:08:46.2943525Z Sent 25296896 of 47387463 (53.4%), 24.1 MBs/sec
+2026-11-16T22:08:46.9239349Z Sent 47387463 of 47387463 (100.0%), 27.7 MBs/sec
+2026-11-16T22:08:47.0008815Z Cache saved with the key: node-cache-Linux-x64-npm-206c37eecf72b4eaf76f625ac067c6d6c6b0676dc019eb9600690ca69bfd6dfa
+2026-11-16T22:08:47.0201808Z Post job cleanup.
+2026-11-16T22:08:47.1105886Z [command]/usr/bin/git version
+2026-11-16T22:08:47.1154505Z git version 2.56.1
+2026-11-16T22:08:47.1192496Z Temporarily overriding HOME='/home/runner/work/_temp/3a1ef45b-8435-4b56-b7bc-a68f9bf03f0c' before making global git config changes
+2026-11-16T22:08:47.1194075Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-16T22:08:47.1198051Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/pp-artifact-indexer/pp-artifact-indexer
+2026-11-16T22:08:47.1236412Z Removing SSH command configuration
+2026-11-16T22:08:47.1243168Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-16T22:08:47.1307512Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-16T22:08:47.1620459Z Removing HTTP extra header
+2026-11-16T22:08:47.1626392Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-16T22:08:47.1670149Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-16T22:08:47.1988047Z Removing includeIf entries pointing to credentials config files
+2026-11-16T22:08:47.1991709Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-16T22:08:47.2017574Z includeif.gitdir:/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git.path
+2026-11-16T22:08:47.2018684Z includeif.gitdir:/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git/worktrees/*.path
+2026-11-16T22:08:47.2019298Z includeif.gitdir:/github/workspace/.git.path
+2026-11-16T22:08:47.2019759Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-16T22:08:47.2026686Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git.path
+2026-11-16T22:08:47.2050893Z /home/runner/work/_temp/git-credentials-ae60305f-6e7d-47d6-8d16-0cfc508e9feb.config
+2026-11-16T22:08:47.2061560Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-ae60305f\-6e7d\-47d6\-8d16\-0cfc508e9feb\.config
+2026-11-16T22:08:47.2100002Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git/worktrees/*.path
+2026-11-16T22:08:47.2124308Z /home/runner/work/_temp/git-credentials-ae60305f-6e7d-47d6-8d16-0cfc508e9feb.config
+2026-11-16T22:08:47.2133532Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-ae60305f\-6e7d\-47d6\-8d16\-0cfc508e9feb\.config
+2026-11-16T22:08:47.2174974Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-16T22:08:47.2199920Z /github/runner_temp/git-credentials-ae60305f-6e7d-47d6-8d16-0cfc508e9feb.config
+2026-11-16T22:08:47.2209150Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-ae60305f\-6e7d\-47d6\-8d16\-0cfc508e9feb\.config
+2026-11-16T22:08:47.2243179Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-16T22:08:47.2267402Z /github/runner_temp/git-credentials-ae60305f-6e7d-47d6-8d16-0cfc508e9feb.config
+2026-11-16T22:08:47.2276981Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-ae60305f\-6e7d\-47d6\-8d16\-0cfc508e9feb\.config
+2026-11-16T22:08:47.2315127Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-16T22:08:47.2606752Z Removing credentials config '/home/runner/work/_temp/git-credentials-ae60305f-6e7d-47d6-8d16-0cfc508e9feb.config'
+2026-11-16T22:08:47.2735358Z Print service container logs: 4359ae2c8fc34ee08ab8d1590dcd5c3d_postgres16alpine_bf178a
+2026-11-16T22:08:47.2740043Z ##[command]/usr/bin/docker logs --details 5911bf5bf2bdf9089746aeb1fed59649aa91a72635cdb71ec65d96b481e240bd
+2026-11-16T22:08:47.2885493Z  The files belonging to this database system will be owned by user "postgres".
+2026-11-16T22:08:47.2902096Z  sh: locale: not found
+2026-11-16T22:08:47.2903273Z  2026-11-16 22:08:28.922 UTC [35] WARNING:  no usable system locales were found
+2026-11-16T22:08:47.2903822Z  initdb: warning: enabling "trust" authentication for local connections
+2026-11-16T22:08:47.2904882Z  initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+2026-11-16T22:08:47.2906064Z  2026-11-16 22:08:29.760 UTC [1] LOG:  starting PostgreSQL 16.16 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-11-16T22:08:47.2906794Z  2026-11-16 22:08:29.760 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2026-11-16T22:08:47.2907303Z  2026-11-16 22:08:29.760 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2026-11-16T22:08:47.2907853Z  2026-11-16 22:08:29.761 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-11-16T22:08:47.2908427Z  2026-11-16 22:08:29.764 UTC [57] LOG:  database system was shut down at 2026-11-16 22:08:29 UTC
+2026-11-16T22:08:47.2908955Z  2026-11-16 22:08:29.769 UTC [1] LOG:  database system is ready to accept connections
+2026-11-16T22:08:47.2909616Z  2026-11-16 22:08:42.635 UTC [86] ERROR:  new row for relation "project_members" violates check constraint "project_members_role_check"
+2026-11-16T22:08:47.2910541Z  2026-11-16 22:08:42.635 UTC [86] DETAIL:  Failing row contains (e80caf49-08f0-481b-8e74-03f1b3438737, 1a0eb394-042e-40dd-9948-a076dde420b9, A, e@x.edu, janitor).
+2026-11-16T22:08:47.2911484Z  2026-11-16 22:08:42.635 UTC [86] STATEMENT:  INSERT INTO project_members (project_id, member_name, email, role) VALUES ($1,'A',$2,$3)
+2026-11-16T22:08:47.2912325Z  2026-11-16 22:08:42.648 UTC [87] ERROR:  duplicate key value violates unique constraint "project_members_project_id_email_key"
+2026-11-16T22:08:47.2913111Z  2026-11-16 22:08:42.648 UTC [87] DETAIL:  Key (project_id, email)=(1a0eb394-042e-40dd-9948-a076dde420b9, a@x.edu) already exists.
+2026-11-16T22:08:47.2913911Z  2026-11-16 22:08:42.648 UTC [87] STATEMENT:  INSERT INTO project_members (project_id, member_name, email, role) VALUES ($1,'A',$2,$3)
+2026-11-16T22:08:47.2914826Z  2026-11-16 22:08:42.675 UTC [89] ERROR:  insert or update on table "project_academic_units" violates foreign key constraint "project_academic_units_unit_id_fkey"
+2026-11-16T22:08:47.2915803Z  2026-11-16 22:08:42.675 UTC [89] DETAIL:  Key (unit_id)=(nope) is not present in table "academic_units".
+2026-11-16T22:08:47.2916417Z  2026-11-16 22:08:42.675 UTC [89] STATEMENT:  INSERT INTO project_academic_units VALUES ($1,'nope')
+2026-11-16T22:08:47.2917148Z  2026-11-16 22:08:42.688 UTC [91] ERROR:  new row for relation "academic_units" violates check constraint "academic_units_unit_type_check"
+2026-11-16T22:08:47.2917866Z  2026-11-16 22:08:42.688 UTC [91] DETAIL:  Failing row contains (z, building, null, Z, null, null, null).
+2026-11-16T22:08:47.2918538Z  2026-11-16 22:08:42.688 UTC [91] STATEMENT:  INSERT INTO academic_units (id, unit_type, name) VALUES ('z','building','Z')
+2026-11-16T22:08:47.2919367Z  2026-11-16 22:08:42.715 UTC [92] ERROR:  insert or update on table "videos" violates foreign key constraint "videos_artifact_id_artifact_type_fkey"
+2026-11-16T22:08:47.2920328Z  2026-11-16 22:08:42.715 UTC [92] DETAIL:  Key (artifact_id, artifact_type)=(48bd85d7-5624-4375-bfc5-d35c2886b6e1, videos) is not present in table "artifacts".
+2026-11-16T22:08:47.2921181Z  2026-11-16 22:08:42.715 UTC [92] STATEMENT:  INSERT INTO videos (artifact_id, video_url) VALUES ($1,'http://x')
+2026-11-16T22:08:47.2922189Z  2026-11-16 22:08:42.733 UTC [93] ERROR:  new row for relation "manuscripts" violates check constraint "manuscripts_file_all_or_none"
+2026-11-16T22:08:47.2923149Z  2026-11-16 22:08:42.733 UTC [93] DETAIL:  Failing row contains (d664e28c-61d6-4597-bdfb-9b8f944603c1, manuscripts, No file, , {}, {}, null, null, /x, null, null, null).
+2026-11-16T22:08:47.2924343Z  2026-11-16 22:08:42.733 UTC [93] STATEMENT:  UPDATE manuscripts SET stored_file_path='/x' WHERE artifact_id=$1
+2026-11-16T22:08:47.2925365Z  2026-11-16 22:08:42.745 UTC [94] ERROR:  new row for relation "manuscripts" violates check constraint "manuscripts_file_sha256_check"
+2026-11-16T22:08:47.2926526Z  2026-11-16 22:08:42.745 UTC [94] DETAIL:  Failing row contains (d664e28c-61d6-4597-bdfb-9b8f944603c1, manuscripts, No file, , {}, {}, null, null, /x, x, 1, XYZ).
+2026-11-16T22:08:47.2927559Z  2026-11-16 22:08:42.745 UTC [94] STATEMENT:  UPDATE manuscripts SET stored_file_path='/x', original_file_name='x', file_size_bytes=1, file_sha256='XYZ' WHERE artifact_id=$1
+2026-11-16T22:08:47.2928258Z  This user must also own the server process.
+2026-11-16T22:08:47.2928545Z  
+2026-11-16T22:08:47.2928840Z  The database cluster will be initialized with locale "en_US.utf8".
+2026-11-16T22:08:47.2929288Z  The default database encoding has accordingly been set to "UTF8".
+2026-11-16T22:08:47.2929724Z  The default text search configuration will be set to "english".
+2026-11-16T22:08:47.2930049Z  
+2026-11-16T22:08:47.2930250Z  Data page checksums are disabled.
+2026-11-16T22:08:47.2930509Z  
+2026-11-16T22:08:47.2930801Z  fixing permissions on existing directory /var/lib/postgresql/data ... ok
+2026-11-16T22:08:47.2931201Z  creating subdirectories ... ok
+2026-11-16T22:08:47.2931625Z  selecting dynamic shared memory implementation ... posix
+2026-11-16T22:08:47.2931989Z  selecting default max_connections ... 100
+2026-11-16T22:08:47.2932306Z  selecting default shared_buffers ... 128MB
+2026-11-16T22:08:47.2932608Z  selecting default time zone ... UTC
+2026-11-16T22:08:47.2932885Z  creating configuration files ... ok
+2026-11-16T22:08:47.2933165Z  running bootstrap script ... ok
+2026-11-16T22:08:47.2933475Z  performing post-bootstrap initialization ... ok
+2026-11-16T22:08:47.2933794Z  syncing data to disk ... ok
+2026-11-16T22:08:47.2934035Z  
+2026-11-16T22:08:47.2934210Z  
+2026-11-16T22:08:47.2934448Z  Success. You can now start the database server using:
+2026-11-16T22:08:47.2934755Z  
+2026-11-16T22:08:47.2934994Z      pg_ctl -D /var/lib/postgresql/data -l logfile start
+2026-11-16T22:08:47.2935303Z  
+2026-11-16T22:08:47.2936162Z  waiting for server to start....2026-11-16 22:08:29.492 UTC [41] LOG:  starting PostgreSQL 16.16 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-11-16T22:08:47.2936978Z  2026-11-16 22:08:29.493 UTC [41] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-11-16T22:08:47.2937545Z  2026-11-16 22:08:29.496 UTC [44] LOG:  database system was shut down at 2026-11-16 22:08:29 UTC
+2026-11-16T22:08:47.2938052Z  2026-11-16 22:08:29.500 UTC [41] LOG:  database system is ready to accept connections
+2026-11-16T22:08:47.2938443Z   done
+2026-11-16T22:08:47.2938634Z  server started
+2026-11-16T22:08:47.2938868Z  CREATE DATABASE
+2026-11-16T22:08:47.2939064Z  
+2026-11-16T22:08:47.2939243Z  
+2026-11-16T22:08:47.2939567Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+2026-11-16T22:08:47.2939976Z  
+2026-11-16T22:08:47.2940351Z  waiting for server to shut down....2026-11-16 22:08:29.640 UTC [41] LOG:  received fast shutdown request
+2026-11-16T22:08:47.2940893Z  2026-11-16 22:08:29.641 UTC [41] LOG:  aborting any active transactions
+2026-11-16T22:08:47.2941480Z  2026-11-16 22:08:29.644 UTC [41] LOG:  background worker "logical replication launcher" (PID 47) exited with exit code 1
+2026-11-16T22:08:47.2942022Z  2026-11-16 22:08:29.644 UTC [42] LOG:  shutting down
+2026-11-16T22:08:47.2942418Z  2026-11-16 22:08:29.645 UTC [42] LOG:  checkpoint starting: shutdown immediate
+2026-11-16T22:08:47.2943685Z  2026-11-16 22:08:29.662 UTC [42] LOG:  checkpoint complete: wrote 935 buffers (5.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.014 s, sync=0.002 s, total=0.018 s; sync files=301, longest=0.001 s, average=0.001 s; distance=4355 kB, estimate=4355 kB; lsn=0/1949CE8, redo lsn=0/1949CE8
+2026-11-16T22:08:47.2944773Z  2026-11-16 22:08:29.669 UTC [41] LOG:  database system is shut down
+2026-11-16T22:08:47.2945102Z   done
+2026-11-16T22:08:47.2945293Z  server stopped
+2026-11-16T22:08:47.2945489Z  
+2026-11-16T22:08:47.2946122Z  PostgreSQL init process complete; ready for start up.
+2026-11-16T22:08:47.2946437Z  
+2026-11-16T22:08:47.2952300Z Stop and remove container: 4359ae2c8fc34ee08ab8d1590dcd5c3d_postgres16alpine_bf178a
+2026-11-16T22:08:47.2958042Z ##[command]/usr/bin/docker rm --force 5911bf5bf2bdf9089746aeb1fed59649aa91a72635cdb71ec65d96b481e240bd
+2026-11-16T22:08:47.5013763Z 5911bf5bf2bdf9089746aeb1fed59649aa91a72635cdb71ec65d96b481e240bd
+2026-11-16T22:08:47.5044376Z Remove container network: github_network_98373f5af5cf4ccd988fdb1f53bbe3f9
+2026-11-16T22:08:47.5049337Z ##[command]/usr/bin/docker network rm github_network_98373f5af5cf4ccd988fdb1f53bbe3f9
+2026-11-16T22:08:47.5651445Z github_network_98373f5af5cf4ccd988fdb1f53bbe3f9
+2026-11-16T22:08:47.5733089Z Cleaning up orphan processes

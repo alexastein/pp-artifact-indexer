@@ -1,0 +1,266 @@
+﻿2026-11-16T22:08:52.2092038Z Current runner version: '2.338.2'
+2026-11-16T22:08:52.2111116Z ##[group]Runner Image Provisioner
+2026-11-16T22:08:52.2111783Z Hosted Compute Agent
+2026-11-16T22:08:52.2112232Z Version: 20261103.629
+2026-11-16T22:08:52.2112745Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+2026-11-16T22:08:52.2113271Z Build Date: 2026-11-03T17:26:59Z
+2026-11-16T22:08:52.2113793Z Worker ID: {8389c8f9-4dca-48e0-bfe7-418b76fef419}
+2026-11-16T22:08:52.2114299Z Region: us-west-2
+2026-11-16T22:08:52.2114685Z Cloud: AWS
+2026-11-16T22:08:52.2115086Z ##[endgroup]
+2026-11-16T22:08:52.2116273Z ##[group]Operating System
+2026-11-16T22:08:52.2116827Z Ubuntu
+2026-11-16T22:08:52.2117198Z 26.04.1
+2026-11-16T22:08:52.2117549Z LTS
+2026-11-16T22:08:52.2117933Z ##[endgroup]
+2026-11-16T22:08:52.2118322Z ##[group]Runner Image
+2026-11-16T22:08:52.2118809Z Image: ubuntu-26.04
+2026-11-16T22:08:52.2119213Z Version: 20261111.82.6
+2026-11-16T22:08:52.2120325Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261111.82/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-16T22:08:52.2121439Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261111.82
+2026-11-16T22:08:52.2122150Z ##[endgroup]
+2026-11-16T22:08:52.2122996Z ##[group]GITHUB_TOKEN Permissions
+2026-11-16T22:08:52.2124617Z Contents: read
+2026-11-16T22:08:52.2125014Z Metadata: read
+2026-11-16T22:08:52.2125404Z ##[endgroup]
+2026-11-16T22:08:52.2126950Z Secret source: Actions
+2026-11-16T22:08:52.2127561Z Cache mode: write
+2026-11-16T22:08:52.2128098Z Prepare workflow directory
+2026-11-16T22:08:52.2476746Z Prepare all required actions
+2026-11-16T22:08:52.2514685Z Getting action download info
+2026-11-16T22:08:52.5798092Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-11-16T22:08:55.6871293Z Download action repository 'actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333' (SHA:9000827ccba6bdab643e8b6fd33ac0654aef8333)
+2026-11-16T22:08:56.0631791Z Download action repository 'SonarSource/sonarqube-scan-action@4d1dc0c91ee400dcf8a6dddf2f705ac36542e304' (SHA:4d1dc0c91ee400dcf8a6dddf2f705ac36542e304)
+2026-11-16T22:08:56.4891948Z Complete job name: SAST (SonarQube Cloud)
+2026-11-16T22:08:56.5473673Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-11-16T22:08:56.5474261Z with:
+2026-11-16T22:08:56.5474505Z   fetch-depth: 0
+2026-11-16T22:08:56.5474837Z   repository: alexastein/pp-artifact-indexer
+2026-11-16T22:08:56.5476792Z   token: ***
+2026-11-16T22:08:56.5477070Z   ssh-strict: true
+2026-11-16T22:08:56.5477332Z   ssh-user: git
+2026-11-16T22:08:56.5477590Z   persist-credentials: true
+2026-11-16T22:08:56.5477889Z   clean: true
+2026-11-16T22:08:56.5478350Z   sparse-checkout-cone-mode: true
+2026-11-16T22:08:56.5478709Z   fetch-tags: false
+2026-11-16T22:08:56.5478977Z   show-progress: true
+2026-11-16T22:08:56.5479232Z   lfs: false
+2026-11-16T22:08:56.5479503Z   submodules: false
+2026-11-16T22:08:56.5479767Z   set-safe-directory: true
+2026-11-16T22:08:56.5480101Z   allow-unsafe-pr-checkout: false
+2026-11-16T22:08:56.5480800Z env:
+2026-11-16T22:08:56.5481037Z   NODE_VERSION: 22
+2026-11-16T22:08:56.5481339Z   IMAGE_NAME: pp-artifact-indexer
+2026-11-16T22:08:56.5481833Z   SONAR_TOKEN: ***
+2026-11-16T22:08:56.5482112Z ##[endgroup]
+2026-11-16T22:09:01.3657643Z Syncing repository: alexastein/pp-artifact-indexer
+2026-11-16T22:09:01.3659031Z ##[group]Getting Git version info
+2026-11-16T22:09:01.3659732Z Working directory is '/home/runner/work/pp-artifact-indexer/pp-artifact-indexer'
+2026-11-16T22:09:01.3660662Z [command]/usr/bin/git version
+2026-11-16T22:09:01.3660968Z git version 2.56.1
+2026-11-16T22:09:01.3670732Z ##[endgroup]
+2026-11-16T22:09:01.3677927Z Temporarily overriding HOME='/home/runner/work/_temp/4c53fa9d-f2c5-4486-a7fd-4f62da334688' before making global git config changes
+2026-11-16T22:09:01.3678653Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-16T22:09:01.3682342Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/pp-artifact-indexer/pp-artifact-indexer
+2026-11-16T22:09:01.4095132Z Deleting the contents of '/home/runner/work/pp-artifact-indexer/pp-artifact-indexer'
+2026-11-16T22:09:01.4111718Z ##[group]Determining repository object format
+2026-11-16T22:09:01.4112261Z ##[endgroup]
+2026-11-16T22:09:01.4112627Z ##[group]Initializing the repository
+2026-11-16T22:09:01.4113115Z [command]/usr/bin/git init /home/runner/work/pp-artifact-indexer/pp-artifact-indexer
+2026-11-16T22:09:01.5168296Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-16T22:09:01.5168765Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-16T22:09:01.5169135Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-16T22:09:01.5169405Z hint: call:
+2026-11-16T22:09:01.5169549Z hint:
+2026-11-16T22:09:01.5169785Z hint: 	git config --global init.defaultBranch <name>
+2026-11-16T22:09:01.5170014Z hint:
+2026-11-16T22:09:01.5170513Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-16T22:09:01.5170969Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-16T22:09:01.5171321Z hint:
+2026-11-16T22:09:01.5171512Z hint: 	git branch -m <name>
+2026-11-16T22:09:01.5171685Z hint:
+2026-11-16T22:09:01.5171936Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-16T22:09:01.5188898Z Initialized empty Git repository in /home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git/
+2026-11-16T22:09:01.5198181Z [command]/usr/bin/git remote add origin https://github.com/alexastein/pp-artifact-indexer
+2026-11-16T22:09:01.5257708Z ##[endgroup]
+2026-11-16T22:09:01.5258178Z ##[group]Disabling automatic garbage collection
+2026-11-16T22:09:01.5261077Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-16T22:09:01.5284751Z ##[endgroup]
+2026-11-16T22:09:01.5285229Z ##[group]Setting up auth
+2026-11-16T22:09:01.5285600Z Removing SSH command configuration
+2026-11-16T22:09:01.5289668Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-16T22:09:01.5313582Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-16T22:09:01.9238222Z Removing HTTP extra header
+2026-11-16T22:09:01.9243097Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-16T22:09:01.9272817Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-16T22:09:01.9453591Z Removing includeIf entries pointing to credentials config files
+2026-11-16T22:09:01.9457949Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-16T22:09:01.9485806Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-16T22:09:01.9675525Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-24c65671-15bb-43b8-aca3-3f6f85fc41eb.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-16T22:09:01.9703833Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git.path /home/runner/work/_temp/git-credentials-24c65671-15bb-43b8-aca3-3f6f85fc41eb.config
+2026-11-16T22:09:01.9724971Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-24c65671-15bb-43b8-aca3-3f6f85fc41eb.config
+2026-11-16T22:09:01.9749232Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-24c65671-15bb-43b8-aca3-3f6f85fc41eb.config
+2026-11-16T22:09:01.9769926Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-24c65671-15bb-43b8-aca3-3f6f85fc41eb.config
+2026-11-16T22:09:01.9790061Z ##[endgroup]
+2026-11-16T22:09:01.9790598Z ##[group]Fetching the repository
+2026-11-16T22:09:01.9795475Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/* +885a631b7030936ef1d5aed1530bd909f088f367:refs/remotes/pull/1/merge
+2026-11-16T22:09:02.6930060Z From https://github.com/alexastein/pp-artifact-indexer
+2026-11-16T22:09:02.6930664Z  * [new branch]      main                                     -> origin/main
+2026-11-16T22:09:02.6931072Z  * [new branch]      pa2                                      -> origin/pa2
+2026-11-16T22:09:02.6931362Z  * [new tag]         pa1                                      -> pa1
+2026-11-16T22:09:02.6931724Z  * [new ref]         885a631b7030936ef1d5aed1530bd909f088f367 -> pull/1/merge
+2026-11-16T22:09:02.6934913Z ##[endgroup]
+2026-11-16T22:09:02.6935651Z ##[group]Determining the checkout info
+2026-11-16T22:09:02.6936278Z ##[endgroup]
+2026-11-16T22:09:02.6939784Z [command]/usr/bin/git sparse-checkout disable
+2026-11-16T22:09:02.6992923Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-16T22:09:02.7016169Z ##[group]Checking out the ref
+2026-11-16T22:09:02.7019832Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/1/merge
+2026-11-16T22:09:02.7193803Z Note: switching to 'refs/remotes/pull/1/merge'.
+2026-11-16T22:09:02.7194038Z 
+2026-11-16T22:09:02.7194195Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-11-16T22:09:02.7194608Z changes and commit them, and you can discard any commits you make in this
+2026-11-16T22:09:02.7194947Z state without impacting any branches by switching back to a branch.
+2026-11-16T22:09:02.7195205Z 
+2026-11-16T22:09:02.7195338Z If you want to create a new branch to retain commits you create, you may
+2026-11-16T22:09:02.7195684Z do so (now or later) by using -c with the switch command. Example:
+2026-11-16T22:09:02.7195908Z 
+2026-11-16T22:09:02.7196200Z   git switch -c <new-branch-name>
+2026-11-16T22:09:02.7196332Z 
+2026-11-16T22:09:02.7196449Z Or undo this operation with:
+2026-11-16T22:09:02.7196590Z 
+2026-11-16T22:09:02.7196677Z   git switch -
+2026-11-16T22:09:02.7197022Z 
+2026-11-16T22:09:02.7197176Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-11-16T22:09:02.7197429Z 
+2026-11-16T22:09:02.7197666Z HEAD is now at 885a631 Merge 8ee0608691c5e33ee6274946c79c3ad791753c08 into f39981e8d8fe405223e655ceab6da5b8d95e7421
+2026-11-16T22:09:02.7205567Z ##[endgroup]
+2026-11-16T22:09:02.7252027Z [command]/usr/bin/git log -1 --format=%H
+2026-11-16T22:09:02.7270797Z 885a631b7030936ef1d5aed1530bd909f088f367
+2026-11-16T22:09:02.7445853Z ##[group]Run actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+2026-11-16T22:09:02.7446207Z with:
+2026-11-16T22:09:02.7446466Z   name: coverage
+2026-11-16T22:09:02.7446760Z   path: functional-codebase/coverage
+2026-11-16T22:09:02.7447097Z   merge-multiple: false
+2026-11-16T22:09:02.7447365Z   repository: alexastein/pp-artifact-indexer
+2026-11-16T22:09:02.7447660Z   run-id: 43967075590
+2026-11-16T22:09:02.7448009Z   skip-decompress: false
+2026-11-16T22:09:02.7448286Z   digest-mismatch: error
+2026-11-16T22:09:02.7448516Z env:
+2026-11-16T22:09:02.7448727Z   NODE_VERSION: 22
+2026-11-16T22:09:02.7448973Z   IMAGE_NAME: pp-artifact-indexer
+2026-11-16T22:09:02.7449449Z   SONAR_TOKEN: ***
+2026-11-16T22:09:02.7449673Z ##[endgroup]
+2026-11-16T22:09:02.8542249Z Downloading single artifact
+2026-11-16T22:09:03.2256099Z Preparing to download the following artifacts:
+2026-11-16T22:09:03.2257004Z - coverage (ID: 14277721657, Size: 254177, Expected Digest: sha256:81ecc8e0fb844aca364922a1c59da1c48e2ae336c15a712df614ad0cee3fae6b)
+2026-11-16T22:09:03.8425115Z Redirecting to blob download url: https://productionresultssa16.blob.core.windows.net/actions-results/0716eeb6-38d3-8188-b893-92e3facce5b0/workflow-job-run-63f60ce8-6545-5503-857c-d6303b5f4e8c/artifacts/c3a3091b9d32267d0b3175ee14f70a1e0b3d7292d0a0fa45020ced5fb764d620.zip
+2026-11-16T22:09:03.8427138Z Starting download of artifact to: /home/runner/work/pp-artifact-indexer/pp-artifact-indexer/functional-codebase/coverage
+2026-11-16T22:09:04.1771980Z (node:2457) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-11-16T22:09:04.1773477Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-16T22:09:04.7292249Z SHA256 digest of downloaded artifact is 81ecc8e0fb844aca364922a1c59da1c48e2ae336c15a712df614ad0cee3fae6b
+2026-11-16T22:09:04.7293020Z Artifact download completed successfully.
+2026-11-16T22:09:04.7293799Z Total of 1 artifact(s) downloaded
+2026-11-16T22:09:04.7295892Z Download artifact has finished successfully
+2026-11-16T22:09:05.1546009Z ##[group]Run f=functional-codebase/coverage/lcov.info
+2026-11-16T22:09:05.1546386Z [36;1mf=functional-codebase/coverage/lcov.info[0m
+2026-11-16T22:09:05.1546632Z [36;1mif [ -f "$f" ]; then[0m
+2026-11-16T22:09:05.1546879Z [36;1m  sed -i 's#^SF:\(src/\)#SF:functional-codebase/\1#' "$f"[0m
+2026-11-16T22:09:05.1547121Z [36;1melse[0m
+2026-11-16T22:09:05.1547364Z [36;1m  echo "::warning::$f not found - SonarQube will run without coverage"[0m
+2026-11-16T22:09:05.1547631Z [36;1mfi[0m
+2026-11-16T22:09:05.1569629Z shell: /usr/bin/bash -e {0}
+2026-11-16T22:09:05.1569861Z env:
+2026-11-16T22:09:05.1570015Z   NODE_VERSION: 22
+2026-11-16T22:09:05.1570367Z   IMAGE_NAME: pp-artifact-indexer
+2026-11-16T22:09:05.1570756Z   SONAR_TOKEN: ***
+2026-11-16T22:09:05.1570928Z ##[endgroup]
+2026-11-16T22:09:05.1700618Z ##[group]Run SonarSource/sonarqube-scan-action@4d1dc0c91ee400dcf8a6dddf2f705ac36542e304
+2026-11-16T22:09:05.1700976Z with:
+2026-11-16T22:09:05.1701132Z   projectBaseDir: .
+2026-11-16T22:09:05.1701315Z   scannerVersion: 8.3.0.16463
+2026-11-16T22:09:05.1701636Z   scannerBinariesUrl: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli
+2026-11-16T22:09:05.1701968Z   skipSignatureVerification: false
+2026-11-16T22:09:05.1702165Z env:
+2026-11-16T22:09:05.1702309Z   NODE_VERSION: 22
+2026-11-16T22:09:05.1702489Z   IMAGE_NAME: pp-artifact-indexer
+2026-11-16T22:09:05.1702799Z   SONAR_TOKEN: ***
+2026-11-16T22:09:05.1702978Z   SONAR_HOST_URL: https://sonarcloud.io
+2026-11-16T22:09:05.1703207Z ##[endgroup]
+2026-11-16T22:09:05.2878078Z Installing Sonar Scanner CLI 8.3.0.16463 for linux-x64...
+2026-11-16T22:09:05.2878860Z Downloading from: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-8.3.0.16463-linux-x64.zip
+2026-11-16T22:09:05.5326640Z Downloading signature from: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-8.3.0.16463-linux-x64.zip.asc
+2026-11-16T22:09:05.7583207Z Importing SonarSource public key from hkps://keyserver.ubuntu.com...
+2026-11-16T22:09:05.7591922Z [command]/usr/bin/gpg --homedir /home/runner/work/_temp/gpg-d51f9f59 --batch --keyserver hkps://keyserver.ubuntu.com --recv-keys 679F1EE92B19609DE816FDE81DB198F93525EC1A
+2026-11-16T22:09:05.7643366Z gpg: keybox '/home/runner/work/_temp/gpg-d51f9f59/pubring.kbx' created
+2026-11-16T22:09:06.5068552Z gpg: /home/runner/work/_temp/gpg-d51f9f59/trustdb.gpg: trustdb created
+2026-11-16T22:09:06.5071681Z gpg: key 1DB198F93525EC1A: public key "SonarSource S.A. <infra@sonarsource.com>" imported
+2026-11-16T22:09:06.5116924Z gpg: Total number processed: 1
+2026-11-16T22:09:06.5117276Z gpg:               imported: 1
+2026-11-16T22:09:06.5122247Z Successfully imported key from hkps://keyserver.ubuntu.com
+2026-11-16T22:09:06.5122971Z ✓ SonarSource public key imported successfully
+2026-11-16T22:09:06.5123263Z Verifying GPG signature...
+2026-11-16T22:09:06.5133514Z [command]/usr/bin/gpg --homedir /home/runner/work/_temp/gpg-d51f9f59 --batch --verify /home/runner/work/_temp/302514e4-8895-424e-a8bf-45721315c1d4 /home/runner/work/_temp/687807ce-562a-4954-9f35-82010c5c61b0
+2026-11-16T22:09:06.6027944Z gpg: Signature made Tue Oct 27 10:01:53 2026 UTC
+2026-11-16T22:09:06.6028464Z gpg:                using RSA key 06D0369BE1D0B06997DA66E8C33B56C147B01975
+2026-11-16T22:09:06.6029046Z gpg: Good signature from "SonarSource S.A. <infra@sonarsource.com>" [unknown]
+2026-11-16T22:09:06.6033588Z gpg: WARNING: This key is not certified with a trusted signature!
+2026-11-16T22:09:06.6033975Z gpg:          There is no indication that the signature belongs to the owner.
+2026-11-16T22:09:06.6034399Z Primary key fingerprint: 679F 1EE9 2B19 609D E816  FDE8 1DB1 98F9 3525 EC1A
+2026-11-16T22:09:06.6034805Z      Subkey fingerprint: 06D0 369B E1D0 B069 97DA  66E8 C33B 56C1 47B0 1975
+2026-11-16T22:09:06.6043070Z ✓ GPG signature verification passed
+2026-11-16T22:09:06.6059260Z [command]/usr/bin/unzip -o -q /home/runner/work/_temp/687807ce-562a-4954-9f35-82010c5c61b0.zip
+2026-11-16T22:09:07.8001063Z Sonar Scanner CLI cached to: /opt/hostedtoolcache/sonar-scanner-cli/8.3.0-build.16463/linux-x64
+2026-11-16T22:09:07.8012730Z [command]/opt/hostedtoolcache/sonar-scanner-cli/8.3.0-build.16463/linux-x64/bin/sonar-scanner -Dsonar.projectBaseDir=.
+2026-11-16T22:09:08.0177583Z 22:09:08.015 INFO  Scanner configuration file: /opt/hostedtoolcache/sonar-scanner-cli/8.3.0-build.16463/linux-x64/conf/sonar-scanner.properties
+2026-11-16T22:09:08.0203062Z 22:09:08.017 INFO  Project root configuration file: /home/runner/work/pp-artifact-indexer/pp-artifact-indexer/sonar-project.properties
+2026-11-16T22:09:08.0295234Z 22:09:08.029 INFO  SonarScanner CLI 8.3.0.16463
+2026-11-16T22:09:08.0351228Z 22:09:08.033 INFO  Linux 7.0.0-1016-aws amd64
+2026-11-16T22:09:09.9965860Z 22:09:09.996 INFO  Communicating with SonarQube Cloud
+2026-11-16T22:09:09.9969972Z 22:09:09.996 INFO  JRE provisioning: os[linux], arch[x86_64]
+2026-11-16T22:09:10.3988820Z 22:09:10.398 ERROR Failed to query JRE metadata: GET https://api.sonarcloud.io/analysis/jres?os=linux&arch=x86_64 failed with HTTP 403 Forbidden. Please check the property sonar.token or the environment variable SONAR_TOKEN.
+2026-11-16T22:09:10.3989766Z 22:09:10.398 INFO  EXECUTION FAILURE
+2026-11-16T22:09:10.3994756Z 22:09:10.399 INFO  Total time: 2.385s
+2026-11-16T22:09:10.7219210Z ##[error]Action failed: The process '/opt/hostedtoolcache/sonar-scanner-cli/8.3.0-build.16463/linux-x64/bin/sonar-scanner' failed with exit code 1
+2026-11-16T22:09:10.7298554Z ##[group]Run echo "### SonarQube Cloud analysis submitted (see dashboard link in step log)" >> "$GITHUB_STEP_SUMMARY"
+2026-11-16T22:09:10.7299113Z [36;1mecho "### SonarQube Cloud analysis submitted (see dashboard link in step log)" >> "$GITHUB_STEP_SUMMARY"[0m
+2026-11-16T22:09:10.7319986Z shell: /usr/bin/bash -e {0}
+2026-11-16T22:09:10.7320375Z env:
+2026-11-16T22:09:10.7320567Z   NODE_VERSION: 22
+2026-11-16T22:09:10.7320793Z   IMAGE_NAME: pp-artifact-indexer
+2026-11-16T22:09:10.7321230Z   SONAR_TOKEN: ***
+2026-11-16T22:09:10.7321397Z ##[endgroup]
+2026-11-16T22:09:10.7431811Z Post job cleanup.
+2026-11-16T22:09:10.8106674Z [command]/usr/bin/git version
+2026-11-16T22:09:10.8139060Z git version 2.56.1
+2026-11-16T22:09:10.8162924Z Temporarily overriding HOME='/home/runner/work/_temp/541ae239-48e7-4133-b036-68c626dfe8e0' before making global git config changes
+2026-11-16T22:09:10.8163774Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-16T22:09:10.8166616Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/pp-artifact-indexer/pp-artifact-indexer
+2026-11-16T22:09:10.8193964Z Removing SSH command configuration
+2026-11-16T22:09:10.8198569Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-16T22:09:10.8224530Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-16T22:09:10.8431875Z Removing HTTP extra header
+2026-11-16T22:09:10.8436394Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-16T22:09:10.8462506Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-16T22:09:10.8649022Z Removing includeIf entries pointing to credentials config files
+2026-11-16T22:09:10.8660614Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-16T22:09:10.8689525Z includeif.gitdir:/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git.path
+2026-11-16T22:09:10.8699029Z includeif.gitdir:/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git/worktrees/*.path
+2026-11-16T22:09:10.8700545Z includeif.gitdir:/github/workspace/.git.path
+2026-11-16T22:09:10.8701566Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-16T22:09:10.8702770Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git.path
+2026-11-16T22:09:10.8704154Z /home/runner/work/_temp/git-credentials-24c65671-15bb-43b8-aca3-3f6f85fc41eb.config
+2026-11-16T22:09:10.8716269Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-24c65671\-15bb\-43b8\-aca3\-3f6f85fc41eb\.config
+2026-11-16T22:09:10.8737985Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git/worktrees/*.path
+2026-11-16T22:09:10.8753176Z /home/runner/work/_temp/git-credentials-24c65671-15bb-43b8-aca3-3f6f85fc41eb.config
+2026-11-16T22:09:10.8759786Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/pp-artifact-indexer/pp-artifact-indexer/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-24c65671\-15bb\-43b8\-aca3\-3f6f85fc41eb\.config
+2026-11-16T22:09:10.8785362Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-16T22:09:10.8797852Z /github/runner_temp/git-credentials-24c65671-15bb-43b8-aca3-3f6f85fc41eb.config
+2026-11-16T22:09:10.8803238Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-24c65671\-15bb\-43b8\-aca3\-3f6f85fc41eb\.config
+2026-11-16T22:09:10.8824371Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-16T22:09:10.8839287Z /github/runner_temp/git-credentials-24c65671-15bb-43b8-aca3-3f6f85fc41eb.config
+2026-11-16T22:09:10.8844159Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-24c65671\-15bb\-43b8\-aca3\-3f6f85fc41eb\.config
+2026-11-16T22:09:10.8867923Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-16T22:09:10.9047850Z Removing credentials config '/home/runner/work/_temp/git-credentials-24c65671-15bb-43b8-aca3-3f6f85fc41eb.config'
+2026-11-16T22:09:10.9160989Z Cleaning up orphan processes
+2026-11-16T22:09:10.9421315Z Terminate orphan process: pid (2487) (dirmngr)
