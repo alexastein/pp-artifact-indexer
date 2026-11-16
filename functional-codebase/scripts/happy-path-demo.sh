@@ -2,8 +2,8 @@
 # Tool: Claude Code (claude-sonnet-5-5), autonomous developer agent
 # Prompt Summary: "Scripted curl happy-path demo against the docker compose stack"
 # AI Contribution: 100% AI generated / 0% human refactored
-# Human Modifications: none yet
-# Verification: ran against `docker compose up --build`; output in ../.ai_logs/happy-path-demo-output.txt
+# Human Modifications: Reviewed, no changes; notes in .ai_logs/conceptual_journal.md
+# Verification: Read the script and the saved output .ai_logs/happy-path-demo-output.txt (all 8 steps pass); did not re-run the curl demo myself
 # Confidence: Medium
 #
 # Usage (from functional-codebase/):  docker compose up --build -d && ./scripts/happy-path-demo.sh

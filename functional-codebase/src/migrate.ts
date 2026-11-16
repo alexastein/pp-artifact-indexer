@@ -1,8 +1,8 @@
 // Tool: Claude Code (claude-sonnet-5-5), autonomous developer agent
 // Prompt Summary: "Design PostgreSQL schema, migrations, seed script and DB tests for the master spec"
 // AI Contribution: 100% AI generated / 0% human refactored
-// Human Modifications: none yet
-// Verification: tests/migrations.test.ts, tests/seed.test.ts
+// Human Modifications: Reviewed line by line, no code changes (kept naive on purpose); notes in .ai_logs/conceptual_journal.md
+// Verification: tests/migrations.test.ts, tests/seed.test.ts; human: reviewed line by line, ran npm run typecheck + npm test (7 files / 75 tests pass, real Postgres 16)
 // Confidence: Medium
 
 import { readdir, readFile } from "node:fs/promises";

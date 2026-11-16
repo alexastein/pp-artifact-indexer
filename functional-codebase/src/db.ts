@@ -1,8 +1,8 @@
 // Tool: Claude Code (claude-sonnet-5-5), autonomous developer agent
 // Prompt Summary: "Scaffold functional-codebase Express 5 + TypeScript service with health route, DB module, Docker setup"
 // AI Contribution: 100% AI generated / 0% human refactored
-// Human Modifications: none yet
-// Verification: tests/health.test.ts (imports db module indirectly via typecheck)
+// Human Modifications: Reviewed line by line, no code changes (kept naive on purpose); notes in .ai_logs/conceptual_journal.md
+// Verification: tests/health.test.ts (imports db module indirectly via typecheck); human: reviewed line by line, ran npm run typecheck + npm test (7 files / 75 tests pass, real Postgres 16)
 // Confidence: Medium
 
 // Why node-postgres ("pg") and not an ORM like Prisma/TypeORM:

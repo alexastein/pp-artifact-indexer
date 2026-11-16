@@ -1,8 +1,8 @@
 // Tool: Claude Code (claude-sonnet-5-5), autonomous developer agent
 // Prompt Summary: "Implement artifact endpoints (manuscripts, videos, repositories) with git-host mock enrichment"
 // AI Contribution: 100% AI generated / 0% human refactored
-// Human Modifications: none yet
-// Verification: this file (vitest + supertest, needs DATABASE_URL)
+// Human Modifications: Read every test line by line, no changes; notes in .ai_logs/conceptual_journal.md
+// Verification: this file (vitest + supertest, needs DATABASE_URL); human: ran npm run typecheck + npm test (7 files / 75 tests pass, real Postgres 16)
 // Confidence: Medium
 
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";

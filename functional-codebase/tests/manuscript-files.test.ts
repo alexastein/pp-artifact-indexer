@@ -1,8 +1,8 @@
 // Tool: Claude Code (claude-sonnet-5-5), autonomous developer agent
 // Prompt Summary: "Implement manuscript file upload, download, delete and zip download"
 // AI Contribution: 100% AI generated / 0% human refactored
-// Human Modifications: none yet
-// Verification: this file (vitest + supertest, needs DATABASE_URL)
+// Human Modifications: Read every test line by line, no changes; notes in .ai_logs/conceptual_journal.md
+// Verification: this file (vitest + supertest, needs DATABASE_URL); human: ran npm run typecheck + npm test (7 files / 75 tests pass, real Postgres 16)
 // Confidence: Medium
 
 import { createHash } from "node:crypto";
