@@ -1,0 +1,381 @@
+﻿2026-11-16T22:08:23.8477681Z Current runner version: '2.338.2'
+2026-11-16T22:08:23.8496393Z ##[group]Runner Image Provisioner
+2026-11-16T22:08:23.8497447Z Hosted Compute Agent
+2026-11-16T22:08:23.8497872Z Version: 20261103.629
+2026-11-16T22:08:23.8498307Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+2026-11-16T22:08:23.8498742Z Build Date: 2026-11-03T17:26:59Z
+2026-11-16T22:08:23.8499155Z Worker ID: {ae6d0e87-df09-4d12-93b2-5e6c3b5bb7e9}
+2026-11-16T22:08:23.8499619Z Region: centralus
+2026-11-16T22:08:23.8500012Z Cloud: Azure
+2026-11-16T22:08:23.8500374Z ##[endgroup]
+2026-11-16T22:08:23.8501270Z ##[group]Operating System
+2026-11-16T22:08:23.8501622Z Ubuntu
+2026-11-16T22:08:23.8502020Z 26.04.1
+2026-11-16T22:08:23.8502333Z LTS
+2026-11-16T22:08:23.8502666Z ##[endgroup]
+2026-11-16T22:08:23.8503005Z ##[group]Runner Image
+2026-11-16T22:08:23.8503361Z Image: ubuntu-26.04
+2026-11-16T22:08:23.8503734Z Version: 20261111.196.1
+2026-11-16T22:08:23.8504542Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261111.196/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-16T22:08:23.8505485Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261111.196
+2026-11-16T22:08:23.8506041Z ##[endgroup]
+2026-11-16T22:08:23.8507036Z ##[group]GITHUB_TOKEN Permissions
+2026-11-16T22:08:23.8508566Z Contents: read
+2026-11-16T22:08:23.8508982Z Metadata: read
+2026-11-16T22:08:23.8509322Z SecurityEvents: write
+2026-11-16T22:08:23.8509700Z ##[endgroup]
+2026-11-16T22:08:23.8511156Z Secret source: Actions
+2026-11-16T22:08:23.8511751Z Cache mode: write
+2026-11-16T22:08:23.8512404Z Prepare workflow directory
+2026-11-16T22:08:23.8798755Z Prepare all required actions
+2026-11-16T22:08:23.8830789Z Getting action download info
+2026-11-16T22:08:24.1656630Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-11-16T22:08:24.2937415Z Download action repository 'github/codeql-action@9b3254085494b55a0f7c4c2b3d2d52cc712ce370' (SHA:9b3254085494b55a0f7c4c2b3d2d52cc712ce370)
+2026-11-16T22:08:24.8208893Z Download action repository 'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+2026-11-16T22:08:24.9652765Z Complete job name: SAST (Semgrep)
+2026-11-16T22:08:25.0054272Z ##[group]Checking docker version
+2026-11-16T22:08:25.0062718Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2026-11-16T22:08:25.1015373Z '1.54'
+2026-11-16T22:08:25.1032183Z Docker daemon API version: '1.54'
+2026-11-16T22:08:25.1032631Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2026-11-16T22:08:25.1217401Z '1.54'
+2026-11-16T22:08:25.1235077Z Docker client API version: '1.54'
+2026-11-16T22:08:25.1241550Z ##[endgroup]
+2026-11-16T22:08:25.1242873Z ##[group]Clean up resources from previous jobs
+2026-11-16T22:08:25.1247029Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=9ab1db"
+2026-11-16T22:08:25.1381066Z ##[command]/usr/bin/docker network prune --force --filter "label=9ab1db"
+2026-11-16T22:08:25.1501875Z ##[endgroup]
+2026-11-16T22:08:25.1502191Z ##[group]Create local container network
+2026-11-16T22:08:25.1510372Z ##[command]/usr/bin/docker network create --label 9ab1db github_network_3fa6cd69ff6444d6a3f31258eb51acf9
+2026-11-16T22:08:25.1855689Z 34d545aa5e3cb3528ec0250b2297094c419846a08895ef024a1e2938454df355
+2026-11-16T22:08:25.1878030Z ##[endgroup]
+2026-11-16T22:08:25.1895950Z ##[group]Starting job container
+2026-11-16T22:08:25.1912632Z ##[command]/usr/bin/docker pull semgrep/semgrep:latest
+2026-11-16T22:08:25.7508844Z latest: Pulling from semgrep/semgrep
+2026-11-16T22:08:25.9423236Z 5e9b4a97f639: Pulling fs layer
+2026-11-16T22:08:25.9424323Z 678147e73337: Pulling fs layer
+2026-11-16T22:08:25.9425032Z 7e9b9e935201: Pulling fs layer
+2026-11-16T22:08:25.9425731Z a395850e2056: Pulling fs layer
+2026-11-16T22:08:25.9426450Z 20970f6e00d7: Pulling fs layer
+2026-11-16T22:08:25.9427445Z 92b52671f041: Pulling fs layer
+2026-11-16T22:08:25.9428260Z d43ffef2f55c: Pulling fs layer
+2026-11-16T22:08:25.9429510Z 21495a98d08f: Pulling fs layer
+2026-11-16T22:08:25.9430374Z a19e714f9403: Pulling fs layer
+2026-11-16T22:08:25.9431051Z 777d1f35a34c: Pulling fs layer
+2026-11-16T22:08:25.9431729Z c51ea70fe996: Pulling fs layer
+2026-11-16T22:08:25.9432448Z ebe3c1bc793f: Pulling fs layer
+2026-11-16T22:08:25.9433209Z 4b7fe183b993: Pulling fs layer
+2026-11-16T22:08:25.9434104Z bd9ddc54bea9: Pulling fs layer
+2026-11-16T22:08:25.9434822Z 7a86cee43274: Pulling fs layer
+2026-11-16T22:08:26.1062091Z 7e9b9e935201: Download complete
+2026-11-16T22:08:26.1070917Z 7a86cee43274: Download complete
+2026-11-16T22:08:26.1075886Z 678147e73337: Download complete
+2026-11-16T22:08:26.1084205Z c51ea70fe996: Download complete
+2026-11-16T22:08:26.1088939Z 4b7fe183b993: Download complete
+2026-11-16T22:08:26.1098961Z ebe3c1bc793f: Download complete
+2026-11-16T22:08:26.1111573Z bd9ddc54bea9: Download complete
+2026-11-16T22:08:26.1120693Z 21495a98d08f: Download complete
+2026-11-16T22:08:26.1122605Z a19e714f9403: Download complete
+2026-11-16T22:08:26.2086455Z d43ffef2f55c: Download complete
+2026-11-16T22:08:26.3069561Z 92b52671f041: Download complete
+2026-11-16T22:08:26.3096481Z 5e9b4a97f639: Download complete
+2026-11-16T22:08:26.3099217Z b6cf1b432f4e: Download complete
+2026-11-16T22:08:26.6082275Z 777d1f35a34c: Download complete
+2026-11-16T22:08:26.6265624Z 21495a98d08f: Pull complete
+2026-11-16T22:08:26.6386684Z 5e9b4a97f639: Pull complete
+2026-11-16T22:08:28.0107156Z 777d1f35a34c: Pull complete
+2026-11-16T22:08:28.4050778Z a395850e2056: Download complete
+2026-11-16T22:08:28.8058560Z 20970f6e00d7: Download complete
+2026-11-16T22:08:28.8115028Z ebe3c1bc793f: Pull complete
+2026-11-16T22:08:28.8127733Z bd9ddc54bea9: Pull complete
+2026-11-16T22:08:28.8140996Z 92b52671f041: Pull complete
+2026-11-16T22:08:29.1124644Z a395850e2056: Pull complete
+2026-11-16T22:08:31.5857181Z 7e9b9e935201: Pull complete
+2026-11-16T22:08:31.5874139Z 7a86cee43274: Pull complete
+2026-11-16T22:08:31.5907481Z 678147e73337: Pull complete
+2026-11-16T22:08:31.5929662Z c51ea70fe996: Pull complete
+2026-11-16T22:08:31.5948286Z 4b7fe183b993: Pull complete
+2026-11-16T22:08:31.5950501Z a19e714f9403: Pull complete
+2026-11-16T22:08:31.5950998Z d43ffef2f55c: Pull complete
+2026-11-16T22:08:31.5951972Z 20970f6e00d7: Pull complete
+2026-11-16T22:08:31.5952605Z Digest: sha256:cc1b68266f267878b39739373ea9985b9a78e5d64497dd875c8de100b22695ed
+2026-11-16T22:08:31.5953354Z Status: Downloaded newer image for semgrep/semgrep:latest
+2026-11-16T22:08:31.5954020Z docker.io/semgrep/semgrep:latest
+2026-11-16T22:08:31.6017820Z ##[command]/usr/bin/docker create --name a74b603dd1db415eb13684714321a7a8_semgrepsemgreplatest_380e6a --label 9ab1db --workdir /__w/pp-artifact-indexer/pp-artifact-indexer --network github_network_3fa6cd69ff6444d6a3f31258eb51acf9  -e "HOME=/github/home" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work":"/__w" -v "/home/runner/actions-runner/cached/2.338.2/externals":"/__e":ro -v "/home/runner/work/_temp":"/__w/_temp" -v "/home/runner/work/_actions":"/__w/_actions" -v "/opt/hostedtoolcache":"/__t" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" --entrypoint "tail" semgrep/semgrep:latest "-f" "/dev/null"
+2026-11-16T22:08:44.6899708Z 41de0e7b4fc485696c26379b1e86e5117be04fae291ad54c42994844efe07ff6
+2026-11-16T22:08:44.6925620Z ##[command]/usr/bin/docker start 41de0e7b4fc485696c26379b1e86e5117be04fae291ad54c42994844efe07ff6
+2026-11-16T22:08:44.8702702Z 41de0e7b4fc485696c26379b1e86e5117be04fae291ad54c42994844efe07ff6
+2026-11-16T22:08:44.8722690Z ##[command]/usr/bin/docker ps --all --filter id=41de0e7b4fc485696c26379b1e86e5117be04fae291ad54c42994844efe07ff6 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-11-16T22:08:44.8872125Z 41de0e7b4fc485696c26379b1e86e5117be04fae291ad54c42994844efe07ff6 Up Less than a second
+2026-11-16T22:08:44.8891648Z ##[command]/usr/bin/docker inspect --format "{{range .Config.Env}}{{println .}}{{end}}" 41de0e7b4fc485696c26379b1e86e5117be04fae291ad54c42994844efe07ff6
+2026-11-16T22:08:44.8995967Z HOME=/github/home
+2026-11-16T22:08:44.8996385Z GITHUB_ACTIONS=true
+2026-11-16T22:08:44.8996668Z CI=true
+2026-11-16T22:08:44.8997208Z PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+2026-11-16T22:08:44.8997632Z SEMGREP_IN_DOCKER=1
+2026-11-16T22:08:44.8997985Z SEMGREP_USER_AGENT_APPEND=Docker
+2026-11-16T22:08:44.8998341Z PYTHONIOENCODING=utf8
+2026-11-16T22:08:44.8998624Z PYTHONUNBUFFERED=1
+2026-11-16T22:08:44.8999366Z DOCKER_OTEL_RESOURCE_ATTRIBUTES=vcs.ref.head.name=release-1.184.0,vcs.ref.head.revision=ec0383d093d5ae9ad7dfd259ed517003be49ac34,vcs.repository.url.full=github.com/semgrep/semgrep-proprietary,docker.base_image=alpine:3.23
+2026-11-16T22:08:44.8999958Z DD_SERVICE=semgrep-core
+2026-11-16T22:08:44.9000196Z TSAN_OPTIONS=exitcode=0 report_signal_unsafe=0
+2026-11-16T22:08:44.9020371Z ##[endgroup]
+2026-11-16T22:08:44.9028369Z ##[group]Waiting for all services to be ready
+2026-11-16T22:08:44.9029689Z ##[endgroup]
+2026-11-16T22:08:44.9277511Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-11-16T22:08:44.9277841Z with:
+2026-11-16T22:08:44.9277989Z   repository: alexastein/pp-artifact-indexer
+2026-11-16T22:08:44.9279343Z   token: ***
+2026-11-16T22:08:44.9279462Z   ssh-strict: true
+2026-11-16T22:08:44.9279581Z   ssh-user: git
+2026-11-16T22:08:44.9279711Z   persist-credentials: true
+2026-11-16T22:08:44.9279847Z   clean: true
+2026-11-16T22:08:44.9279978Z   sparse-checkout-cone-mode: true
+2026-11-16T22:08:44.9280126Z   fetch-depth: 1
+2026-11-16T22:08:44.9280246Z   fetch-tags: false
+2026-11-16T22:08:44.9280368Z   show-progress: true
+2026-11-16T22:08:44.9280491Z   lfs: false
+2026-11-16T22:08:44.9280605Z   submodules: false
+2026-11-16T22:08:44.9280728Z   set-safe-directory: true
+2026-11-16T22:08:44.9280933Z   allow-unsafe-pr-checkout: false
+2026-11-16T22:08:44.9281165Z env:
+2026-11-16T22:08:44.9281272Z   NODE_VERSION: 22
+2026-11-16T22:08:44.9281394Z   IMAGE_NAME: pp-artifact-indexer
+2026-11-16T22:08:44.9281568Z ##[endgroup]
+2026-11-16T22:08:44.9319328Z ##[command]/usr/bin/docker exec  41de0e7b4fc485696c26379b1e86e5117be04fae291ad54c42994844efe07ff6 sh -c "cat /etc/*release | grep ^ID"
+2026-11-16T22:08:50.9957525Z Syncing repository: alexastein/pp-artifact-indexer
+2026-11-16T22:08:50.9958807Z ##[group]Getting Git version info
+2026-11-16T22:08:50.9959217Z Working directory is '/__w/pp-artifact-indexer/pp-artifact-indexer'
+2026-11-16T22:08:50.9959785Z [command]/usr/bin/git version
+2026-11-16T22:08:51.0445711Z git version 2.52.0
+2026-11-16T22:08:51.0620946Z ##[endgroup]
+2026-11-16T22:08:51.0638287Z Temporarily overriding HOME='/__w/_temp/bd72ee82-7b73-4639-ace2-8b09ff529c7a' before making global git config changes
+2026-11-16T22:08:51.0639255Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-16T22:08:51.0640184Z [command]/usr/bin/git config --global --add safe.directory /__w/pp-artifact-indexer/pp-artifact-indexer
+2026-11-16T22:08:51.0667436Z Deleting the contents of '/__w/pp-artifact-indexer/pp-artifact-indexer'
+2026-11-16T22:08:51.0671494Z ##[group]Determining repository object format
+2026-11-16T22:08:51.0672203Z ##[endgroup]
+2026-11-16T22:08:51.0672860Z ##[group]Initializing the repository
+2026-11-16T22:08:51.0675846Z [command]/usr/bin/git init /__w/pp-artifact-indexer/pp-artifact-indexer
+2026-11-16T22:08:51.0779641Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-16T22:08:51.0780221Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-16T22:08:51.0780694Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-16T22:08:51.0781010Z hint: call:
+2026-11-16T22:08:51.0781130Z hint:
+2026-11-16T22:08:51.0781344Z hint: 	git config --global init.defaultBranch <name>
+2026-11-16T22:08:51.0781533Z hint:
+2026-11-16T22:08:51.0781721Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-16T22:08:51.0782180Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-16T22:08:51.0782746Z hint:
+2026-11-16T22:08:51.0782884Z hint: 	git branch -m <name>
+2026-11-16T22:08:51.0783089Z hint:
+2026-11-16T22:08:51.0783324Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-16T22:08:51.0783896Z Initialized empty Git repository in /__w/pp-artifact-indexer/pp-artifact-indexer/.git/
+2026-11-16T22:08:51.0814590Z [command]/usr/bin/git remote add origin https://github.com/alexastein/pp-artifact-indexer
+2026-11-16T22:08:51.0930390Z ##[endgroup]
+2026-11-16T22:08:51.0930740Z ##[group]Disabling automatic garbage collection
+2026-11-16T22:08:51.0947190Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-16T22:08:51.0979049Z ##[endgroup]
+2026-11-16T22:08:51.0979415Z ##[group]Setting up auth
+2026-11-16T22:08:51.0979791Z Removing SSH command configuration
+2026-11-16T22:08:51.0986696Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-16T22:08:51.1031219Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-16T22:08:51.1205844Z Removing HTTP extra header
+2026-11-16T22:08:51.1210391Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-16T22:08:51.1249236Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-16T22:08:51.1411846Z Removing includeIf entries pointing to credentials config files
+2026-11-16T22:08:51.1416634Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-16T22:08:51.1455518Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-16T22:08:51.1623948Z [command]/usr/bin/git config --file /__w/_temp/git-credentials-f97ea1f3-2918-480f-a858-43167390f36d.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-16T22:08:51.1664689Z [command]/usr/bin/git config --local includeIf.gitdir:/__w/pp-artifact-indexer/pp-artifact-indexer/.git.path /__w/_temp/git-credentials-f97ea1f3-2918-480f-a858-43167390f36d.config
+2026-11-16T22:08:51.1702973Z [command]/usr/bin/git config --local includeIf.gitdir:/__w/pp-artifact-indexer/pp-artifact-indexer/.git/worktrees/*.path /__w/_temp/git-credentials-f97ea1f3-2918-480f-a858-43167390f36d.config
+2026-11-16T22:08:51.1755403Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-f97ea1f3-2918-480f-a858-43167390f36d.config
+2026-11-16T22:08:51.1907511Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-f97ea1f3-2918-480f-a858-43167390f36d.config
+2026-11-16T22:08:51.1943419Z ##[endgroup]
+2026-11-16T22:08:51.1943731Z ##[group]Fetching the repository
+2026-11-16T22:08:51.1949289Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +885a631b7030936ef1d5aed1530bd909f088f367:refs/remotes/pull/1/merge
+2026-11-16T22:08:51.5879514Z From https://github.com/alexastein/pp-artifact-indexer
+2026-11-16T22:08:51.5879896Z  * [new ref]         885a631b7030936ef1d5aed1530bd909f088f367 -> pull/1/merge
+2026-11-16T22:08:51.5899409Z ##[endgroup]
+2026-11-16T22:08:51.5899807Z ##[group]Determining the checkout info
+2026-11-16T22:08:51.5901402Z ##[endgroup]
+2026-11-16T22:08:51.5904893Z [command]/usr/bin/git sparse-checkout disable
+2026-11-16T22:08:51.5952362Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-16T22:08:51.5985676Z ##[group]Checking out the ref
+2026-11-16T22:08:51.5989124Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/1/merge
+2026-11-16T22:08:51.6169103Z Note: switching to 'refs/remotes/pull/1/merge'.
+2026-11-16T22:08:51.6169706Z 
+2026-11-16T22:08:51.6169872Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-11-16T22:08:51.6170258Z changes and commit them, and you can discard any commits you make in this
+2026-11-16T22:08:51.6170638Z state without impacting any branches by switching back to a branch.
+2026-11-16T22:08:51.6170882Z 
+2026-11-16T22:08:51.6171143Z If you want to create a new branch to retain commits you create, you may
+2026-11-16T22:08:51.6171505Z do so (now or later) by using -c with the switch command. Example:
+2026-11-16T22:08:51.6171715Z 
+2026-11-16T22:08:51.6171810Z   git switch -c <new-branch-name>
+2026-11-16T22:08:51.6171958Z 
+2026-11-16T22:08:51.6172038Z Or undo this operation with:
+2026-11-16T22:08:51.6172177Z 
+2026-11-16T22:08:51.6172255Z   git switch -
+2026-11-16T22:08:51.6172377Z 
+2026-11-16T22:08:51.6172554Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-11-16T22:08:51.6172806Z 
+2026-11-16T22:08:51.6173299Z HEAD is now at 885a631 Merge 8ee0608691c5e33ee6274946c79c3ad791753c08 into f39981e8d8fe405223e655ceab6da5b8d95e7421
+2026-11-16T22:08:51.6174399Z ##[endgroup]
+2026-11-16T22:08:51.6218701Z [command]/usr/bin/git log -1 --format=%H
+2026-11-16T22:08:51.6251280Z 885a631b7030936ef1d5aed1530bd909f088f367
+2026-11-16T22:08:51.6529462Z ##[group]Run mkdir -p reports
+2026-11-16T22:08:51.6529714Z [36;1mmkdir -p reports[0m
+2026-11-16T22:08:51.6529856Z [36;1msemgrep scan \[0m
+2026-11-16T22:08:51.6530004Z [36;1m  --config p/default \[0m
+2026-11-16T22:08:51.6530176Z [36;1m  --config p/owasp-top-ten \[0m
+2026-11-16T22:08:51.6530336Z [36;1m  --config p/nodejs \[0m
+2026-11-16T22:08:51.6530476Z [36;1m  --config p/typescript \[0m
+2026-11-16T22:08:51.6530619Z [36;1m  --config p/dockerfile \[0m
+2026-11-16T22:08:51.6530764Z [36;1m  --config p/github-actions \[0m
+2026-11-16T22:08:51.6530941Z [36;1m  --sarif --output reports/semgrep.sarif \[0m
+2026-11-16T22:08:51.6531133Z [36;1m  --json-output reports/semgrep.json \[0m
+2026-11-16T22:08:51.6531315Z [36;1m  --metrics off || true[0m
+2026-11-16T22:08:51.6531599Z [36;1mn=$(python3 -c "import json;print(len(json.load(open('reports/semgrep.json'))['results']))" 2>/dev/null || echo "n/a")[0m
+2026-11-16T22:08:51.6531949Z [36;1mecho "### Semgrep findings: $n" >> "$GITHUB_STEP_SUMMARY"[0m
+2026-11-16T22:08:51.6534010Z shell: sh -e {0}
+2026-11-16T22:08:51.6534126Z env:
+2026-11-16T22:08:51.6534231Z   NODE_VERSION: 22
+2026-11-16T22:08:51.6534357Z   IMAGE_NAME: pp-artifact-indexer
+2026-11-16T22:08:51.6534497Z ##[endgroup]
+2026-11-16T22:08:54.6973213Z                
+2026-11-16T22:08:54.6973509Z                
+2026-11-16T22:08:54.6973985Z ┌─────────────┐
+2026-11-16T22:08:54.6974263Z │ Scan Status │
+2026-11-16T22:08:54.6974493Z └─────────────┘
+2026-11-16T22:08:54.6974754Z   Scanning 88 files tracked by git with 1146 Code rules:
+2026-11-16T22:08:54.7104041Z                                                                                                                         
+2026-11-16T22:08:54.7104586Z   Language      Rules   Files          Origin      Rules                                                                
+2026-11-16T22:08:54.7105286Z  ─────────────────────────────        ───────────────────                                                               
+2026-11-16T22:08:54.7105775Z   <multilang>      51      88          Community    1146                                                                
+2026-11-16T22:08:54.7106199Z   ts              164      25                                                                                           
+2026-11-16T22:08:54.7106582Z   json              4      22                                                                                           
+2026-11-16T22:08:54.7107135Z   yaml             40       4                                                                                           
+2026-11-16T22:08:54.7107539Z   dockerfile        7       2                                                                                           
+2026-11-16T22:08:54.7108324Z   bash              4       1                                                                                           
+2026-11-16T22:08:54.7108719Z                                                                                                                         
+2026-11-16T22:08:56.5806417Z                 
+2026-11-16T22:08:56.5807031Z                 
+2026-11-16T22:08:56.5808727Z ┌──────────────┐
+2026-11-16T22:08:56.5808859Z │ Scan Summary │
+2026-11-16T22:08:56.5808987Z └──────────────┘
+2026-11-16T22:08:56.5809303Z ✅ Scan completed successfully.
+2026-11-16T22:08:56.5809565Z  • Findings: 1 (1 blocking)
+2026-11-16T22:08:56.5810405Z  • Rules run: 266
+2026-11-16T22:08:56.5811077Z  • Targets scanned: 88
+2026-11-16T22:08:56.5811298Z  • Parsed lines: ~99.9%
+2026-11-16T22:08:56.5811550Z  • Scan skipped: 
+2026-11-16T22:08:56.5811774Z    ◦ Files larger than  files 1.0 MB: 1
+2026-11-16T22:08:56.5812079Z    ◦ Files matching .semgrepignore patterns: 10
+2026-11-16T22:08:56.5812431Z  • Scan was limited to files tracked by git
+2026-11-16T22:08:56.5812846Z  • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
+2026-11-16T22:08:56.5813233Z Ran 266 rules on 88 files: 1 finding.
+2026-11-16T22:08:56.8962151Z ##[group]Run github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370
+2026-11-16T22:08:56.8962414Z with:
+2026-11-16T22:08:56.8962541Z   sarif_file: reports/semgrep.sarif
+2026-11-16T22:08:56.8962695Z   category: semgrep
+2026-11-16T22:08:56.8962889Z   checkout_path: /home/runner/work/pp-artifact-indexer/pp-artifact-indexer
+2026-11-16T22:08:56.8964256Z   token: ***
+2026-11-16T22:08:56.8964373Z   matrix: null
+2026-11-16T22:08:56.8964497Z   wait-for-processing: true
+2026-11-16T22:08:56.8964632Z env:
+2026-11-16T22:08:56.8964743Z   NODE_VERSION: 22
+2026-11-16T22:08:56.8964869Z   IMAGE_NAME: pp-artifact-indexer
+2026-11-16T22:08:56.8965020Z ##[endgroup]
+2026-11-16T22:08:56.8968832Z ##[command]/usr/bin/docker exec  41de0e7b4fc485696c26379b1e86e5117be04fae291ad54c42994844efe07ff6 sh -c "cat /etc/*release | grep ^ID"
+2026-11-16T22:08:57.3034217Z Job run UUID is b7ed5846-c624-46cf-8f2b-e09c1f4175ed.
+2026-11-16T22:08:59.0932570Z Post-processing sarif files: ["reports/semgrep.sarif"]
+2026-11-16T22:08:59.1250831Z Validating reports/semgrep.sarif
+2026-11-16T22:08:59.5574434Z Adding fingerprints to SARIF file. See https://docs.github.com/en/code-security/reference/code-scanning/sarif-support-for-code-scanning#data-for-preventing-duplicated-alerts for more information.
+2026-11-16T22:08:59.5709017Z ##[group]Uploading code scanning results
+2026-11-16T22:08:59.6191251Z Uploading results
+2026-11-16T22:09:00.6254668Z Successfully uploaded results
+2026-11-16T22:09:00.6255000Z ##[endgroup]
+2026-11-16T22:09:00.6258462Z ##[group]Waiting for processing to finish
+2026-11-16T22:09:05.9666143Z Analysis upload status is complete.
+2026-11-16T22:09:05.9666987Z ##[endgroup]
+2026-11-16T22:09:06.4143121Z ##[group]Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+2026-11-16T22:09:06.4143364Z with:
+2026-11-16T22:09:06.4143487Z   name: semgrep-reports
+2026-11-16T22:09:06.4143616Z   path: reports/
+2026-11-16T22:09:06.4143743Z   if-no-files-found: warn
+2026-11-16T22:09:06.4143876Z   compression-level: 6
+2026-11-16T22:09:06.4144000Z   overwrite: false
+2026-11-16T22:09:06.4144124Z   include-hidden-files: false
+2026-11-16T22:09:06.4144257Z   archive: true
+2026-11-16T22:09:06.4144369Z env:
+2026-11-16T22:09:06.4144476Z   NODE_VERSION: 22
+2026-11-16T22:09:06.4144602Z   IMAGE_NAME: pp-artifact-indexer
+2026-11-16T22:09:06.4144797Z   CODEQL_ACTION_JOB_RUN_UUID: b7ed5846-c624-46cf-8f2b-e09c1f4175ed
+2026-11-16T22:09:06.4145010Z   CODEQL_ACTION_FEATURE_MULTI_LANGUAGE: false
+2026-11-16T22:09:06.4145177Z   CODEQL_ACTION_FEATURE_SANDWICH: false
+2026-11-16T22:09:06.4145339Z   CODEQL_ACTION_FEATURE_SARIF_COMBINE: true
+2026-11-16T22:09:06.4145523Z   CODEQL_ACTION_FEATURE_WILL_UPLOAD: true
+2026-11-16T22:09:06.4145685Z   CODEQL_ACTION_VERSION: 4.39.1
+2026-11-16T22:09:06.4145879Z   CODEQL_ACTION_ANALYSIS_KEY: .github/workflows/devsecops.yml:sast-semgrep
+2026-11-16T22:09:06.4146315Z   CODEQL_WORKFLOW_STARTED_AT: 2026-11-16T22:08:57.302Z
+2026-11-16T22:09:06.4146668Z   CODEQL_UPLOAD_SARIF_SEMGREP__SEMGREP_OSS: CODEQL_UPLOAD_SARIF_SEMGREP__SEMGREP_OSS
+2026-11-16T22:09:06.4147098Z ##[endgroup]
+2026-11-16T22:09:06.4149360Z ##[command]/usr/bin/docker exec  41de0e7b4fc485696c26379b1e86e5117be04fae291ad54c42994844efe07ff6 sh -c "cat /etc/*release | grep ^ID"
+2026-11-16T22:09:06.6044262Z With the provided path, there will be 2 files uploaded
+2026-11-16T22:09:06.6049663Z Artifact name is valid!
+2026-11-16T22:09:06.6050034Z Root directory input is valid!
+2026-11-16T22:09:06.8851731Z Uploading artifact: semgrep-reports.zip
+2026-11-16T22:09:06.8882229Z Beginning upload of artifact content to blob storage
+2026-11-16T22:09:07.3607734Z Uploaded bytes 203146
+2026-11-16T22:09:07.4637878Z Finished uploading artifact content to blob storage!
+2026-11-16T22:09:07.4638505Z SHA256 digest of uploaded artifact is 73b713d6891783460c91a1f5057be3ac8fdee42f2a0f64a9c17fc29d4dc727fc
+2026-11-16T22:09:07.4639008Z Finalizing artifact upload
+2026-11-16T22:09:07.9224177Z Artifact semgrep-reports successfully finalized. Artifact ID 14275893582
+2026-11-16T22:09:07.9224733Z Artifact semgrep-reports has been successfully uploaded! Final size is 203146 bytes. Artifact ID is 14275893582
+2026-11-16T22:09:07.9228463Z Artifact download URL: https://github.com/alexastein/pp-artifact-indexer/actions/runs/43967075590/artifacts/14275893582
+2026-11-16T22:09:07.9409779Z Post job cleanup.
+2026-11-16T22:09:07.9413135Z ##[command]/usr/bin/docker exec  41de0e7b4fc485696c26379b1e86e5117be04fae291ad54c42994844efe07ff6 sh -c "cat /etc/*release | grep ^ID"
+2026-11-16T22:09:08.2583492Z ##[group]Uploading combined SARIF debug artifact
+2026-11-16T22:09:08.2586060Z ##[endgroup]
+2026-11-16T22:09:08.2821407Z Post job cleanup.
+2026-11-16T22:09:08.2827638Z ##[command]/usr/bin/docker exec  41de0e7b4fc485696c26379b1e86e5117be04fae291ad54c42994844efe07ff6 sh -c "cat /etc/*release | grep ^ID"
+2026-11-16T22:09:08.4288464Z [command]/usr/bin/git version
+2026-11-16T22:09:08.4331957Z git version 2.52.0
+2026-11-16T22:09:08.4383013Z Copying '/github/home/.gitconfig' to '/__w/_temp/8085adb5-6084-4006-8f81-8209821dee87/.gitconfig'
+2026-11-16T22:09:08.4394902Z Temporarily overriding HOME='/__w/_temp/8085adb5-6084-4006-8f81-8209821dee87' before making global git config changes
+2026-11-16T22:09:08.4396657Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-16T22:09:08.4403522Z [command]/usr/bin/git config --global --add safe.directory /__w/pp-artifact-indexer/pp-artifact-indexer
+2026-11-16T22:09:08.4457308Z Removing SSH command configuration
+2026-11-16T22:09:08.4457949Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-16T22:09:08.4528390Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-16T22:09:08.4768526Z Removing HTTP extra header
+2026-11-16T22:09:08.4769036Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-16T22:09:08.4808321Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-16T22:09:08.5029391Z Removing includeIf entries pointing to credentials config files
+2026-11-16T22:09:08.5034732Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-16T22:09:08.5078196Z includeif.gitdir:/__w/pp-artifact-indexer/pp-artifact-indexer/.git.path
+2026-11-16T22:09:08.5078859Z includeif.gitdir:/__w/pp-artifact-indexer/pp-artifact-indexer/.git/worktrees/*.path
+2026-11-16T22:09:08.5079363Z includeif.gitdir:/github/workspace/.git.path
+2026-11-16T22:09:08.5079903Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-16T22:09:08.5087462Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/__w/pp-artifact-indexer/pp-artifact-indexer/.git.path
+2026-11-16T22:09:08.5120576Z /__w/_temp/git-credentials-f97ea1f3-2918-480f-a858-43167390f36d.config
+2026-11-16T22:09:08.5129521Z [command]/usr/bin/git config --local --unset includeif.gitdir:/__w/pp-artifact-indexer/pp-artifact-indexer/.git.path \/__w\/_temp\/git\-credentials\-f97ea1f3\-2918\-480f\-a858\-43167390f36d\.config
+2026-11-16T22:09:08.5214301Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/__w/pp-artifact-indexer/pp-artifact-indexer/.git/worktrees/*.path
+2026-11-16T22:09:08.5238933Z /__w/_temp/git-credentials-f97ea1f3-2918-480f-a858-43167390f36d.config
+2026-11-16T22:09:08.5240447Z [command]/usr/bin/git config --local --unset includeif.gitdir:/__w/pp-artifact-indexer/pp-artifact-indexer/.git/worktrees/*.path \/__w\/_temp\/git\-credentials\-f97ea1f3\-2918\-480f\-a858\-43167390f36d\.config
+2026-11-16T22:09:08.5289889Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-16T22:09:08.5320094Z /github/runner_temp/git-credentials-f97ea1f3-2918-480f-a858-43167390f36d.config
+2026-11-16T22:09:08.5325298Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-f97ea1f3\-2918\-480f\-a858\-43167390f36d\.config
+2026-11-16T22:09:08.5375253Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-16T22:09:08.5407078Z /github/runner_temp/git-credentials-f97ea1f3-2918-480f-a858-43167390f36d.config
+2026-11-16T22:09:08.5412465Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-f97ea1f3\-2918\-480f\-a858\-43167390f36d\.config
+2026-11-16T22:09:08.5460474Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-16T22:09:08.5622683Z Removing credentials config '/__w/_temp/git-credentials-f97ea1f3-2918-480f-a858-43167390f36d.config'
+2026-11-16T22:09:08.5770090Z Stop and remove container: a74b603dd1db415eb13684714321a7a8_semgrepsemgreplatest_380e6a
+2026-11-16T22:09:08.5773201Z ##[command]/usr/bin/docker rm --force 41de0e7b4fc485696c26379b1e86e5117be04fae291ad54c42994844efe07ff6
+2026-11-16T22:09:08.7703371Z 41de0e7b4fc485696c26379b1e86e5117be04fae291ad54c42994844efe07ff6
+2026-11-16T22:09:08.7730766Z Remove container network: github_network_3fa6cd69ff6444d6a3f31258eb51acf9
+2026-11-16T22:09:08.7733426Z ##[command]/usr/bin/docker network rm github_network_3fa6cd69ff6444d6a3f31258eb51acf9
+2026-11-16T22:09:08.8277983Z github_network_3fa6cd69ff6444d6a3f31258eb51acf9
+2026-11-16T22:09:08.8349054Z Cleaning up orphan processes
