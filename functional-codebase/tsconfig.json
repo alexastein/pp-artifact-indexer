@@ -1,0 +1,21 @@
+// Tool: Claude Code (claude-sonnet-5-5), autonomous developer agent
+// Prompt Summary: "Scaffold functional-codebase Express 5 + TypeScript service with health route, DB module, Docker setup"
+// AI Contribution: 100% AI generated / 0% human refactored
+// Human Modifications: none yet
+// Verification: tests/health.test.ts (typecheck)
+// Confidence: Medium
+
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "types": ["node"]
+  },
+  "include": ["src", "tests", "vitest.config.ts"]
+}

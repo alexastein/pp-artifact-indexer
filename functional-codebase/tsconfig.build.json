@@ -1,0 +1,12 @@
+// Tool: Claude Code (claude-sonnet-5-5), autonomous developer agent
+// Prompt Summary: "Scaffold functional-codebase Express 5 + TypeScript service with health route, DB module, Docker setup"
+// AI Contribution: 100% AI generated / 0% human refactored
+// Human Modifications: none yet
+// Verification: npm run build
+// Confidence: Medium
+
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "rootDir": "src" },
+  "include": ["src"]
+}

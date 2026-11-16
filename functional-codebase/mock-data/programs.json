@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prog-mscis",
+    "code": "MSCIS",
+    "name": "MS in Computer Information Systems",
+    "department": "CS",
+    "coordinatorId": "u-cur-02"
+  },
+  {
+    "id": "prog-msse",
+    "code": "MSSD",
+    "name": "MS in Software Development",
+    "department": "CS",
+    "coordinatorId": "u-cur-02"
+  }
+]
