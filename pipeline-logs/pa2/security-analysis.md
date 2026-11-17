@@ -75,6 +75,7 @@ Each requirement has an ID that the mitigations (§7) and PA3 prompt architectur
 | **AC-5** | Malware distributor | *Trusted-domain hosting:* uploads `syllabus.pdf.html` or an EXE as a "manuscript" and shares the download link under the university domain. | V3, V1 | Reputation damage, user compromise |
 | **AC-6** | Integrity attacker | *Swap a paper:* replaces an accepted manuscript's file with a modified one (`POST …/file` again); the new SHA-256 is recomputed and stored, so the "hash" just confirms the forgery. | V2, V7 | Research integrity loss with no audit trail |
 | **AC-7** | DoS attacker | *Exhaust resources:* loops uploads of 50 MB files to fill the volume; floods `?keyword=a&page=1000000`; triggers zip downloads in parallel. | V4 | Outage for all users |
+| **AC-10** | DoS attacker | *One-request freeze:* `POST /projects` with a member e-mail of `"a@" + 90 000 dots + "@"`; the e-mail regex backtracks for ~10 s on the single Node thread, so every other user times out. | V9, V1 | Outage from a single small request |
 | **AC-8** | Insider with repo access | Uses `pp_password` from `docker-compose.yml` against a carelessly exposed DB port. | V8 | Full DB compromise |
 | **AC-9** | Anyone | *Deny responsibility:* deletes a project and later claims it wasn't them — there is no log entry. | V7 | Repudiation |
 
@@ -151,6 +152,11 @@ flowchart TD
     Q1 --> Q11["flood keyword ILIKE '%x%' search (seq scan + count(*)) ✅"]
     Q1 --> Q12["page=1000000 deep OFFSET ✅"]
     Q1 --> Q13["many parallel zip downloads ✅"]
+    O --> X["2b. Freeze the event loop (ReDoS)"]
+    X --> X1{{AND}}
+    X1 --> X11["POST/PUT /projects needs no auth ✅"]
+    X1 --> X12["e-mail ~90k chars allowed by 100 kB body limit ✅"]
+    X1 --> X13["regex validation.ts:19 is O(n²) ✅ (V9 / SQ-2)"]
     O --> R["3. Destroy data"]
     R --> R1["mass DELETE /projects/{id} ✅ (see AT-1)"]
     O --> H["4. Hang undetected"]
@@ -186,7 +192,7 @@ flowchart TD
 | E5 | `GET …/manuscripts/{aid}/file` | ids | File read → client | Attachment, `nosniff`, path confinement | **High** — exfiltration; serves any type |
 | E6 | `GET /api/v1/projects` (search) | keyword, dates, lab/program/dept/course ids, has_artifact_type, page, page_size, sort | DB (ILIKE, subqueries, count) | Parameterized SQL, whitelisted sort, limits on keyword & page_size | **High** — DoS (V4), enumeration of ids |
 | E7 | `GET /api/v1/projects/{id}` | id | DB read incl. member e-mails | UUID check | **Medium-High** — PII (V6) |
-| E8 | `POST /api/v1/projects` | body | DB insert | Zod schema | **Medium** — spam, quota abuse |
+| E8 | `POST /api/v1/projects` (and E1 `PUT`) | body, incl. `members[].email` | Zod schema → **e-mail regex** → DB insert | Zod schema | **High** — one request triggers ReDoS (V9), plus spam/quota abuse |
 | E9 | `PUT/DELETE …/artifacts/{type}/{aid}` | type, ids, body | DB write; file delete for manuscripts | Type enum, Zod per type, whitelisted columns | **Medium-High** — V2 |
 | E10 | `POST/GET …/artifacts/{type}`, `GET …/artifacts` | type, body (URLs) | DB; `git-mock.ts` lookup of repo URL | http(s)-only URL check; mock lookup is local file, no network fetch (no SSRF) | **Medium** |
 | E11 | `DELETE …/manuscripts/{aid}/file` | ids | File delete | Path confinement | **Medium** |
@@ -194,7 +200,7 @@ flowchart TD
 | E13 | PostgreSQL `127.0.0.1:5432` (compose) | SQL with known password | Whole DB | Bound to localhost only | **Medium** in shared hosts (V8) |
 | E14 | `mock-data/*.json`, migrations, CI workflow | repo write access | seed data, schema, pipeline | Pinned action SHAs | **Low** (supply-chain, insider) |
 
-**Highest-risk vectors:** E1 and E2 (one request destroys or hijacks the source of truth), then E3–E6 (file and search endpoints combine data exposure with resource exhaustion).
+**Highest-risk vectors:** E1 and E2 (one request destroys or hijacks the source of truth), E8 (one request freezes the whole API via ReDoS), then E3–E6 (file and search endpoints combine data exposure with resource exhaustion).
 
 ---
 
@@ -241,8 +247,8 @@ Legend — **S**poofing, **T**ampering, **R**epudiation, **I**nformation disclos
 |---|---|---|---|---|---|---|
 | **EE1** API client | **T-S1** Anyone can claim to be anyone — no identity at all (V1) | — | **T-R1** Caller cannot be tied to an action (V7) | — | — | — |
 | **EE2** Operator / CI | **T-S2** Leaked `pp_password` lets an attacker act as the operator on the DB (V8) | — | **T-R2** Migrations/seed not logged with operator identity | — | — | — |
-| **P1** HTTP pipeline | **T-S3** No token verification middleware (V1) | **T-T1** Malformed/oversized bodies — mitigated (100 kB JSON limit, Zod) | **T-R3** No request id / access log | **T-I1** `X-Powered-By: Express`; error bodies are generic (good) | **T-D1** No rate limiting (V4) | **T-E1** Every caller effectively has admin rights (V1/V2) |
-| **P2** Project service | **T-S4** Member identity is just a free-text e-mail in the body — anyone can "be" a member | **T-T2** Unauthorized PUT/DELETE (V2); lost update (V5) | **T-R4** No audit of create/update/delete (V7) | **T-I2** Member e-mails exposed (V6); ids enumerable via search | **T-D2** Expensive ILIKE + count + deep OFFSET (V4) | **T-E2** Rewriting `members[].role` to `faculty` = self-promotion (V2/AC-2) |
+| **P1** HTTP pipeline | **T-S3** No token verification middleware (V1) | **T-T1** Malformed bodies — mostly mitigated (Zod); but the 100 kB JSON limit is large enough to feed the ReDoS in V9 | **T-R3** No request id / access log | **T-I1** `X-Powered-By: Express`; error bodies are generic (good) | **T-D1** No rate limiting (V4) | **T-E1** Every caller effectively has admin rights (V1/V2) |
+| **P2** Project service | **T-S4** Member identity is just a free-text e-mail in the body — anyone can "be" a member | **T-T2** Unauthorized PUT/DELETE (V2); lost update (V5) | **T-R4** No audit of create/update/delete (V7) | **T-I2** Member e-mails exposed (V6); ids enumerable via search | **T-D2** Expensive ILIKE + count + deep OFFSET (V4); **ReDoS in member e-mail regex blocks the single event loop (V9)** | **T-E2** Rewriting `members[].role` to `faculty` = self-promotion (V2/AC-2) |
 | **P3** Artifact service | — (inherits T-S3) | **T-T3** Any artifact metadata can be rewritten/deleted (V2); repo URL can point anywhere (stored only, no fetch) | **T-R5** No audit | **T-I3** All artifacts of every project readable | **T-D3** Unlimited artifacts per project | **T-E3** Cross-project access by id (IDOR) |
 | **P4** File service | — (inherits T-S3) | **T-T4** File replacement with recomputed hash makes forgery look valid (AC-6); non-PDF uploads (V3) | **T-R6** No record of who uploaded/replaced/downloaded | **T-I4** Any manuscript downloadable, zip of all (AT-2); path traversal — **mitigated** | **T-D4** Disk exhaustion; parallel zip streams (V4) | **T-E4** Uploaded active content (HTML/SVG) served with its own type — mitigated by `attachment`+`nosniff` |
 | **DS1** PostgreSQL | — | **T-T5** SQL injection — **mitigated** (parameters + whitelists); direct DB access with known password (V8) | **T-R7** No audit table; `updated_at` overwritten each time | **T-I5** PII and unpublished metadata at rest unencrypted; credentials in Git | **T-D5** Table scans; no `statement_timeout`; connection pool exhaustion | — |
@@ -256,7 +262,7 @@ Legend — **S**poofing, **T**ampering, **R**epudiation, **I**nformation disclos
 | **DF10, DF12** mock reads | — | Read-only JSON | — | — | — | — |
 | **DF11** operator→DB | — | **T-T12** Migrations run automatically on every start with the app's DB role (DDL rights at runtime) | — | **T-I11** DB password in compose/env file | — | — |
 
-**Highest-ranked threats:** T-S3/T-E1 (no authentication), T-T2/T-E2 (unauthorized modification & self-promotion), T-I4 (manuscript exfiltration), T-I2 (PII), T-D1/T-D4 (resource exhaustion), T-T4 (file forgery).
+**Highest-ranked threats:** T-S3/T-E1 (no authentication), T-T2/T-E2 (unauthorized modification & self-promotion), T-I4 (manuscript exfiltration), T-D2 (single-request ReDoS freeze, V9), T-I2 (PII), T-D1/T-D4 (resource exhaustion), T-T4 (file forgery).
 
 ---
 
@@ -269,6 +275,7 @@ Legend — **S**poofing, **T**ampering, **R**epudiation, **I**nformation disclos
 | T-E2, AC-2 | Owner-only membership changes | SR-4 | Separate `PUT /members` path or field-level check: only `faculty`/`advisor`/`ADMIN` may change `members`; DB check that ≥1 faculty remains; creator added from token, not body. |
 | V3, T-T4, T-E4, AC-5 | PDF-only uploads + integrity check | SR-6 | multer `fileFilter` (`.pdf` + `application/pdf`), read first 5 bytes = `%PDF-`; force `Content-Type: application/pdf` on download; recompute SHA-256 and compare before serving; keep upload history instead of silent replace. |
 | V4, T-D1–T-D6, AC-7 | Rate limits, quotas, indexed search | SR-7 | `express-rate-limit` per `sub`/IP; per-project file count/byte quota checked in the same transaction as upload; offset cap; replace `ILIKE '%…%'` with `to_tsvector … @@ plainto_tsquery` using the existing GIN indexes; `SET statement_timeout = '3s'`; max entries/bytes for zip. |
+| V9, T-D2, AC-10 | Linear-time validation | SR-5, SR-7 | Replace the e-mail regex with `z.email()` or `^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$`; `.max(254, { abort: true })` before any regex; `express.json({ limit: "32kb" })`; add a Semgrep/eslint `regexp/no-super-linear-backtracking` rule in CI. |
 | V5, T-T2 | Optimistic concurrency | SR-8 | `PUT` requires `If-Match: "<revision_version>"`; `UPDATE … WHERE id=$1 AND revision_version=$2`; 0 rows → `409`; add `revision_version` to `artifacts`. |
 | V6, T-I2, T-I9, AC-4 | Field-level filtering | SR-9 | Two response shapes: `publicProject` (no e-mails) and `memberProject`; explicit column lists instead of `p.*`. |
 | V7, T-R1–T-R8, AC-9 | Audit log | SR-10 | `audit_log` table written in the same transaction as each mutation; structured JSON access log with request id (`pino-http`). |

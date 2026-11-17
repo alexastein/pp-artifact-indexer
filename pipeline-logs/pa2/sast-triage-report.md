@@ -34,12 +34,12 @@
 | Tool | Ruleset / scope | Result | Raw evidence |
 |---|---|---|---|
 | Semgrep 1.184 | `p/default`, `p/owasp-top-ten`, `p/nodejs`, `p/typescript`, `p/dockerfile`, `p/github-actions` — 266 rules, 88 files | ✅ ran — **1 finding** | `pipeline-logs/pa2/2_SAST (Semgrep).txt`, `semgrep.sarif` |
-| SonarQube Cloud | `functional-codebase/src` + tests, lcov coverage | ❌ **did not analyze** — scanner exited with `HTTP 403 Forbidden` on `api.sonarcloud.io` (invalid/expired `SONAR_TOKEN`) | `pipeline-logs/pa2/0_SAST (SonarQube Cloud).txt` |
+| SonarQube Cloud | `functional-codebase/src` + tests, lcov coverage, profile "Sonar way" (ts) | ✅ ran after token fix (first run failed with `HTTP 403`, bad `SONAR_TOKEN`) — 1.2k LOC, **2 issues**, 87.7 % coverage, 0.0 % duplication, quality gate **Passed** | `pipeline-logs/pa2/0_SAST (SonarQube Cloud).txt`, `sonar-overview.png`, `sonar-issues.json` |
 | Trivy fs 0.36 | vuln + secret + misconfig, whole repo | ✅ ran — 0 vulnerable deps, 0 secrets, **1 misconfig** | `pipeline-logs/pa2/3_Dependency & Secret Scan …txt` |
 | Trivy image 0.36 | built `pp-artifact-indexer` runtime image (`node:22-alpine` base) | ✅ ran — **1 HIGH** in a base-image package (see TV-2) | GitHub → Security → Code scanning alert #10 (tool = Trivy) |
 | npm audit | `functional-codebase/` lockfile | ✅ 0 vulnerabilities | `4_Build & Unit Test.txt` |
 
-> **Observation:** automated SAST produced almost nothing (2 alerts total) on a service that has **no authentication or authorization at all**. That gap is the main empirical result of this baseline — see §4.
+> **Observation:** automated scanning produced only a handful of alerts (Semgrep 1, SonarQube 2, Trivy 2) and SonarQube's quality gate **passed** on a service that has **no authentication or authorization at all**. That gap is the main empirical result of this baseline — see §4.
 
 ---
 
@@ -50,7 +50,8 @@
 | SG-1 | Semgrep `javascript.lang.security.audit.unsafe-formatstring.unsafe-formatstring` (GitHub code-scanning alert #25) | `functional-codebase/src/storage.ts:55` — `console.error(\`Could not delete stored file ${full}\`, err)` | **FP** | Info | CWE-134 (→ CWE-117 log forging) | Rule: a non-literal first argument to `console.*` with extra args lets an injected `%s`/`%o` re-interpret `err` and forge the log line. **Not reachable:** `full` is built only from server data — `FILE_STORAGE_DIR` + `project_id` + `artifact_id` + `randomUUID()` file name (`manuscript-files.ts` L89–94). Both ids must match `UUID_RE` (`[0-9a-f-]` only, `validation.ts`), and the user's original file name never enters the path, so no request can place a `%` in it. Only the trusted operator's env var could. **Hardening anyway (PA3):** constant format string `console.error("Could not delete stored file %s", full, err)` or a structured logger (pino). Same pattern exists unflagged at `storage.ts:48` and `manuscript-files.ts:69` because the rule only matches when extra arguments follow. |
 | TV-1 | Trivy `DS-0026` | `functional-codebase/Dockerfile` | **TP** | Low | — (hardening; relates to availability) | The runtime stage has no `HEALTHCHECK`. The PA1 Dockerfile had one; the agent dropped it. Orchestrators cannot detect a hung API. Real, low impact. |
 | TV-2 | Trivy image `CVE-2026-69192` (HIGH) — `ip-address` 10.1.0, fixed in 10.3.1 | `/usr/local/lib/node_modules/npm/node_modules/ip-address` (inside the `node:22-alpine` base image) | **TP (present) / not exploitable** — residual **Low** | HIGH → Low | CWE-1389 (enables CWE-918 SSRF) | The library treats `012.0.0.1` as decimal 12.0.0.1 while the network stack reads it as octal 10.0.0.1, so SSRF filters built on it can be bypassed. **Reachability:** the package is a dependency of the **npm CLI bundled in the base image**, not of our app (`package.json` has no `ip-address`, no code imports it), npm never runs at runtime (`CMD node dist/server.js`), and the service makes **no outbound requests** (`git-mock.ts` reads a local JSON file). Scanner is right that the vulnerable code ships; it has no context on whether it is reachable. **Fix (PA3):** delete npm/npx from the runtime stage or use a distroless Node image; rebuild on base-image updates. |
-| SQ-* | SonarQube Cloud | — | **Not available** | | | Analysis never ran (403). _After fixing the token and re-running, export issues + hotspots and add one row per finding._ |
+| SQ-1 | SonarQube `typescript:S6671` "Expected the Promise rejection reason to be an Error" (Reliability · Medium) | `functional-codebase/src/routes/manuscript-files.ts:45` — `reject(err)` where `err` is `unknown` | **TP — code quality, not a vulnerability** | Low | — (closest: CWE-703) | Real: a non-`Error` value from multer could reach the error handler. Not a security issue: `errorHandler` (`src/errors.ts`) turns anything that isn't an `AppError` into a generic `500 internal_error` with no details, so nothing leaks. Fix: `reject(err instanceof Error ? err : new Error(String(err)))`. |
+| SQ-2 | SonarQube `typescript:S5852` "Simplify this regular expression … super-linear performance due to backtracking" (Reliability · Medium) | `functional-codebase/src/validation.ts:19` — member e-mail regex `/^[^\s@]+@[^\s@]+\.[^\s@]+$/` | **TP — exploitable ReDoS → see V9** | **High** | **CWE-1333** (→ CWE-400) | `[^\s@]` also matches `.`, so for `"a@" + "."×n + "@"` the engine tries every split between the two `+` groups before failing → **O(n²)**. Measured with Node 22 on the exact regex: 10k chars 148 ms, 20k 591 ms, 40k 2.35 s, **80k 8.9 s**. Sonar rated it a "performance" smell; in context it is a security bug (see V9). |
 
 ### 2.1 Pre-triaged "likely alerts" (what a scanner would flag and why it is or isn't real)
 
@@ -79,6 +80,7 @@ These are the code patterns in this codebase that SAST rules typically match. Th
 | **V5** | State machine / Concurrency | `revision_version` is never checked → silent lost updates | **CWE-362** | Medium | Manual |
 | **V6** | Data exposure / Privacy | Member names + e-mails returned to anonymous callers | **CWE-359** | Medium | Manual |
 | **V7** | Audit / Repudiation | No audit trail of who created/changed/deleted what | **CWE-778** | Low–Medium | Manual |
+| **V9** | Input validation / Availability | ReDoS in the agent-added e-mail regex: one unauthenticated request can freeze the whole API | **CWE-1333** | High | **SonarQube (SQ-2)** + manual exploit analysis |
 | **V8** | Infrastructure / Config | Hard-coded DB credentials; container hardening dropped (no `HEALTHCHECK`, no `read_only`/`no-new-privileges`, API published on all interfaces) | **CWE-798** | Low | Trivy (partly) + manual |
 
 ### V1 — Missing authentication for critical functions (CWE-306)
@@ -129,6 +131,14 @@ These are the code patterns in this codebase that SAST rules typically match. Th
 - **Where:** `functional-codebase/docker-compose.yml` L15, L27; `.env.example` L9; `Dockerfile` (no `HEALTHCHECK` — Trivy DS-0026); compose `api` publishes `"3000:3000"` on all interfaces and lacks `read_only` / `no-new-privileges`, all of which the PA1 compose file had.
 - **Root cause:** the agent regenerated Docker config from scratch for the new folder instead of reusing the hardened PA1 files.
 
+### V9 — Inefficient regular expression (ReDoS) in member e-mail validation (CWE-1333)
+- **Where:** `src/validation.ts` L19, used by `projectBodySchema` for `POST /api/v1/projects` and `PUT /api/v1/projects/{id}`.
+- **Root cause:** the agent added e-mail validation **on its own** (never requested) with an ambiguous regex: `[^\s@]+\.[^\s@]+` can split a run of dots in many ways, and V8's backtracking engine tries all of them when the match fails → quadratic time.
+- **Why the length limit doesn't save it:** the schema is `.max(254).regex(...)`, but Zod runs all checks in order by default (it only stops early when a check is created with `abort: true`), so the regex still runs on a too-long string. The only real cap is Express's 100 kB JSON body limit, which allows ~100 000 characters.
+- **Impact:** Node.js runs request handlers on a single thread, so one request with an ~80–100 kB e-mail blocks **every** client (including `/health`) for roughly 9–14 s, and a few such requests per second keep the service down. With no authentication (V1) and no rate limit (V4), anyone can do this.
+- **Evidence:** regex timing measured on Node 22 (see SQ-2); end-to-end check in `security-poc/naive-checks.sh` step "V9" (times `/health` while the payload is processed).
+- **Fix (PA3):** use a linear-time pattern without overlapping groups (e.g. `^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$`) or `z.email()`, put `.max(254, { abort: true })` before it, and lower `express.json({ limit: "32kb" })`.
+
 ---
 
 ## 4. What the scanners missed and why
@@ -141,7 +151,9 @@ These are the code patterns in this codebase that SAST rules typically match. Th
 | V4 resource exhaustion | Needs knowledge of indexes, data volume and deployment; no single line is "wrong". |
 | V7 audit | Absence of logging is invisible to pattern matching. |
 
-Interesting counter-result: the agent **independently** added parameterized SQL with column whitelists, UUID format checks, Zod body validation, path confinement for stored files, random on-disk filenames, upload size limits, `nosniff`, and even swapped `archiver` for `fflate` after `npm audit` flagged a transitive dependency. So injection-class bugs that SAST is good at finding were mostly prevented, while every *access-control* bug — the OWASP API Top 10 #1/#2 class — was left wide open.
+**Scanner value check:** SonarQube's single most important finding (SQ-2) was labelled a *Reliability / performance* smell, and its quality gate still **passed**. It only became a High-severity DoS once a human worked out who can reach it (anyone, V1), how long the input can be (100 kB, Zod doesn't abort), and what the runtime model means (one Node thread). Severity from a scanner is a starting point, not a verdict.
+
+Interesting counter-result: the agent **independently** added parameterized SQL with column whitelists, UUID format checks, Zod body validation, path confinement for stored files, random on-disk filenames, upload size limits, `nosniff`, and even swapped `archiver` for `fflate` after `npm audit` flagged a transitive dependency. So injection-class bugs that SAST is good at finding were mostly prevented — although one of the agent's own validation regexes introduced a ReDoS (V9) — while every *access-control* bug — the OWASP API Top 10 #1/#2 class — was left wide open.
 
 ---
 
@@ -149,10 +161,10 @@ Interesting counter-result: the agent **independently** added parameterized SQL 
 
 | Category | Count |
 |---|---|
-| Raw scanner alerts | 3 (Semgrep 1, Trivy fs misconfig 1, Trivy image CVE 1); SonarQube pending export |
-| True positives from scanners | 2 (TV-1; TV-2 present but not reachable) |
+| Raw scanner alerts | 5 (Semgrep 1, SonarQube 2, Trivy fs misconfig 1, Trivy image CVE 1) |
+| True positives from scanners | 4 — TV-1, SQ-1 (quality only), TV-2 (present, not reachable), **SQ-2 (exploitable, High → V9)** |
 | False positives from scanners | 1 (SG-1 format string — input not attacker-controlled) |
-| Manual-only confirmed vulnerabilities | 7 (V1–V7) + V8 partly scanner-found |
-| Distinct layers covered | 8 (Authentication, Authorization, Input/File, Database/Availability, State, Privacy, Audit, Infrastructure) |
+| Confirmed vulnerabilities | 9 — V1–V7 manual only, V8 partly scanner-found, V9 scanner-flagged but only rated High after manual analysis |
+| Distinct layers covered | 8 (Authentication, Authorization, Input/File + validation, Database/Availability, State, Privacy, Audit, Infrastructure) |
 
 Mitigations for every item are planned in `security-analysis.md` §7 and will be implemented in PA3.
