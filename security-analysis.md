@@ -9,12 +9,12 @@
 
 | Field | Value |
 |---|---|
-| Conceptual AI contribution | **[__%] AI Generated / [__%] Human Authored** ← set after your edits (an unedited Claude draft ≈ 80% AI) |
-| AI tool | Claude (claude.ai chat, Claude Opus 5.5) — conversational assistant used for threat-modeling support |
-| What the AI did | Read the generated source and pipeline logs; drafted requirements, abuse cases, attack trees, attack-surface table, DFD, STRIDE matrix and mitigation plan |
-| What the human did | _<e.g. checked every DFD element against the code, removed/added threats, re-ranked risks, rewrote sections in own words>_ |
+| Conceptual AI contribution | **65% AI Generated / 35% Human Authored** |
+| AI tool | Claude (claude.ai chat, Claude Opus 5.5) used for threat-modeling support. Claude Code (`claude-sonnet-5-5`) applied the iteration-2 revisions listed below. The chat transcripts are submitted with the PA2 AI logs. |
+| What the AI did | Read the generated source and pipeline logs. Drafted the requirements, abuse cases, attack trees, attack-surface table, DFD, STRIDE matrix and mitigation plan. |
+| What the human did | Reviewed the full draft and checked the system overview, the DFD elements and the cited file and line references against the code. Compared the threats and severities with the scanner output (Semgrep, SonarQube, Trivy, npm audit) to see which threats the tools did and did not surface. Researched the threat-modeling topics (STRIDE, attack trees, OWASP API Top 10, CWE mappings) before accepting the ranking. Refined the prompts used with Claude so that the draft stayed within the evidence in the repository. |
+| Revisions in iteration 2 | (a) Pointed the PA4 verification plan at the PoC script that now exists (`functional-codebase/scripts/naive-checks-i2.sh`). (b) Moved this report to the repository root. (c) Filled in this metadata block. |
 | Design-aid prompts | 1) "Please complete project assignment 2 … give me detailed instructions" 2) "pushed" |
-| Chat share link | _<paste claude.ai share link>_ |
 
 ---
 
@@ -285,4 +285,4 @@ Legend — **S**poofing, **T**ampering, **R**epudiation, **I**nformation disclos
 | TV-2 (CVE-2026-69192 in npm's bundled `ip-address`) | Shrink the runtime image | SR-14, SR-15 | Remove npm/npx from the final stage (`rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/np*`) or use a distroless Node base, so tooling the app never runs isn't shipped. |
 | T-T7, supply chain | Pipeline gates | SR-15 | Make Trivy/Semgrep blocking on HIGH+; fix `SONAR_TOKEN`; add Semgrep custom rule "route without `requireAuth`". |
 
-**Verification plan (PA4):** re-run `security-poc/naive-checks.sh` against the PA3 build — every step that returns `2xx` on the naive build must return `401/403/404/409/413/429` on the secure build; add ZAP API scan for both.
+**Verification plan (PA4):** re-run `functional-codebase/scripts/naive-checks-i2.sh` against the PA3 build — every step that returns `2xx` on the naive build must return `401/403/404/409/413/429` on the secure build; add ZAP API scan for both.

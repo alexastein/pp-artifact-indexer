@@ -9,12 +9,12 @@
 
 | Field | Value |
 |---|---|
-| Conceptual AI contribution | **[__%] AI Generated / [__%] Human Authored** ← set after your edits (an unedited Claude draft ≈ 80% AI) |
-| AI tool | Claude (claude.ai chat, Claude Opus 5.5) — conversational assistant, **not** the developer agent |
-| What the AI did | Read the scan logs and the `functional-codebase/` source, drafted the TP/FP ledger, CWE mapping and root-cause text, wrote `security-poc/naive-checks.sh` |
-| What the human did | _<e.g. ran the PoC script and pasted the output, checked every line reference, re-classified X, rewrote root causes in own words>_ |
+| Conceptual AI contribution | **65% AI Generated / 35% Human Authored** |
+| AI tool | Claude (claude.ai chat, Claude Opus 5.5) drafted the report. Claude Code (`claude-sonnet-5-5`) was used in iteration 2 to write and run the PoC script and to apply the revisions listed below. The chat transcripts are submitted with the PA2 AI logs. |
+| What the AI did | Read the scan logs and the `functional-codebase/` source. Drafted the TP/FP ledger, the CWE mapping and the root-cause text. Wrote the proof-of-concept script `functional-codebase/scripts/naive-checks-i2.sh` (iteration 2). |
+| What the human did | Reviewed the whole draft and checked every file and line reference against the code (for example `validation.ts` L19, `storage.ts` L55, `manuscript-files.ts` L45, `app.ts` L19). Compared each ledger entry with the raw Semgrep, SonarQube, Trivy and npm audit output before accepting its TP/FP verdict. Researched the underlying topics (CWE definitions, ReDoS backtracking, Zod check ordering, OWASP API Top 10 access-control classes) before accepting the severity ratings. Refined the prompts used with Claude so that the draft stayed within the evidence in the logs. |
+| Revisions in iteration 2 | (a) Added the missing PoC script and its saved output, run against the Docker stack. (b) Corrected the ReDoS freeze time from the draft's "9–14 s" to the measured value (see V9). (c) Moved this report to the repository root. (d) Filled in this metadata block. |
 | Design-aid prompts | 1) "Please complete project assignment 2 … give me detailed instructions" 2) "pushed" (asked Claude to triage the pipeline results and write the PA2 docs) |
-| Chat share link | _<paste claude.ai share link>_ |
 
 ---
 
@@ -27,7 +27,7 @@
 2. **Triage** every alert: open the flagged line, decide whether attacker-controlled data can actually reach it → **TP** (true positive) or **FP** (false positive).
 3. **Hunt manually** for flaws that pattern-matching scanners cannot see (missing controls, business logic, state).
 4. **Map** each confirmed issue to a CWE ID and write a root cause.
-5. **Prove** the manual findings at runtime with `security-poc/naive-checks.sh` (output → `pipeline-logs/pa2/naive-checks-output.txt`).
+5. **Prove** the manual findings at runtime with `functional-codebase/scripts/naive-checks-i2.sh` (output → `functional-codebase/scripts/naive-checks-i2-output.txt`).
 
 ### 1.1 Scanner run status
 
@@ -87,7 +87,7 @@ These are the code patterns in this codebase that SAST rules typically match. Th
 - **Where:** `src/app.ts` L22–37 mounts all three routers with only `express.json()` in front — no identity middleware.
 - **Root cause:** the master spec intentionally omits security, and the naive prompts never mentioned users or roles, so the agent modelled "members" only as *data* (`project_members` rows) and never as *callers*. The PA1 mock identity header and `users.json` were copied into `mock-data/` but are never read by any route.
 - **Impact:** every write endpoint (create/update/delete project, add/replace artifacts, upload/delete files) is open to the internet.
-- **PoC:** `naive-checks.sh` step "V1" — `POST /api/v1/projects` with no credentials → `201`.
+- **PoC:** `naive-checks-i2.sh` step "V1" — `POST /api/v1/projects` with no credentials → `201`.
 
 ### V2 — Broken object-level authorization / IDOR (CWE-862, CWE-639)
 - **Where:** every handler in `src/routes/projects.ts` (L30–63), `src/routes/artifacts.ts` (L36–86), `src/routes/manuscript-files.ts` (L58–162). `requireProject()` in `src/routes/params.ts` checks only that the project **exists**, never that the caller **belongs** to it.
@@ -135,8 +135,8 @@ These are the code patterns in this codebase that SAST rules typically match. Th
 - **Where:** `src/validation.ts` L19, used by `projectBodySchema` for `POST /api/v1/projects` and `PUT /api/v1/projects/{id}`.
 - **Root cause:** the agent added e-mail validation **on its own** (never requested) with an ambiguous regex: `[^\s@]+\.[^\s@]+` can split a run of dots in many ways, and V8's backtracking engine tries all of them when the match fails → quadratic time.
 - **Why the length limit doesn't save it:** the schema is `.max(254).regex(...)`, but Zod runs all checks in order by default (it only stops early when a check is created with `abort: true`), so the regex still runs on a too-long string. The only real cap is Express's 100 kB JSON body limit, which allows ~100 000 characters.
-- **Impact:** Node.js runs request handlers on a single thread, so one request with an ~80–100 kB e-mail blocks **every** client (including `/health`) for roughly 9–14 s, and a few such requests per second keep the service down. With no authentication (V1) and no rate limit (V4), anyone can do this.
-- **Evidence:** regex timing measured on Node 22 (see SQ-2); end-to-end check in `security-poc/naive-checks.sh` step "V9" (times `/health` while the payload is processed).
+- **Impact:** Node.js runs request handlers on a single thread, so one request with an ~80–100 kB e-mail blocks **every** client (including `/health`) for several seconds (measured: about 4.9 s for the attack request and 4.4 s for `/health` with an 80,000-character e-mail; the time grows quadratically with length), and a few such requests per second keep the service down. With no authentication (V1) and no rate limit (V4), anyone can do this.
+- **Evidence:** regex timing measured on Node 22 (see SQ-2); end-to-end check in `naive-checks-i2.sh` step "V9" (times `/health` while the payload is processed).
 - **Fix (PA3):** use a linear-time pattern without overlapping groups (e.g. `^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$`) or `z.email()`, put `.max(254, { abort: true })` before it, and lower `express.json({ limit: "32kb" })`.
 
 ---

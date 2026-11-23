@@ -52,3 +52,10 @@
 - Commands run: ruby YAML parse of the workflow; sed rewrite tested on a copy of lcov.info; (in functional-codebase, DATABASE_URL set) npm ci, npm run typecheck, npm run test:coverage, npm run build, docker compose config -q, docker compose down.
 - Results: workflow parses (5 jobs); typecheck OK; 75/75 tests passed; build OK; lcov.info generated; compose config valid. The GitHub Actions run itself was not executed (no push).
 - Notes: vitest had no lcov reporter, so Sonar would have found no coverage; added it. lcov paths are relative to functional-codebase/, so the sonar job prefixes SF: lines with functional-codebase/. The Trivy fs job's `npm audit` still runs at the repo root (left as-is per instructions).
+
+## 2026-11-23 — Remove macOS " 2" duplicate files
+
+- Prompt summary: delete the " 2" duplicate files so the user can commit.
+- Files changed: deleted 66 untracked " 2" duplicates (plus the `.github 2` and `src/routes 2` folders) across .ai_logs, docs, functional-codebase and pipeline-logs/pa2. No tracked file was removed (checked with git ls-files first).
+- Commands run: find ... -exec rm -rf; npm run typecheck; npm test (DATABASE_URL set, db container); npm run build; docker compose down.
+- Results: typecheck OK; 7 files / 75 tests pass in the working folder itself (previously failed because the duplicate migrations were applied); build OK. Nothing committed.

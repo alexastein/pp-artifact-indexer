@@ -1,0 +1,45 @@
+
+=== 0. Wait for GET /health
+API is up
+
+=== V1 - no authentication (CWE-306): create a project with NO credentials
+POST /projects without any credentials -> HTTP 201 (expected 201 = VULNERABLE; project id a83f250d-540e-4207-9371-8790f9e34ac9)
+
+=== V6 - PII exposure (CWE-359): anonymous GET shows member e-mails
+GET /projects/{id} anonymous -> HTTP 200
+"email":"owner.poc@example.edu"
+
+=== V2 - broken object-level authorization (CWE-862/639): a stranger takes over the project
+PUT /projects/{id} replaces the member list -> HTTP 200 (expected 200 = VULNERABLE)
+"email":"mallory.poc@example.edu"
+
+=== V5 - lost update (CWE-362): two writers, no version check
+writer A then writer B, both without a version -> HTTP 200 and HTTP 200 (both 200 = A's edit silently lost)
+"title":"Edit from writer B"
+
+=== V3 - unrestricted upload (CWE-434): an .html file is accepted and served back as text/html
+upload evil.html -> HTTP 201 (expected 201 = VULNERABLE)
+Content-Type: text/html; charset=utf-8
+X-Content-Type-Options: nosniff
+Content-Disposition: attachment; filename=evil.html
+
+=== V4 - resource consumption (CWE-770): unbounded page offset and repeated searches, no rate limit
+search with page=1000000 -> HTTP 200 (expected 200 = accepted)
+10 rapid anonymous searches completed with no 429 / throttling
+
+=== V9 - ReDoS (CWE-1333): one request with a long malformed e-mail freezes the API
+attack request finished: HTTP 400 after 4.915446s
+/health during the attack answered after 4.401927s (normally ~0.00s)
+
+=== V7 - no audit trail (CWE-778): destructive action leaves no record of who did it
+DELETE /projects/{id} anonymous -> HTTP 204 (expected 204 = VULNERABLE)
+Check the API log: docker compose logs api | tail -n 20  -> no caller identity is recorded.
+
+=== V8 - infrastructure (CWE-798): static checks on the config files
+docker-compose.yml:16:      DATABASE_URL: postgres://pp_user:pp_password@db:5432/pp_indexer
+docker-compose.yml:28:      POSTGRES_PASSWORD: pp_password
+.env.example:10:DATABASE_URL=postgres://pp_user:pp_password@localhost:5432/pp_indexer
+13:      - "3000:3000"
+HEALTHCHECK lines in Dockerfile: 0
+
+Done. Save this output as functional-codebase/scripts/naive-checks-i2-output.txt

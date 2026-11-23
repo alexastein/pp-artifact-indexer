@@ -3,6 +3,7 @@
 // AI Contribution: 100% AI generated / 0% human refactored
 // Human Modifications: Reviewed line by line, no code changes (kept naive on purpose); notes in .ai_logs/conceptual_journal.md
 // Verification: Read through it; the migrate/seed logic is covered by tests/migrations.test.ts and tests/seed.test.ts
+// Language/Stack: TypeScript / Node.js 22 / Express 5 / PostgreSQL 16
 // Confidence: Medium
 
 import { closePool, getPool } from "./db.js";

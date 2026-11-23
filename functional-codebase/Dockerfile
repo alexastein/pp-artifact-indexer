@@ -3,6 +3,7 @@
 # AI Contribution: 100% AI generated / 0% human refactored
 # Human Modifications: Reviewed, no changes; notes in .ai_logs/conceptual_journal.md
 # Verification: Read through it; the demo output shows the image builds and runs
+# Language/Stack: Dockerfile / Node.js 22 (node:22-alpine)
 # Confidence: Medium
 
 # Stage 1: install all deps and compile TypeScript.

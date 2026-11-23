@@ -3,6 +3,7 @@
 // AI Contribution: 100% AI generated / 0% human refactored
 // Human Modifications: Reviewed line by line, no code changes (kept naive on purpose); notes in .ai_logs/conceptual_journal.md
 // Verification: Read through it and ran tests/health.test.ts, all pass
+// Language/Stack: TypeScript / Node.js 22 / Express 5 / PostgreSQL 16
 // Confidence: Medium
 
 // Why node-postgres ("pg") and not an ORM like Prisma/TypeORM:

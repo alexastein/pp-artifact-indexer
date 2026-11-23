@@ -9,7 +9,6 @@
 | Field                      | Value                                                                                                                                                                                                                                                      |
 | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Conceptual AI contribution | [75%] AI / [25%] Human. Claude chat drafted this page, including the observations, from my run URL, screenshot and the problems I hit while setting up the pipeline; I collected the finding counts from the run Summary and reviewed and edited the text. |
-| Chat link                  | <your claude.ai share link>                                                                                                                                                                                                                                |
 
 ## 1. Run details
 

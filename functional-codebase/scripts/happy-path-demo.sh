@@ -4,6 +4,7 @@
 # AI Contribution: 100% AI generated / 0% human refactored
 # Human Modifications: Reviewed, no changes; notes in .ai_logs/conceptual_journal.md
 # Verification: Read the script and checked the saved demo output, all steps pass
+# Language/Stack: Bash / curl (Docker Compose stack)
 # Confidence: Medium
 #
 # Usage (from functional-codebase/):  docker compose up --build -d && ./scripts/happy-path-demo.sh

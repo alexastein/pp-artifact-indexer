@@ -3,6 +3,7 @@
 # AI Contribution: 100% AI generated / 0% human refactored
 # Human Modifications: Reviewed, no changes; notes in .ai_logs/conceptual_journal.md
 # Verification: Read through it; started the db with docker compose to run the tests
+# Language/Stack: YAML / Docker Compose / PostgreSQL 16
 # Confidence: Medium
 
 services:

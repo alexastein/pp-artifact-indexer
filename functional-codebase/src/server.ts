@@ -3,6 +3,7 @@
 // AI Contribution: 100% AI generated / 0% human refactored
 // Human Modifications: Reviewed line by line, no code changes (kept naive on purpose); notes in .ai_logs/conceptual_journal.md
 // Verification: Read through it; not run by me, but the demo output shows the server starting
+// Language/Stack: TypeScript / Node.js 22 / Express 5 / PostgreSQL 16
 // Confidence: Medium
 
 import { app } from "./app.js";

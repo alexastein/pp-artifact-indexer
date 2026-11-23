@@ -3,6 +3,7 @@
 // AI Contribution: 100% AI generated / 0% human refactored
 // Human Modifications: Read every test line by line, no changes; notes in .ai_logs/conceptual_journal.md
 // Verification: Read through the tests and ran them, all pass
+// Language/Stack: TypeScript / Node.js 22 / Vitest + Supertest / PostgreSQL 16
 // Confidence: Medium
 
 import { describe, expect, it } from "vitest";

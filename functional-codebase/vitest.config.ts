@@ -3,6 +3,7 @@
 // AI Contribution: 100% AI generated / 0% human refactored
 // Human Modifications: Reviewed, no changes; notes in .ai_logs/conceptual_journal.md
 // Verification: Read through it; npm test uses it and passes
+// Language/Stack: TypeScript / Vitest
 // Confidence: Medium
 
 import { defineConfig } from "vitest/config";

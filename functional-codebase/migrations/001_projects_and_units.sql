@@ -3,6 +3,7 @@
 -- AI Contribution: 100% AI generated / 0% human refactored
 -- Human Modifications: Reviewed line by line, no code changes (kept naive on purpose); notes in .ai_logs/conceptual_journal.md
 -- Verification: Read through it and ran tests/migrations.test.ts, tests/seed.test.ts, all pass
+-- Language/Stack: SQL / PostgreSQL 16
 -- Confidence: Medium
 
 -- Step 1: academic units (labs, programs, courses) live in one table with a type column.
